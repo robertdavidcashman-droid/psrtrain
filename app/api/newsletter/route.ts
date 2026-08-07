@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { cleanEnvValue } from '@/lib/env';
+import { clientIpFromRequest, isRateLimited } from '@/lib/rate-limit';
+import { safeErrorLog } from '@/lib/safe-log';
 
 /**
  * Newsletter / lead-magnet email capture (server-side only).
@@ -13,22 +15,11 @@ import { cleanEnvValue } from '@/lib/env';
 
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const MAX_REQUESTS_PER_WINDOW = 5;
-const ipTimestamps = new Map<string, number[]>();
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const timestamps = ipTimestamps.get(ip) ?? [];
-  const recent = timestamps.filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
-  if (recent.length >= MAX_REQUESTS_PER_WINDOW) return true;
-  recent.push(now);
-  ipTimestamps.set(ip, recent);
-  return false;
-}
 
 export async function POST(request: NextRequest) {
   try {
-    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-    if (isRateLimited(ip)) {
+    const ip = clientIpFromRequest(request);
+    if (isRateLimited(ip, { windowMs: RATE_LIMIT_WINDOW_MS, maxRequests: MAX_REQUESTS_PER_WINDOW })) {
       return NextResponse.json(
         { error: 'Too many requests. Please wait a minute and try again.' },
         { status: 429 },
@@ -68,7 +59,7 @@ export async function POST(request: NextRequest) {
         unsubscribed: false,
       });
       if (error) {
-        console.error('[newsletter] Resend contacts.create error:', error);
+        safeErrorLog('[newsletter] Resend contacts.create error:', error);
         return NextResponse.json({ error: 'Could not subscribe. Please try again.' }, { status: 500 });
       }
       return NextResponse.json({ success: true, stored: true });
@@ -83,7 +74,7 @@ export async function POST(request: NextRequest) {
         text: `New subscriber: ${cleanEmail}\nSource: ${cleanSource}`,
       });
       if (error) {
-        console.error('[newsletter] Resend send error:', error);
+        safeErrorLog('[newsletter] Resend send error:', error);
         return NextResponse.json({ error: 'Could not subscribe. Please try again.' }, { status: 500 });
       }
     }

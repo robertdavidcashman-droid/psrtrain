@@ -1,5 +1,13 @@
 import { getAccessSnapshot } from '@/lib/auth/access';
+import crypto from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
+
+function timingSafeEqualStrings(a: string, b: string): boolean {
+  const ab = Buffer.from(a, 'utf8');
+  const bb = Buffer.from(b, 'utf8');
+  if (ab.length !== bb.length) return false;
+  return crypto.timingSafeEqual(ab, bb);
+}
 
 type PaidAccessResult =
   | { ok: true; access: Awaited<ReturnType<typeof getAccessSnapshot>> }
@@ -37,5 +45,9 @@ export function isCronRequestAuthorized(request: Request): boolean | 'misconfigu
     return process.env.NODE_ENV === 'production' ? 'misconfigured' : true;
   }
   const auth = request.headers.get('authorization') ?? '';
-  return auth === `Bearer ${secret}`;
+  const bearer = auth.startsWith('Bearer ') ? auth.slice('Bearer '.length) : '';
+  const xSecret = request.headers.get('x-cron-secret') ?? '';
+  return (
+    timingSafeEqualStrings(bearer, secret) || timingSafeEqualStrings(xSecret, secret)
+  );
 }

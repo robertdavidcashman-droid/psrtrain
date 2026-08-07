@@ -1,25 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { cleanEnvValue } from '@/lib/env';
+import { clientIpFromRequest, isRateLimited } from '@/lib/rate-limit';
+import { safeErrorLog } from '@/lib/safe-log';
 
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const MAX_REQUESTS_PER_WINDOW = 3;
-const ipTimestamps = new Map<string, number[]>();
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const timestamps = ipTimestamps.get(ip) ?? [];
-  const recent = timestamps.filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
-  if (recent.length >= MAX_REQUESTS_PER_WINDOW) return true;
-  recent.push(now);
-  ipTimestamps.set(ip, recent);
-  return false;
-}
 
 export async function POST(request: NextRequest) {
   try {
-    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-    if (isRateLimited(ip)) {
+    const ip = clientIpFromRequest(request);
+    if (isRateLimited(ip, { windowMs: RATE_LIMIT_WINDOW_MS, maxRequests: MAX_REQUESTS_PER_WINDOW })) {
       return NextResponse.json(
         { error: 'Too many requests. Please wait a minute and try again.' },
         { status: 429 },
@@ -86,7 +77,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (sendError) {
-      console.error('Resend error:', sendError);
+      safeErrorLog('Resend error (contact):', sendError);
       return NextResponse.json({ error: 'Failed to send message. Please try again.' }, { status: 500 });
     }
 
