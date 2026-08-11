@@ -18,7 +18,13 @@ function timingSafeEqualStrings(a: string, b: string): boolean {
 export async function POST(request: NextRequest) {
   try {
     const ip = clientIpFromRequest(request);
-    if (isRateLimited(ip, { windowMs: RATE_LIMIT_WINDOW_MS, maxRequests: MAX_ATTEMPTS_PER_WINDOW })) {
+    if (
+      isRateLimited(ip, {
+        windowMs: RATE_LIMIT_WINDOW_MS,
+        maxRequests: MAX_ATTEMPTS_PER_WINDOW,
+        scope: 'access-verify',
+      })
+    ) {
       return NextResponse.json(
         { error: 'Too many attempts. Please wait a minute and try again.' },
         { status: 429 },

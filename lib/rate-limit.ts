@@ -1,6 +1,8 @@
 /**
  * Lightweight in-memory per-IP rate limiter for API routes.
  * Resets on cold starts (serverless); sufficient to blunt brute-force bursts.
+ *
+ * Buckets are keyed by `scope:ip` so each route keeps an independent limit.
  */
 
 type Bucket = { timestamps: number[] };
@@ -9,17 +11,18 @@ const buckets = new Map<string, Bucket>();
 
 export function isRateLimited(
   ip: string,
-  opts: { windowMs: number; maxRequests: number },
+  opts: { windowMs: number; maxRequests: number; scope: string },
 ): boolean {
   const now = Date.now();
-  const bucket = buckets.get(ip) ?? { timestamps: [] };
+  const key = `${opts.scope}:${ip}`;
+  const bucket = buckets.get(key) ?? { timestamps: [] };
   const recent = bucket.timestamps.filter((t) => now - t < opts.windowMs);
   if (recent.length >= opts.maxRequests) {
-    buckets.set(ip, { timestamps: recent });
+    buckets.set(key, { timestamps: recent });
     return true;
   }
   recent.push(now);
-  buckets.set(ip, { timestamps: recent });
+  buckets.set(key, { timestamps: recent });
   return false;
 }
 

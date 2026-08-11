@@ -10,7 +10,13 @@ const MAX_REQUESTS_PER_WINDOW = 3;
 export async function POST(request: NextRequest) {
   try {
     const ip = clientIpFromRequest(request);
-    if (isRateLimited(ip, { windowMs: RATE_LIMIT_WINDOW_MS, maxRequests: MAX_REQUESTS_PER_WINDOW })) {
+    if (
+      isRateLimited(ip, {
+        windowMs: RATE_LIMIT_WINDOW_MS,
+        maxRequests: MAX_REQUESTS_PER_WINDOW,
+        scope: 'contact',
+      })
+    ) {
       return NextResponse.json(
         { error: 'Too many requests. Please wait a minute and try again.' },
         { status: 429 },

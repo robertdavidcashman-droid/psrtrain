@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { endSession } from '@/lib/session-tracker';
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient, hasAdminClient } from '@/lib/supabase/admin';
 import { isAdminEmail } from '@/lib/auth/admin-emails';
 
 export async function POST(request: NextRequest) {
@@ -42,9 +43,31 @@ export async function POST(request: NextRequest) {
       if (!row || row.user_id !== user.id) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
       }
+
+      await endSession(sessionId);
+      return NextResponse.json({ ok: true });
     }
 
-    await endSession(sessionId);
+    // Admins may end any session; service role bypasses RLS that restricts
+    // updates to auth.uid() = user_id.
+    if (!hasAdminClient()) {
+      return NextResponse.json(
+        { error: 'Admin database client not configured' },
+        { status: 503 },
+      );
+    }
+
+    const adminClient = createAdminClient();
+    const { error: endError } = await adminClient
+      .from('user_sessions')
+      .update({ logout_time: new Date().toISOString() })
+      .eq('session_id', sessionId);
+
+    if (endError) {
+      console.error('logout-track admin end error:', endError.message);
+      return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    }
+
     return NextResponse.json({ ok: true });
   } catch (error: unknown) {
     console.error(

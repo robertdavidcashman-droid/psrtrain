@@ -123,9 +123,19 @@ describe('PII-safe logging', () => {
 describe('rate limiter', () => {
   test('blocks after max requests in window', () => {
     const ip = `test-${Date.now()}`;
-    const opts = { windowMs: 60_000, maxRequests: 2 };
+    const opts = { windowMs: 60_000, maxRequests: 2, scope: 'test' };
     expect(isRateLimited(ip, opts)).toBe(false);
     expect(isRateLimited(ip, opts)).toBe(false);
     expect(isRateLimited(ip, opts)).toBe(true);
+  });
+
+  test('scopes buckets independently per route', () => {
+    const ip = `test-scope-${Date.now()}`;
+    const contact = { windowMs: 60_000, maxRequests: 2, scope: 'contact' };
+    const newsletter = { windowMs: 60_000, maxRequests: 2, scope: 'newsletter' };
+    expect(isRateLimited(ip, contact)).toBe(false);
+    expect(isRateLimited(ip, contact)).toBe(false);
+    expect(isRateLimited(ip, contact)).toBe(true);
+    expect(isRateLimited(ip, newsletter)).toBe(false);
   });
 });
