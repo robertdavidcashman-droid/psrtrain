@@ -4,10 +4,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import RescueLegacyHash from "@/components/auth/RescueLegacyHash";
-import { PoliceStationRepUkPromo } from "@/components/PoliceStationRepUkPromo";
 import { FreeAccessStrip } from "@/components/FreeAccessStrip";
-import { SiteVersionStamp } from "@/components/SiteVersionStamp";
-import { SisterProductsPromo } from "@/components/SisterProductsPromo";
 import { SupportWidget } from "@/components/SupportWidget";
 import { SiteJsonLd } from "@/components/SiteJsonLd";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
@@ -93,8 +90,6 @@ export default function RootLayout({
         <RescueLegacyHash />
         <SiteJsonLd />
         <FreeAccessStrip />
-        <PoliceStationRepUkPromo />
-        <SisterProductsPromo />
         <ThemeProvider>{children}</ThemeProvider>
         <SupportWidget />
         <CookieBanner />
@@ -102,7 +97,6 @@ export default function RootLayout({
           <GoogleAnalytics />
           <AnalyticsEventBinder />
         </Suspense>
-        <SiteVersionStamp className="fixed bottom-1.5 left-2 z-[5] pointer-events-none select-none" />
         <Analytics />
         <SpeedInsights />
       </body>

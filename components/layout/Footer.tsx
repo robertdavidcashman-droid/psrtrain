@@ -4,6 +4,7 @@ import { SITE } from '@/lib/site';
 import { PSRUK_DIRECTORY_HREF } from '@/lib/policestationrepuk-promo';
 import { CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
 import { PSA_HOME_HREF } from '@/lib/policestationagent-promo';
+import { SiteVersionStamp } from '@/components/SiteVersionStamp';
 
 const legalLinks = [
   { href: '/legal/privacy', label: 'Privacy' },
@@ -103,9 +104,12 @@ export default function Footer() {
           </Link>
         </nav>
 
-        <p className="mt-6 text-center text-xs text-slate-500 sm:text-left">
-          © {new Date().getFullYear()} {SITE.name}. All rights reserved.
-        </p>
+        <div className="mt-6 flex flex-col items-center gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-center text-xs text-slate-500 sm:text-left">
+            © {new Date().getFullYear()} {SITE.name}. All rights reserved.
+          </p>
+          <SiteVersionStamp className="text-slate-400" />
+        </div>
       </div>
     </footer>
   );
