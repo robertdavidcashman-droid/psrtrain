@@ -4,6 +4,7 @@ import AppSidebar from '@/components/layout/AppSidebar';
 import { InactivityTimeout } from '@/components/auth/InactivityTimeout';
 import { SessionTracker } from '@/components/auth/SessionTracker';
 import { AuthUnavailable } from '@/components/system/AuthUnavailable';
+import { SiteVersionStamp } from '@/components/SiteVersionStamp';
 
 /** Session is read from cookies — never statically prerender protected shell. */
 export const dynamic = 'force-dynamic';
@@ -27,9 +28,10 @@ export default async function MainLayout({
       <SessionTracker />
       <InactivityTimeout />
       <AppSidebar />
-      <main id="main-content" className="flex-1 min-h-screen pl-0 pt-16 lg:pt-0 lg:pl-64">
-        <div className="p-5 lg:p-8 max-w-5xl">
-          {children}
+      <main id="main-content" className="flex flex-1 min-h-screen flex-col pl-0 pt-16 lg:pt-0 lg:pl-64">
+        <div className="flex flex-1 flex-col p-5 lg:p-8 max-w-5xl">
+          <div className="flex-1">{children}</div>
+          <SiteVersionStamp className="mt-8 self-start text-slate-400" />
         </div>
       </main>
     </div>
