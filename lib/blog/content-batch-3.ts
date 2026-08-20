@@ -220,4 +220,75 @@ export const BLOG_POSTS_BATCH_3: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: 'pace-code-c-practice-questions',
+    published: '2026-08-20',
+    category: 'PACE',
+    title: 'PACE Code C Practice Questions (2026 Quiz)',
+    h1: 'PACE Code C Practice Questions (2026 Quiz)',
+    description:
+      'Free PACE Code C practice questions for PSRAS. Sit this 5-question quiz, check Code C answers, then open 500+ MCQs with a free account.',
+    keywords: [
+      'PACE Code C practice questions',
+      'Code C quiz',
+      'PSRAS Code C MCQ',
+      'PACE detention clock',
+      'appropriate adult Code C',
+      's.58 delay legal advice',
+      'detention review PACE s.40',
+    ],
+    summary:
+      'This page is a PACE Code C quiz — not another Code C explainer. Sit five original items on the detention clock, the caution, s.58 delay, appropriate adults, and the first detention review, check the answers by Code reference, then open the wider bank with a free account while PSR Train is testing.',
+    readMinutes: 8,
+    heroImage: blogHeroImage(
+      'pace-code-c-practice-questions',
+      'PACE Code C practice quiz workbook with timer and multiple-choice answers for PSRAS revision',
+    ),
+    relatedSlugs: [
+      'code-c-first-hour-custody-checklist',
+      'free-psras-practice-questions',
+      'detention-reviews-under-code-c',
+    ],
+    sections: [
+      {
+        heading: 'A Code C quiz, not another explainer',
+        paragraphs: [
+          'If you already know what Code C covers and need to test recall under exam pressure, start here. This page is a PACE Code C quiz — not another Code C explainer. For the narrative guide and arrival workflow, open the existing PACE Code C guide at /guides/pace-code-c-guide and the first-hour custody checklist at /blog/code-c-first-hour-custody-checklist, then return to these five items to check whether the rules stick when the stem is short and the distractors look plausible.',
+          'The five original items below target the themes that repeatedly trip PSRAS candidates: when the ordinary detention clock runs, what the standard caution is for, when legal advice can lawfully be delayed under s.58, who must not act as an appropriate adult, and when the first detention review is due. Work through them before reading the answers. Treat each explanation as a pointer back to PACE and Code C, not as a substitute for the official text on GOV.UK.',
+          'After you score the set, create a free account at https://psrtrain.com/signup to open 500+ MCQs and timed practice. Access is free while testing, with no card required. PSR Train is independent prep for police station representative candidates — it is not Datalaw or Cardiff, and these questions are original practice items, not leaked papers.',
+        ],
+      },
+      {
+        heading: 'Five Code C practice questions',
+        paragraphs: [
+          'Sit the five questions untimed first. Note your chosen letter, then check the answer and the Code or PACE reference before moving on. When you revisit the set, time yourself tightly — Code C stems in the knowledge assessment reward candidates who locate the rule quickly rather than re-reading every option twice.',
+        ],
+        bullets: [
+          'Q1 — Detention clock: Arrest 14:10, arrive first station 14:55, detention authorised 15:10. When does the ordinary detention clock run? (A) Arrest. (B) Arrival at the first station. (C) When detention is authorised. (D) First interview. Answer: (B) — PACE s.41 relevant time (arrival at the first police station).',
+          'Q2 — Caution: The standard Code C caution exists principally to: (A) Compel the detainee to answer every question truthfully. (B) Warn that silence may later harm a defence that relies on facts not mentioned, and that anything said may be evidence. (C) Confirm that remaining silent proves innocence. (D) Permit silence only after charge. Answer: (B) — Code C 10.5 / CJPOA s.34.',
+          'Q3 — s.58 delay: Delay of access to legal advice under s.58 is only available when: (A) The solicitor might advise the detainee to remain silent. (B) The offence is summary-only and an inspector authorises delay. (C) The offence is indictable, a superintendent (or above) authorises delay, and Annex B grounds apply. (D) Custody staff prefer to finish fingerprinting first. Answer: (C) — indictable + superintendent + Annex B grounds. Not because a solicitor might advise silence.',
+          'Q4 — Appropriate adult: Who must not act as an appropriate adult? (A) A parent or guardian. (B) A social worker. (C) A solicitor acting as the legal adviser. (D) Another responsible adult unconnected with the investigation, where no parent is available. Answer: (C) — solicitor acting as legal adviser (Note 1F).',
+          'Q5 — First detention review: Detention is authorised at 10:00. By when must the first review take place? (A) 12:00. (B) 16:00. (C) 18:00. (D) 22:00. Answer: (B) 16:00 (six hours; PACE s.40; Code C s.15).',
+        ],
+      },
+      {
+        heading: 'How to review these answers',
+        paragraphs: [
+          'Q1 turns on the “relevant time” under PACE s.41: for an arrested person brought to a police station, the ordinary detention clock generally runs from arrival at the first station, not from arrest, authorisation, or the first interview. Authorisation still matters for lawfulness of detention, but it is not the clock start in this classic stem.',
+          'Q2 tests the three-limb caution. The principal point of the wording is the warning that silence may later harm a defence that relies on facts not mentioned when questioned, and that anything said may be given in evidence — Code C 10.5 reading across to CJPOA s.34. Options that invent a duty to answer, treat silence as proof of innocence, or confine silence to post-charge stages misstate the right.',
+          'Q3 is a common trap: wanting a solicitor who may advise silence is not a ground to delay advice. Lawful s.58 delay requires an indictable offence, authority at superintendent level or above, and Annex B grounds. If any limb is missing, delay is not available.',
+          'Q4 is Note 1F territory: the solicitor (or accredited representative) who is acting as the legal adviser must not also fill the appropriate-adult role. Parents, social workers, and other responsible adults may qualify in the usual way; the conflict is with the legal adviser acting in both capacities.',
+          'Q5 is arithmetic plus statute: the first review of detention must be not later than six hours after detention was first authorised — here 10:00 → 16:00 — under PACE s.40 and Code C section 15. Later review intervals are a separate question; do not confuse the first six-hour review with the nine-hour subsequent reviews.',
+        ],
+      },
+      {
+        heading: 'Next steps — free account while testing',
+        paragraphs: [
+          'When these five feel automatic, deepen Code C with the PACE Code C guide (/guides/pace-code-c-guide) and pressure-test arrival habits with the first-hour custody checklist (/blog/code-c-first-hour-custody-checklist). Pair both with timed MCQs so procedure knowledge survives exam pacing.',
+          'Open the full bank at https://psrtrain.com/signup — free while testing, no card. You get access to 500+ MCQs and timed practice as independent prep for PSRAS candidates in England and Wales. PSR Train is not Datalaw or Cardiff, and none of these items are leaked assessment papers.',
+          'This article is training information for prospective police station representatives. It is not legal advice and does not replace your firm\u2019s supervision, your portfolio requirements, or the official assessment organisation\u2019s materials. Always confirm procedural detail against the current PACE Codes of Practice and PACE itself before you rely on any summary in a live case.',
+        ],
+      },
+    ],
+  },
 ];
