@@ -1,13 +1,39 @@
 import { describe, expect, test, beforeEach, afterEach, vi } from 'vitest';
 
+function mockLocalStorage() {
+  const store = new Map<string, string>();
+  const api = {
+    getItem: (key: string) => (store.has(key) ? store.get(key)! : null),
+    setItem: (key: string, value: string) => {
+      store.set(key, String(value));
+    },
+    removeItem: (key: string) => {
+      store.delete(key);
+    },
+    clear: () => {
+      store.clear();
+    },
+    get length() {
+      return store.size;
+    },
+    key: (index: number) => Array.from(store.keys())[index] ?? null,
+  };
+  vi.stubGlobal('localStorage', api);
+  vi.stubGlobal('window', {
+    localStorage: api,
+    dispatchEvent: () => true,
+  });
+  return api;
+}
+
 describe('cookie-consent helpers', () => {
   beforeEach(() => {
     vi.resetModules();
-    localStorage.clear();
+    mockLocalStorage().clear();
   });
 
   afterEach(() => {
-    localStorage.clear();
+    vi.unstubAllGlobals();
   });
 
   test('hasAnalyticsConsent is false until accepted', async () => {
