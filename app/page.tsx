@@ -25,6 +25,7 @@ import { pageMetadata } from '@/lib/page-metadata';
 import { getApprovedQuestionCount, formatQuestionCountStat } from '@/lib/question-count';
 import { getLatestBlogPosts, getFeaturedGuides } from '@/lib/content-crosslinks';
 import { appendUtm } from '@/lib/utm';
+import { HOMEPAGE_FAQ_QUESTIONS, faqsForQuestions } from '@/lib/faq';
 
 export const metadata = pageMetadata({
   title: { absolute: 'Police Station Representative Training | Prepare for PSRAS | PSR Train' },
@@ -89,36 +90,15 @@ const whyPoints = [
   'Practical skills, not just textbook theory',
 ];
 
-const faqs = [
-  {
-    q: 'Is PSR Train an official PSRAS provider?',
-    a: 'No. PSR Train is independent preparation and practice — it helps you get ready, but accreditation itself is awarded by your assessment body. We align our content with the PSRAS syllabus, PACE 1984, and Code C.',
-  },
-  {
-    q: 'Will it actually help me pass?',
-    a: 'It is built around the assessment: timed mock exams under real conditions, CIT-style scenarios, and questions mapped to the PSRAS syllabus units, each with a worked explanation so you learn the reasoning, not just the answer.',
-  },
-  {
-    q: 'What does it cost?',
-    a: 'It is completely free while we are in testing, with no card required. We will introduce a paid subscription later — candidates who sign up now start training free straight away.',
-  },
-  {
-    q: 'What is included?',
-    a: 'Practice questions across every syllabus area, timed mock exams, critical-incident scenarios, learning modules, and progress tracking that shows your accuracy and weakest topics.',
-  },
-  {
-    q: 'Who is it for?',
-    a: 'Candidates preparing for Police Station Representative accreditation (PSRAS) in England and Wales — whether you are starting out or polishing up before assessment.',
-  },
-];
+const faqs = faqsForQuestions(HOMEPAGE_FAQ_QUESTIONS);
 
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: faqs.map((f) => ({
     '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
   })),
 };
 
@@ -450,18 +430,27 @@ export default async function HomePage() {
             <div className="space-y-3">
               {faqs.map((f) => (
                 <details
-                  key={f.q}
+                  key={f.question}
                   className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-card transition-colors open:border-[#0B3C5D]/25 hover:border-[#D4AF37]/40"
                 >
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-[#0B3C5D]">
-                    {f.q}
+                    {f.question}
                     <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-50 text-[#0B3C5D] transition-transform duration-200 group-open:rotate-45">
                       +
                     </span>
                   </summary>
-                  <p className="mt-3 text-[0.95rem] leading-relaxed text-slate-600">{f.a}</p>
+                  <p className="mt-3 text-[0.95rem] leading-relaxed text-slate-600">{f.answer}</p>
                 </details>
               ))}
+            </div>
+            <div className="mt-8 text-center">
+              <Link
+                href="/legal/faq"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#0B3C5D] hover:underline"
+              >
+                See all FAQs
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
             </div>
           </div>
         </section>

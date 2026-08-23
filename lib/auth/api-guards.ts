@@ -1,6 +1,6 @@
 import { getAccessSnapshot } from '@/lib/auth/access';
 import crypto from 'node:crypto';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 function timingSafeEqualStrings(a: string, b: string): boolean {
   const ab = Buffer.from(a, 'utf8');

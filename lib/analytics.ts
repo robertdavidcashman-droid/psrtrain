@@ -18,6 +18,15 @@ export function trackEvent(
   params?: Record<string, string | number | boolean | undefined>,
 ): void {
   if (typeof window === 'undefined' || !GA_ID || typeof window.gtag !== 'function') return;
+  // Respect cookie preference — do not fire GA events without consent.
+  try {
+    const consent = localStorage.getItem('psr-cookie-consent');
+    const legacy = localStorage.getItem('cookies-accepted');
+    if (consent === 'rejected') return;
+    if (consent !== 'accepted' && legacy !== 'true') return;
+  } catch {
+    return;
+  }
   const cleaned: Record<string, string | number | boolean> = {};
   if (params) {
     for (const [key, value] of Object.entries(params)) {

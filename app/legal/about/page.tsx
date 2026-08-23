@@ -4,11 +4,13 @@ import { Shield, BookOpen, Target, Heart } from 'lucide-react';
 import { PSRUK_DIRECTORY_HREF } from '@/lib/policestationrepuk-promo';
 import { CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
 import { pageMetadata } from '@/lib/page-metadata';
+import { AUTHOR_TRUST_LINE, AUTHOR } from '@/lib/author';
+import { COMPANY, FOOTER_LEGAL_ENTITY_TEXT } from '@/lib/legalCopy';
 
 export const metadata = pageMetadata({
   title: 'About',
   description:
-    'PSR Train is the training platform built for the Police Station Representative Accreditation Scheme (PSRAS). Learn about our mission and what we offer.',
+    'PSR Train is the training platform built for the Police Station Representative Accreditation Scheme (PSRAS). Learn about our mission, author, and company details.',
   path: '/legal/about',
 });
 
@@ -19,6 +21,9 @@ export default function AboutPage() {
         <h1 className="text-4xl md:text-5xl font-bold text-navy mb-4">About PSR Train</h1>
         <p className="text-xl text-muted-foreground leading-relaxed">
           We&apos;re the training platform built specifically for the Police Station Representative Accreditation Scheme (PSRAS).
+        </p>
+        <p className="mt-4 text-base text-slate-700 leading-relaxed">
+          {AUTHOR_TRUST_LINE}
         </p>
       </div>
 
@@ -46,6 +51,35 @@ export default function AboutPage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="space-y-4 mb-12 p-6 rounded-2xl border border-border bg-white" id="company-details">
+        <h2 className="text-2xl font-semibold text-navy">Company details</h2>
+        <p className="text-muted-foreground leading-relaxed">
+          {FOOTER_LEGAL_ENTITY_TEXT}
+        </p>
+        <dl className="grid gap-3 text-sm text-slate-700 sm:grid-cols-2">
+          <div>
+            <dt className="font-semibold text-navy">Registered company</dt>
+            <dd>{COMPANY.legalName}</dd>
+          </div>
+          <div>
+            <dt className="font-semibold text-navy">Company number</dt>
+            <dd>{COMPANY.companyNumber}</dd>
+          </div>
+          <div className="sm:col-span-2">
+            <dt className="font-semibold text-navy">Registered office</dt>
+            <dd>{COMPANY.registeredOffice}</dd>
+          </div>
+          <div>
+            <dt className="font-semibold text-navy">VAT</dt>
+            <dd>{COMPANY.vatNumberDisplay}</dd>
+          </div>
+          <div>
+            <dt className="font-semibold text-navy">Author</dt>
+            <dd>{AUTHOR.name} · {AUTHOR.organisation}</dd>
+          </div>
+        </dl>
       </section>
 
       <section className="space-y-4 mb-12 p-6 rounded-2xl border border-border bg-white">

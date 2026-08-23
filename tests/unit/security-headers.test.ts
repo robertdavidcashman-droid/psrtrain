@@ -24,6 +24,18 @@ describe('security headers regression', () => {
     expect(configSrc).toContain('default-src');
   });
 
+  test('redirects /accreditation permanently to accreditation-process', () => {
+    expect(configSrc).toMatch(
+      /source:\s*'\/accreditation'[\s\S]*?destination:\s*'\/legal\/accreditation-process'[\s\S]*?permanent:\s*true/,
+    );
+  });
+
+  test('redirects /Cookies permanently to legal cookies', () => {
+    expect(configSrc).toMatch(
+      /source:\s*'\/Cookies'[\s\S]*?destination:\s*'\/legal\/cookies'[\s\S]*?permanent:\s*true/,
+    );
+  });
+
   test('HSTS has max-age', () => {
     expect(configSrc).toMatch(/max-age=\d+/);
   });

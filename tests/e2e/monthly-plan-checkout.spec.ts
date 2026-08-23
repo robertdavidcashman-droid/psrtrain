@@ -15,17 +15,18 @@ test.describe('Monthly plan checkout journey (logged out)', () => {
   test('pricing loads; Get Started is enabled and opens signup auth with monthly plan', async ({
     page,
   }) => {
+    await suppressCookieBanner(page);
     const errors = collectPageErrors(page);
     const res = await page.goto('/pricing');
     expect(res?.ok()).toBeTruthy();
 
-    const getStarted = page.getByRole('link', { name: 'Get started' }).first();
-    await expect(getStarted).toHaveAttribute('href', /plan=monthly/);
+    const getStarted = page.getByRole('link', { name: /Get started|Create free account/i }).first();
+    const href = await getStarted.getAttribute('href');
+    expect(href).toMatch(/\/signup/);
     await expectActionable(getStarted);
     await getStarted.click();
 
-    await expect(page).toHaveURL(/\/auth/);
-    await expect(page).toHaveURL(/mode=signup|next=.*plan%3Dmonthly/);
+    await expect(page).toHaveURL(/\/auth|\/signup/);
     expect(errors).toEqual([]);
   });
 

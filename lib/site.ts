@@ -22,7 +22,7 @@ export const SITE = {
   jurisdiction: 'the courts of England and Wales',
 
   // Last update for legal pages. Keep ISO-like format for consistency.
-  legalUpdated: '16 May 2026',
+  legalUpdated: '23 August 2026',
 
   // Useful external references.
   ico: 'https://ico.org.uk/make-a-complaint',

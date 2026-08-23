@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { SITE } from '@/lib/site';
+import { CookiePreferencesPanel } from '@/components/CookiePreferencesPanel';
 
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
   title: 'Cookie Policy',
   description:
-    'How PSR Train uses cookies and similar technologies.',
+    'How PSR Train uses essential and optional analytics cookies, and how to manage your preferences.',
   path: '/legal/cookies',
 });
 
@@ -26,7 +27,7 @@ export default function CookiesPage() {
       <section className="space-y-3">
         <h2 className="text-2xl font-semibold text-navy">2. Cookies we use</h2>
         <p className="text-muted-foreground leading-relaxed">
-          We use a small number of <strong>strictly necessary</strong> cookies that do not require consent under PECR. In particular:
+          We use <strong>strictly necessary</strong> cookies that do not require consent under PECR. In particular:
         </p>
         <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
           <li>authentication and session cookies (so you stay signed in);</li>
@@ -34,21 +35,22 @@ export default function CookiesPage() {
           <li>a preference cookie to remember choices such as the access-gate state.</li>
         </ul>
         <p className="text-muted-foreground leading-relaxed">
-          We do not use advertising or cross-site tracking cookies. If we introduce analytics or optional cookies in future, we will ask for your consent first via a banner.
+          We also offer <strong>optional analytics</strong> (Vercel Analytics, Vercel Speed Insights, and Google Analytics when a measurement ID is configured). These only load after you Accept analytics in the cookie banner or in the preferences panel below. We do not use advertising or cross-site tracking cookies.
         </p>
       </section>
 
       <section className="space-y-3">
         <h2 className="text-2xl font-semibold text-navy">3. Managing cookies</h2>
         <p className="text-muted-foreground leading-relaxed">
-          You can control or delete cookies through your browser settings. If you block strictly necessary cookies, parts of the Service (such as signing in) may not work.
+          Use the controls below to accept or reject optional analytics. You can also control or delete cookies through your browser settings. If you block strictly necessary cookies, parts of the Service (such as signing in) may not work.
         </p>
+        <CookiePreferencesPanel />
       </section>
 
       <section className="space-y-3">
         <h2 className="text-2xl font-semibold text-navy">4. Contact</h2>
         <p className="text-muted-foreground leading-relaxed">
-          Questions? Email <a href={`mailto:${SITE.contactEmail}`} className="text-primary hover:underline">{SITE.contactEmail}</a> or use our <Link href="/legal/contact" className="text-primary hover:underline">contact page</Link>.
+          Questions? Use our <Link href="/legal/contact" className="text-primary hover:underline">contact page</Link>.
         </p>
       </section>
     </div>

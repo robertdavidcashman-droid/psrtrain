@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import Link from 'next/link';
 import { AlertCircle, CheckCircle2 } from 'lucide-react';
 import { SITE } from '@/lib/site';
-import { POLICE_STATION_HELP_TEXT } from '@/lib/legalCopy';
+import { COMPANY, POLICE_STATION_HELP_TEXT } from '@/lib/legalCopy';
 
 const SUBJECTS = [
   { value: 'account', label: 'Account or sign-in help' },
@@ -76,6 +76,42 @@ export default function ContactPage() {
         <p className="text-xl text-slate-700 leading-relaxed">
           Questions about {SITE.name}, your account, or the training content? Send us a message —
           we&apos;ll get back to you within a few working days.
+        </p>
+      </div>
+
+      <div className="mb-8 rounded-2xl border border-slate-200 bg-slate-50 p-6 space-y-4">
+        <h2 className="text-lg font-semibold text-[#0B3C5D]">Company &amp; support</h2>
+        <dl className="grid gap-3 text-sm text-slate-700 sm:grid-cols-2">
+          <div>
+            <dt className="font-semibold text-[#0B3C5D]">Operator</dt>
+            <dd>{COMPANY.legalName}</dd>
+          </div>
+          <div>
+            <dt className="font-semibold text-[#0B3C5D]">Company number</dt>
+            <dd>{COMPANY.companyNumber}</dd>
+          </div>
+          <div className="sm:col-span-2">
+            <dt className="font-semibold text-[#0B3C5D]">Registered office</dt>
+            <dd>{COMPANY.registeredOffice}</dd>
+          </div>
+          <div>
+            <dt className="font-semibold text-[#0B3C5D]">VAT</dt>
+            <dd>{COMPANY.vatNumberDisplay}</dd>
+          </div>
+          <div>
+            <dt className="font-semibold text-[#0B3C5D]">Support email</dt>
+            <dd>
+              <a
+                href={`mailto:${SITE.contactEmail}`}
+                className="text-primary font-medium hover:underline"
+              >
+                {SITE.contactEmail}
+              </a>
+            </dd>
+          </div>
+        </dl>
+        <p className="text-xs text-slate-600">
+          Prefer the form below for structured enquiries — we reply from our support inbox.
         </p>
       </div>
 

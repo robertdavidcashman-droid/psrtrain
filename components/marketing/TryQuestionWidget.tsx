@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Check, X, ArrowRight, RotateCcw, Lightbulb } from 'lucide-react';
+import { AUTHOR_TRUST_LINE_SHORT } from '@/lib/author';
 
 type Option = { key: string; text: string };
 
@@ -134,6 +135,9 @@ export function TryQuestionWidget({ questionStat }: { questionStat: string }) {
             Pick an answer to see the worked explanation — no sign-up needed.
           </p>
         )}
+        <p className="mt-4 text-center text-[11px] leading-snug text-slate-500">
+          {AUTHOR_TRUST_LINE_SHORT}
+        </p>
       </div>
     </div>
   );

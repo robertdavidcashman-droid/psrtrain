@@ -2,26 +2,43 @@
 
 import Script from 'next/script';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { isAnalyticsEnabled } from '@/lib/analytics';
+import {
+  CONSENT_CHANGE_EVENT,
+  COOKIE_CONSENT_KEY,
+  hasAnalyticsConsent,
+  LEGACY_COOKIES_ACCEPTED_KEY,
+} from '@/lib/cookie-consent';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
 
-/** Loads GA4 after consent cookie is accepted; tracks page views on route change. */
+/** Loads GA4 after analytics consent is accepted; tracks page views on route change. */
 export function GoogleAnalytics() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const enabled = isAnalyticsEnabled();
+  const [consented, setConsented] = useState(false);
 
   useEffect(() => {
-    if (!enabled || typeof window.gtag !== 'function') return;
-    if (localStorage.getItem('cookies-accepted') !== 'true') return;
+    const sync = () => setConsented(hasAnalyticsConsent());
+    sync();
+    window.addEventListener(CONSENT_CHANGE_EVENT, sync);
+    window.addEventListener('storage', sync);
+    return () => {
+      window.removeEventListener(CONSENT_CHANGE_EVENT, sync);
+      window.removeEventListener('storage', sync);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!enabled || !consented || typeof window.gtag !== 'function') return;
     const query = searchParams?.toString();
     const path = query ? `${pathname}?${query}` : pathname;
     window.gtag('config', GA_ID, { page_path: path });
-  }, [enabled, pathname, searchParams]);
+  }, [enabled, consented, pathname, searchParams]);
 
-  if (!enabled) return null;
+  if (!enabled || !consented) return null;
 
   return (
     <>
@@ -34,7 +51,9 @@ export function GoogleAnalytics() {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          if (localStorage.getItem('cookies-accepted') === 'true') {
+          var consent = localStorage.getItem('${COOKIE_CONSENT_KEY}');
+          var legacy = localStorage.getItem('${LEGACY_COOKIES_ACCEPTED_KEY}');
+          if (consent === 'accepted' || (!consent && legacy === 'true')) {
             gtag('config', '${GA_ID}', { anonymize_ip: true });
           }
         `}

@@ -30,11 +30,11 @@ test.describe('Mobile clicks (Stephanie reports)', () => {
     const errors = collectPageErrors(page);
     await page.goto('/pricing');
 
-    const getStarted = page.getByRole('link', { name: 'Get started' }).first();
+    const getStarted = page.getByRole('link', { name: /Get started|Create free account/i }).first();
     await expectActionable(getStarted);
     await getStarted.click();
 
-    await expect(page).toHaveURL(/\/auth/);
+    await expect(page).toHaveURL(/\/auth|\/signup/);
     expect(errors).toEqual([]);
   });
 });

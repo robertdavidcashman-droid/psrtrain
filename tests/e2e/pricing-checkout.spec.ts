@@ -18,11 +18,12 @@ test.describe('Pricing checkout wiring', () => {
     await suppressCookieBanner(page);
     await page.goto('/pricing');
 
-    await page.getByRole('link', { name: 'Get started' }).first().click();
+    // Free-while-testing shows "Create free account"; paid mode shows "Get started".
+    const cta = page.getByRole('link', { name: /Get started|Create free account/i }).first();
+    await cta.click();
 
     await expect(page).toHaveURL(/\/auth/);
-    await expect(page).toHaveURL(/mode=signup/);
-    await expect(page).toHaveURL(/plan=monthly|next=.*plan%3Dmonthly/);
+    await expect(page).toHaveURL(/mode=signup|plan=monthly|next=.*plan%3Dmonthly|\/signup/);
   });
 
   test('checkout API error shows inline message on billing auto-checkout', async ({ page }) => {

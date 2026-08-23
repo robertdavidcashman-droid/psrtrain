@@ -43,9 +43,15 @@ const nextConfig = {
       { source: '/terms', destination: '/legal/terms', permanent: true },
       { source: '/disclaimer', destination: '/legal/disclaimer', permanent: true },
       { source: '/cookies', destination: '/legal/cookies', permanent: true },
+      { source: '/Cookies', destination: '/legal/cookies', permanent: true },
       { source: '/refund', destination: '/legal/refund', permanent: true },
       { source: '/complaints', destination: '/legal/complaints', permanent: true },
       { source: '/faq', destination: '/legal/faq', permanent: true },
+      {
+        source: '/accreditation',
+        destination: '/legal/accreditation-process',
+        permanent: true,
+      },
     ];
   },
   async headers() {

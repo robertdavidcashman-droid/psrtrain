@@ -7,6 +7,7 @@ import type { Page } from '@playwright/test';
  */
 export async function suppressCookieBanner(page: Page) {
   await page.addInitScript(() => {
+    localStorage.setItem('psr-cookie-consent', 'accepted');
     localStorage.setItem('cookies-accepted', 'true');
   });
 }

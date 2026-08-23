@@ -1,9 +1,9 @@
 # Security Hardening Report — PSR Train (psrtrain.com)
 
-**Date:** 2026-08-07  
-**Branch:** `cursor/security-hardening-uplift-34ef`  
-**Scope:** `/tmp/sibling-repos/psrtrain` (Next.js training platform)  
-**Overall verdict:** **PARTIAL PASS**
+**Date:** 2026-08-07 (merged into live leftovers PR 2026-08-23)  
+**Branch:** originally `cursor/security-hardening-uplift-34ef`; now on default via leftovers PR  
+**Scope:** Next.js training platform (psrtrain.com)  
+**Overall verdict:** **PARTIAL PASS** — code merged; **Supabase migration still requires manual apply**
 
 ---
 
@@ -11,7 +11,7 @@
 
 This uplift closes high-impact gaps where anonymous PostgREST clients could read MCQ answer keys and paid module bodies, unauthenticated callers could end arbitrary session records, cron secrets were compared with a non-constant-time check, and admin pages lacked `Cache-Control: no-store`. Contact and newsletter error paths now redact PII before logging.
 
-**Manual step required:** apply `supabase/migrations/0006_paid_content_rls.sql` in the Supabase SQL editor. Until then, production RLS remains permissive for approved questions.
+**Manual step required (production):** apply `supabase/migrations/0006_paid_content_rls.sql` in the Supabase SQL editor. Until then, production RLS remains permissive for approved questions and answer keys stay readable via the anon key.
 
 | Area | Status | Notes |
 |------|--------|-------|

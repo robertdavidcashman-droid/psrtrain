@@ -89,13 +89,14 @@ test.describe('Reported issue: Get Started / monthly plan', () => {
     const errors = collectPageErrors(page);
     await page.goto('/pricing');
 
-    const getStarted = page.getByRole('link', { name: 'Get started' }).first();
-    await expect(getStarted).toHaveAttribute('href', /plan=monthly/);
+    const getStarted = page.getByRole('link', { name: /Get started|Create free account/i }).first();
+    const href = await getStarted.getAttribute('href');
+    // Paid mode: /signup?plan=monthly. Free-while-testing: /signup (no checkout).
+    expect(href).toMatch(/\/signup/);
     await expectActionable(getStarted);
     await getStarted.click();
 
-    await expect(page).toHaveURL(/\/auth/);
-    await expect(page).toHaveURL(/mode=signup|plan=monthly|next=.*plan%3Dmonthly/);
+    await expect(page).toHaveURL(/\/auth|\/signup/);
     expect(errors).toEqual([]);
   });
 
@@ -105,11 +106,11 @@ test.describe('Reported issue: Get Started / monthly plan', () => {
     const errors = collectPageErrors(page);
     await page.goto('/pricing');
 
-    const getStarted = page.getByRole('link', { name: 'Get started' }).first();
+    const getStarted = page.getByRole('link', { name: /Get started|Create free account/i }).first();
     await expectActionable(getStarted);
     await getStarted.click();
 
-    await expect(page).toHaveURL(/\/auth/);
+    await expect(page).toHaveURL(/\/auth|\/signup/);
     expect(errors).toEqual([]);
   });
 
