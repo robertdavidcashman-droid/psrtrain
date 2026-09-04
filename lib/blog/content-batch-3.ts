@@ -291,4 +291,74 @@ export const BLOG_POSTS_BATCH_3: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: 'special-warnings-practice-questions',
+    published: '2026-09-04',
+    category: 'PSRAS Prep',
+    title: 'Special Warnings Practice Questions (CJPOA ss.36–37 Quiz)',
+    h1: 'Special Warnings Practice Questions (CJPOA ss.36–37 Quiz)',
+    description:
+      'Free special warning practice questions for PSRAS. Sit this CJPOA s.36–37 quiz, check answers, then open 500+ MCQs with a free account.',
+    keywords: [
+      'special warning practice questions',
+      'CJPOA section 36 37 quiz',
+      'PSRAS special warning',
+      'adverse inference special warning',
+      'Code C paragraph 10.10',
+      'police station rep exam',
+    ],
+    summary:
+      'This is a special warning quiz — CJPOA 1994 ss.36–37 — not another Code C drill or a s.34 adverse-inference explainer. Sit five original items on objects, marks, presence, and when a failure-to-account inference is properly available, check the answers by statute or Code C rule, then open the wider bank with a free account while PSR Train is testing.',
+    readMinutes: 8,
+    heroImage: blogHeroImage(
+      'special-warnings-practice-questions',
+      'Special warning CJPOA ss.36–37 practice quiz workbook with timer and multiple-choice answers for PSRAS revision',
+    ),
+    relatedSlugs: [
+      'pace-code-c-practice-questions',
+      'adverse-inference-interview-advice',
+      'free-psras-practice-questions',
+    ],
+    sections: [
+      {
+        heading: 'A special warning quiz, not another explainer',
+        paragraphs: [
+          'This is a special warning quiz — CJPOA 1994 ss.36–37 — not another Code C drill or a s.34 adverse-inference explainer. Pair the Code C practice questions at /blog/pace-code-c-practice-questions and the adverse inference interview advice at /blog/adverse-inference-interview-advice elsewhere; here the stems target objects, marks, presence, and when a failure-to-account inference is properly available.',
+          'Five original items. Cover the answers, sit the set, mark it. Review by statute or Code C rule, not the letter alone. After you score the set, create a free account at https://psrtrain.com/signup to open 500+ MCQs and timed practice. Access is free while testing, with no card required.',
+          'PSR Train is independent exam-prep for PSRAS candidates in England and Wales — not the assessor, not Datalaw or Cardiff. These are original training items, not leaked papers. Confirm every point against current CJPOA 1994 and PACE Code C (including Annex C).',
+        ],
+      },
+      {
+        heading: 'How to sit this quiz',
+        paragraphs: [
+          'Short mock. Note: arrested or not; object/mark or presence; solicitor opportunity before the request. Cut options that blur s.36 into s.34, or that run a special warning against a volunteer. Mark before you look.',
+        ],
+      },
+      {
+        heading: 'Five special warning practice questions',
+        paragraphs: [
+          'Sit the five questions untimed first. Note your chosen letter, then check the answer and the CJPOA or Code C reference before moving on. When you revisit the set, time yourself tightly — special-warning stems reward candidates who locate the statutory limb quickly rather than re-reading every option twice.',
+        ],
+        bullets: [
+          'Q1 — A special warning under CJPOA ss.36 or 37 can properly be given only where the suspect: (A) Is attending voluntarily and has been cautioned. (B) Has been arrested by a constable. (C) Has already been charged and is being further interviewed. (D) Has waived the right to an appropriate adult.',
+          'Q2 — Officers want the detainee to account for a screwdriver found in a jacket pocket at arrest, which they reasonably believe may be linked to a specified offence. Which provision is engaged? (A) CJPOA s.34 (facts later relied on). (B) CJPOA s.36 (object, substance or mark). (C) CJPOA s.37 (presence at a place). (D) Code C 10.5 alone, with no special warning.',
+          'Q3 — For a s.36 or s.37 inference to be available, the constable making the request must, among other things: (A) Read the Act verbatim. (B) Tell the person in ordinary language what the effect would be if they failed or refused to account. (C) Obtain superintendent authority before every special warning. (D) Wait until after charge before warning about objects or presence.',
+          'Q4 — The detainee is at an authorised place of detention. Officers request an account under s.36, but the detainee has not been allowed an opportunity to consult a solicitor before that request. Which is correct? (A) The s.36 inference still applies if the special-warning wording was used. (B) Subsections (1) and (2) do not apply — no s.36 inference from that failure or refusal (s.36(4A); same structure in s.37(3A)). (C) Inferences are barred only if fingerprints are also refused. (D) The special warning converts automatically into a s.34 inference.',
+          'Q5 — Where Code C Annex C applies because the detainee was not allowed an opportunity to consult a solicitor before interview (e.g. Code C 6.6(a) or 6.6(b)), which is accurate? (A) Special warnings under ss.36 and 37 may still be given; only the caution changes. (B) Adverse inferences from silence are restricted, the caution is modified, and a ss.36/37 special warning must not be given (Code C 10.10–10.11 and Annex C). (C) Annex C affects juveniles only; adults remain fully open to ss.36/37 inferences. (D) Annex C lifts the need for ordinary-language explanation of the special warning.',
+        ],
+      },
+      {
+        heading: 'Answers and references',
+        paragraphs: [
+          'Mark first. Paraphrases only — not extracts. Q1 answer: (B). Both sections require an arrested person. A cautioned volunteer is not the special-warning target.',
+          'Q2 answer: (B). Objects, substances or marks → s.36. Presence at a place → s.37. Neither is general s.34.',
+          'Q3 answer: (B). Ordinary language is mandatory (s.36(4); s.37(3)). Code C around 10.11 operationalises that duty.',
+          'Q4 answer: (B). No prior solicitor opportunity at an authorised place of detention → inference provisions do not apply (s.36(4A); s.37(3A)).',
+          'Q5 answer: (B). Annex C: modified caution, silence inferences restricted, no ss.36/37 special warning while it bites. Code C 10.10 points into that regime; 10.11 covers when a special warning can be given.',
+          'Five questions test retrieval — not the repetition PSRAS rewards. When these five feel automatic, open the full bank at https://psrtrain.com/signup — free while testing, no card. You get access to 500+ MCQs and timed practice as independent prep for PSRAS candidates in England and Wales.',
+          'Disclaimer. PSR Train is independent exam-prep for PSRAS candidates in England and Wales — not the assessor, not Datalaw or Cardiff. Original training items, not leaked papers. Confirm against current CJPOA 1994 and PACE Code C (including Annex C). Preparation guidance only — not legal advice. This article does not replace your firm\u2019s supervision, your portfolio requirements, or the official assessment organisation\u2019s materials.',
+        ],
+      },
+    ],
+  },
 ];
