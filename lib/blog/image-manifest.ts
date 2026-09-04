@@ -123,6 +123,11 @@ export const BLOG_IMAGE_MANIFEST: Record<
     format: 'jpg',
     scene: 'Flat vector illustration of open multiple-choice quiz workbook with timer reading 25:00, pencil and eraser, blue and off-white study scene, no readable question text',
   },
+  'special-warnings-practice-questions': {
+    alt: 'Special warning CJPOA ss.36–37 practice quiz workbook with timer and multiple-choice answers for PSRAS revision',
+    format: 'jpg',
+    scene: 'Flat vector illustration of open multiple-choice quiz workbook marked special warning, timer, pencil and eraser, teal and off-white study scene, no readable question text',
+  },
 };
 
-export const EXPECTED_BLOG_POST_COUNT = 24;
+export const EXPECTED_BLOG_POST_COUNT = 25;
