@@ -48,7 +48,7 @@ export function generateLlmsTxt(): string {
 - [Blog](${SITE.url}/blog)
 - [Legal advice hub](${SITE.url}/legal-advice)
 - [Pricing](${SITE.url}/pricing)
-- [Free access](${SITE.url}/register)
+- [Free access](${SITE.url}/signup)
 
 ## PSR & PSRAS guides
 ${guideLines}

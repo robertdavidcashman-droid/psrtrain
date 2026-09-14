@@ -36,6 +36,15 @@ describe('security headers regression', () => {
     );
   });
 
+  test('redirects /register permanently to /signup', () => {
+    expect(configSrc).toMatch(
+      /source:\s*'\/register'[\s\S]*?destination:\s*'\/signup'[\s\S]*?permanent:\s*true/,
+    );
+    expect(configSrc).toMatch(
+      /source:\s*'\/register\/'[\s\S]*?destination:\s*'\/signup'[\s\S]*?permanent:\s*true/,
+    );
+  });
+
   test('HSTS has max-age', () => {
     expect(configSrc).toMatch(/max-age=\d+/);
   });

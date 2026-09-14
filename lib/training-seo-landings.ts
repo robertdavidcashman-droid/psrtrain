@@ -31,7 +31,7 @@ export const TRAINING_SEO_LANDINGS: TrainingSeoLanding[] = [
         a: 'Candidates typically complete the Police Station Qualification (PSQ), portfolio assessments, and PSRAS accreditation through an SCC firm before freelancing.',
       },
     ],
-    bodyHtml: `${DISCLAIMER}<h2>What effective training covers</h2><ul><li>PACE Codes C–E and custody procedure</li><li>Interview advice, silence, and adverse inference</li><li>Disclosure review and client consultation</li><li>Timed MCQs and Critical Incidents Test-style scenarios</li></ul><p><a href="/training">Browse training modules</a> or <a href="/register">create a free account</a>.</p>`,
+    bodyHtml: `${DISCLAIMER}<h2>What effective training covers</h2><ul><li>PACE Codes C–E and custody procedure</li><li>Interview advice, silence, and adverse inference</li><li>Disclosure review and client consultation</li><li>Timed MCQs and Critical Incidents Test-style scenarios</li></ul><p><a href="/training">Browse training modules</a> or <a href="/signup">create a free account</a>.</p>`,
     relatedLinks: [
       { href: '/guides/how-to-become-a-police-station-representative', label: 'How to become a rep' },
       { href: '/training', label: 'Training modules' },

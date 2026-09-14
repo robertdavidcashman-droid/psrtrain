@@ -37,6 +37,9 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      // Legacy signup URL — marketing/LLM content used /register; canonical is /signup.
+      { source: '/register', destination: '/signup', permanent: true },
+      { source: '/register/', destination: '/signup', permanent: true },
       { source: '/about', destination: '/legal/about', permanent: true },
       { source: '/contact', destination: '/legal/contact', permanent: true },
       { source: '/privacy', destination: '/legal/privacy', permanent: true },
