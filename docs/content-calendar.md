@@ -18,7 +18,7 @@ date: YYYY-MM-DD
 
 ## Related resources
 - [How to become a police station rep](https://policestationrepuk.org/HowToBecomePoliceStationRep?utm_source=psrtrain&utm_medium=web&utm_campaign=blog_footer)
-- [Custody Note free trial](https://custodynote.com/trial?utm_source=psrtrain&utm_medium=web&utm_campaign=blog_footer)
+- [Custody Note free trial](https://custodynote.com/download?utm_source=psrtrain&utm_medium=web&utm_campaign=blog_footer)
 
 ## Internal links (minimum 3)
 - Link to /training and 2+ related guides
@@ -27,6 +27,6 @@ date: YYYY-MM-DD
 ## Monthly checklist
 
 - [ ] 2+ new or refreshed guides in `/guides`
-- [ ] Each post links to repuk HowToBecome + CN trial with UTMs
+- [ ] Each post links to repuk HowToBecome + CN download with UTMs
 - [ ] IndexNow submit after deploy (`scripts/submit-indexnow.mjs`)
 - [ ] Buffer feed picks up new RSS items automatically

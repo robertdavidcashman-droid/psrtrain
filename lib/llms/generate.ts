@@ -1,6 +1,6 @@
 import { SITE } from '@/lib/site';
 import { PSRUK_BECOME_REP_HREF, PSRUK_DIRECTORY_HREF, PSRUK_SITE } from '@/lib/policestationrepuk-promo';
-import { CUSTODYNOTE_SITE } from '@/lib/custodynote-promo';
+import { CUSTODYNOTE_DOWNLOAD_HREF } from '@/lib/custodynote-promo';
 import { PSA_SITE } from '@/lib/policestationagent-promo';
 import { getAllBlogSlugs, getBlogPost } from '@/lib/blog/content';
 import { getAllGuideSlugs, getGuide } from '@/lib/guides/content';
@@ -65,7 +65,7 @@ ${trainingSeoLines}
 ## Sister sites (Defence Legal network)
 - [PoliceStationRepUK directory](${PSRUK_DIRECTORY_HREF})
 - [How to become a police station rep](${PSRUK_BECOME_REP_HREF})
-- [Custody Note](${CUSTODYNOTE_SITE})
+- [Custody Note](${CUSTODYNOTE_DOWNLOAD_HREF})
 - [Police Station Agent](${PSA_SITE})
 
 ## Crawling

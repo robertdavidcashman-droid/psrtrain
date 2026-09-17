@@ -17,8 +17,8 @@ Use `appendUtm()` from `lib/utm.ts` — never hand-build query strings in compon
 
 | From site | Must link to |
 |-----------|--------------|
-| policestationrepuk.org | custodynote.com (trial), psrtrain.com (training), policestationagent.com (Kent), `/links` hub |
-| psrtrain.com | repuk `/HowToBecomePoliceStationRep`, `/directory`, custodynote trial |
+| policestationrepuk.org | custodynote.com/download, psrtrain.com (training), policestationagent.com (Kent), `/links` hub |
+| psrtrain.com | repuk `/HowToBecomePoliceStationRep`, `/directory`, custodynote.com/download |
 | custodynote.com | repuk `/Resources`, psrtrain CIT prep, PSA (Kent footer) |
 | policestationagent.com | repuk `/directory/kent`, custodynote, psrtrain |
 
