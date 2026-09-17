@@ -9,7 +9,9 @@ export function cnHref(campaign: string, path = ''): string {
   return partnerHref(base, campaign, 'psrtrain');
 }
 
-export const CUSTODYNOTE_TRIAL_HREF = cnHref('footer');
+/** Preferred CTA: product download page (keeps UTMs; campaign defaults to footer). */
+export const CUSTODYNOTE_TRIAL_HREF = cnHref('footer', '/download');
+export const CUSTODYNOTE_DOWNLOAD_HREF = CUSTODYNOTE_TRIAL_HREF;
 export const CUSTODYNOTE_FEATURES_HREF = cnHref('footer', '/features');
 
 export const CUSTODYNOTE_PROMO_HEADLINE = 'Custody Note — structured attendance notes';
