@@ -56,7 +56,7 @@ export function TrainingSeoLandingView({ page }: { page: TrainingSeoLanding }) {
         )}
         <p className="not-prose mt-10">
           <Link
-            href="/register"
+            href="/signup"
             className="inline-flex rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white no-underline hover:bg-emerald-500"
           >
             Register interest — free account
