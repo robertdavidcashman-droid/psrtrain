@@ -94,7 +94,8 @@ export default function AboutPage() {
           >
             PoliceStationRepUK.com
           </a>{' '}
-          — a dedicated hub for police station representatives. For structured custody attendance notes, see{' '}
+          — a dedicated hub for police station representatives. For structured custody attendance notes on
+          Windows and Mac, see{' '}
           <a
             href={CUSTODYNOTE_TRIAL_HREF}
             target="_blank"
@@ -103,7 +104,7 @@ export default function AboutPage() {
           >
             Custody Note
           </a>{' '}
-          (30-day free trial).
+          (download both · 30-day free trial).
         </p>
       </section>
 

@@ -4,7 +4,7 @@ import { PSA_HOME_HREF } from '@/lib/policestationagent-promo';
 
 const partnerLinks = [
   { href: PSRUK_DIRECTORY_HREF, label: 'PoliceStationRepUK' },
-  { href: CUSTODYNOTE_TRIAL_HREF, label: 'Custody Note' },
+  { href: CUSTODYNOTE_TRIAL_HREF, label: 'Custody Note — Windows & Mac' },
   { href: PSA_HOME_HREF, label: 'Police Station Agent' },
 ];
 

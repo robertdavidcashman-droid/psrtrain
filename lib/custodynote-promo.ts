@@ -14,6 +14,6 @@ export const CUSTODYNOTE_TRIAL_HREF = cnHref('footer', '/download');
 export const CUSTODYNOTE_DOWNLOAD_HREF = CUSTODYNOTE_TRIAL_HREF;
 export const CUSTODYNOTE_FEATURES_HREF = cnHref('footer', '/features');
 
-export const CUSTODYNOTE_PROMO_HEADLINE = 'Custody Note — structured attendance notes';
+export const CUSTODYNOTE_PROMO_HEADLINE = 'Custody Note — Windows and Mac';
 export const CUSTODYNOTE_PROMO_BODY =
-  'PACE-aligned custody notes for reps and solicitors. Offline at the station, PDF export, 30-day free trial.';
+  'Structured PACE attendance notes for reps and solicitors on Windows and Mac. Offline at the station, PDF export. Download both from the free trial page — 30-day free trial.';

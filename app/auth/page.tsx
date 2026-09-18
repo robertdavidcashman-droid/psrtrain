@@ -716,7 +716,7 @@ function AuthFlow() {
           >
             Custody Note
           </a>{' '}
-          offers structured attendance notes — 30-day free trial.
+          offers structured attendance notes for Windows and Mac — download both via the free trial page.
         </p>
 
         <p className="text-xs text-muted-foreground mt-3 leading-relaxed">

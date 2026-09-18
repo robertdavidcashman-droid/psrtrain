@@ -44,7 +44,7 @@ export function PartnerHeroMention({ variant = 'light' }: Props) {
         >
           Custody Note
         </a>{' '}
-        (30-day free trial)
+        (Windows and Mac · download both · 30-day free trial)
       </p>
     </div>
   );

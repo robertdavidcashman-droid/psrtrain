@@ -17,7 +17,7 @@ export function CustodyNotePartnerLine({ variant = 'light' }: Props) {
       >
         Custody Note
       </a>{' '}
-      for structured PACE attendance notes — 30-day free trial.
+      for Windows and Mac — structured PACE attendance notes. Download both via the free trial page.
     </p>
   );
 }
