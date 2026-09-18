@@ -156,7 +156,7 @@ const GUIDES_CORE: Guide[] = [
       {
         heading: 'Step 6: Maintain competence after accreditation',
         paragraphs: [
-          'Accreditation is not the end of learning. Reaccreditation, continuing competence, and firm audits apply. Many reps also use structured attendance notes (for example Custody Note) and directories such as PoliceStationRepUK to build their practice.',
+          'Accreditation is not the end of learning. Reaccreditation, continuing competence, and firm audits apply. Many reps also use structured attendance notes (for example Custody Note for Windows and Mac) and directories such as PoliceStationRepUK to build their practice.',
         ],
       },
     ],

@@ -7,7 +7,7 @@ export function LegalPartnerStrip() {
   const links = [
     { href: PSRUK_REGISTER_HREF, label: 'PoliceStationRepUK — register free' },
     { href: PSRUK_DIRECTORY_HREF, label: 'Rep directory' },
-    { href: CUSTODYNOTE_TRIAL_HREF, label: 'Custody Note — free trial' },
+    { href: CUSTODYNOTE_TRIAL_HREF, label: 'Custody Note — Windows & Mac · free trial' },
     { href: PSA_HOME_HREF, label: 'Police Station Agent' },
   ];
 

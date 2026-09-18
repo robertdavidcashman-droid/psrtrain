@@ -26,7 +26,7 @@ const resourceLinks = [
 
 const partnerLinks = [
   { href: PSRUK_DIRECTORY_HREF, label: 'PoliceStationRepUK.com' },
-  { href: CUSTODYNOTE_TRIAL_HREF, label: 'CustodyNote.com' },
+  { href: CUSTODYNOTE_TRIAL_HREF, label: 'CustodyNote.com — Windows & Mac' },
   { href: PSA_HOME_HREF, label: 'PoliceStationAgent.com' },
 ];
 

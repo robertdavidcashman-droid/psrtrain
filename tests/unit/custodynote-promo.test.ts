@@ -3,6 +3,8 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import {
   CUSTODYNOTE_DOWNLOAD_HREF,
+  CUSTODYNOTE_PROMO_BODY,
+  CUSTODYNOTE_PROMO_HEADLINE,
   CUSTODYNOTE_SITE,
   CUSTODYNOTE_TRIAL_HREF,
   cnHref,
@@ -31,6 +33,27 @@ describe('custodynote-promo', () => {
     const url = new URL(cnHref('network', '/download'));
     expect(url.pathname).toBe('/download');
     expect(url.searchParams.get('utm_campaign')).toBe('network');
+  });
+
+  test('shared promo copy states Windows and Mac plus download page', () => {
+    expect(CUSTODYNOTE_PROMO_HEADLINE).toMatch(/windows/i);
+    expect(CUSTODYNOTE_PROMO_HEADLINE).toMatch(/\bmac\b/i);
+    expect(CUSTODYNOTE_PROMO_BODY).toMatch(/windows/i);
+    expect(CUSTODYNOTE_PROMO_BODY).toMatch(/\bmac\b/i);
+    expect(CUSTODYNOTE_PROMO_BODY).toMatch(/download/i);
+    expect(CUSTODYNOTE_PROMO_BODY).toMatch(/free trial/i);
+  });
+
+  test('partner line and hero mention Windows and Mac', () => {
+    const partner = readFileSync(join(root, 'components/CustodyNotePartnerLine.tsx'), 'utf-8');
+    const hero = readFileSync(join(root, 'components/PartnerHeroMention.tsx'), 'utf-8');
+    const legal = readFileSync(join(root, 'components/LegalPartnerStrip.tsx'), 'utf-8');
+    for (const src of [partner, hero, legal]) {
+      expect(src).toMatch(/windows/i);
+      expect(src).toMatch(/\bmac\b/i);
+    }
+    expect(partner).toMatch(/download both/i);
+    expect(hero).toMatch(/download both/i);
   });
 
   test('repo CTAs do not claim Microsoft Store availability', () => {
