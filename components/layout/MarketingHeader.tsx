@@ -122,7 +122,7 @@ export default function MarketingHeader() {
           >
             <Shield className="h-5 w-5 text-[#D4AF37]" aria-hidden />
           </div>
-          <span className="text-base font-bold tracking-tight" style={{ color: BRAND }}>
+          <span className="font-display text-lg font-bold tracking-tight" style={{ color: BRAND }}>
             PSR Train
           </span>
         </Link>
@@ -180,7 +180,7 @@ export default function MarketingHeader() {
           <Link
             href="/signup"
             data-testid="header-cta-start-training"
-            className="btn-gold inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm font-bold text-[#0B3C5D]"
+            className="btn-primary inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm font-bold text-white"
           >
             Start training
             <ChevronRight className="h-3.5 w-3.5" />
@@ -264,7 +264,7 @@ export default function MarketingHeader() {
               <Link
                 href="/signup"
                 data-testid="header-cta-start-training-mobile"
-                className="btn-gold rounded-xl px-4 py-3 text-center text-sm font-bold text-[#0B3C5D]"
+                className="btn-primary rounded-xl px-4 py-3 text-center text-sm font-bold text-white"
                 onClick={() => setMobileOpen(false)}
               >
                 Start training

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import MarketingHeader from '@/components/layout/MarketingHeader';
 import Footer from '@/components/layout/Footer';
 import { SITE } from '@/lib/site';
@@ -139,12 +138,12 @@ export default function TrainingPage() {
           <PartnerToolsLines variant="light" />
         </MarketingPageHero>
 
-        <section className="py-12 sm:py-16 bg-dot-grid">
+        <section className="py-16 sm:py-20 bg-dot-grid">
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-8 text-center">
+            <h2 className="font-display display-section text-[#0B3C5D] tracking-tight mb-10 text-center">
               What you study
             </h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {modules.map(({ title, description, icon: Icon }) => (
                 <article
                   key={title}
@@ -161,18 +160,18 @@ export default function TrainingPage() {
           </div>
         </section>
 
-        <section className="py-12 sm:py-16 bg-muted/40 border-y border-border">
+        <section className="py-16 sm:py-20 bg-muted/40 border-y border-border">
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-8 text-center">
+            <h2 className="font-display display-section text-[#0B3C5D] tracking-tight mb-10 text-center">
               How the course works
             </h2>
-            <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {howItWorks.map(({ step, title, body }) => (
-                <li key={step} className="rounded-2xl border border-border bg-card p-6 shadow-card">
-                  <span className="inline-flex w-8 h-8 items-center justify-center rounded-full bg-primary text-white font-bold">
+                <li key={step} className="feature-card p-6">
+                  <span className="inline-flex w-8 h-8 items-center justify-center rounded-full bg-primary text-white text-sm font-bold">
                     {step}
                   </span>
-                  <h3 className="mt-4 text-lg font-semibold text-foreground">{title}</h3>
+                  <h3 className="mt-4 text-lg font-semibold text-foreground tracking-tight">{title}</h3>
                   <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{body}</p>
                 </li>
               ))}
@@ -180,22 +179,19 @@ export default function TrainingPage() {
           </div>
         </section>
 
-        <section className="py-12 sm:py-16">
+        <section className="py-16 sm:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
+            <h2 className="font-display display-section text-[#0B3C5D] tracking-tight">
               Start training today
             </h2>
-            <p className="mt-3 text-muted-foreground">
+            <p className="mt-3 text-slate-600 leading-relaxed">
               Create a free account and try the practice bank. Upgrade when you&apos;re ready — cancel any time.
             </p>
-            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
               <MarketingCtaButton href="/signup">Start training</MarketingCtaButton>
-              <Link
-                href="/pricing"
-                className="inline-flex h-12 items-center justify-center rounded-xl border-2 border-[#0B3C5D]/20 bg-white px-8 text-[#0B3C5D] font-semibold hover:bg-primary-50 transition"
-              >
+              <MarketingCtaButton href="/pricing" variant="outline">
                 See pricing
-              </Link>
+              </MarketingCtaButton>
             </div>
           </div>
         </section>

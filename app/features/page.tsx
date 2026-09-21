@@ -1,9 +1,9 @@
-import type { Metadata } from 'next';
-import Link from 'next/link';
 import MarketingHeader from '@/components/layout/MarketingHeader';
 import Footer from '@/components/layout/Footer';
 import { BookOpen, FolderOpen, BarChart3, Award, FileCheck } from 'lucide-react';
 import { PartnerToolsLines } from '@/components/PartnerToolsLines';
+import { MarketingPageHero, MarketingCtaBand, MarketingCtaButton } from '@/components/marketing/MarketingPageHero';
+import { FreeAccessBanner } from '@/components/FreeAccessBanner';
 
 import { pageMetadata } from '@/lib/page-metadata';
 
@@ -26,42 +26,46 @@ export default function FeaturesPage() {
     <div className="min-h-screen flex flex-col bg-background">
       <MarketingHeader />
       <main id="main-content" className="flex-1">
-        <section className="py-16 sm:py-24">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <h1 className="text-3xl sm:text-4xl font-bold text-foreground">Structured tools to support your PSRAS preparation</h1>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Practice questions, modules, scenarios, and progress tracking in one platform.
-            </p>
-            <PartnerToolsLines />
+        <MarketingPageHero
+          label="Features"
+          title="Structured tools for PSRAS preparation"
+          description="Practice questions, modules, scenarios, and progress tracking in one focused platform — not a CPD marketplace."
+          variant="light"
+        >
+          <div className="flex flex-col items-center gap-4">
+            <FreeAccessBanner />
+            <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+              <MarketingCtaButton href="/signup">Start training free</MarketingCtaButton>
+              <MarketingCtaButton href="/training" variant="outline">
+                View modules
+              </MarketingCtaButton>
+            </div>
+            <PartnerToolsLines className="mt-2 max-w-xl mx-auto text-left sm:text-center" />
           </div>
-        </section>
+        </MarketingPageHero>
 
-        <section className="py-12 border-t border-border">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <div className="grid gap-6 sm:grid-cols-2">
+        <section className="py-16 sm:py-20 bg-gradient-to-b from-slate-50 to-white">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6">
+            <div className="grid gap-5 sm:grid-cols-2">
               {features.map(({ icon: Icon, title, desc }) => (
-                <div key={title} className="rounded-xl border border-border bg-card p-6 shadow-card">
-                  <div className="w-12 h-12 rounded-lg bg-primary-50 flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-primary" />
+                <article key={title} className="feature-card p-6 sm:p-7 h-full">
+                  <div className="icon-tile-gradient mb-5 h-12 w-12">
+                    <Icon className="w-6 h-6" aria-hidden />
                   </div>
-                  <h2 className="font-semibold text-foreground text-lg">{title}</h2>
-                  <p className="mt-2 text-muted-foreground">{desc}</p>
-                </div>
+                  <h2 className="font-semibold text-slate-900 text-lg tracking-tight">{title}</h2>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{desc}</p>
+                </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="py-16 border-t border-border">
-          <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
-            <Link
-              href="/signup"
-              className="inline-flex items-center justify-center h-12 px-8 rounded-lg bg-primary text-white font-semibold hover:bg-primary-700"
-            >
-              Start training
-            </Link>
-          </div>
-        </section>
+        <MarketingCtaBand
+          title="Start preparing today"
+          description="Create a free account while we're testing — no card required. Paid plans come later."
+          href="/signup"
+          buttonLabel="Start training free"
+        />
       </main>
       <Footer />
     </div>

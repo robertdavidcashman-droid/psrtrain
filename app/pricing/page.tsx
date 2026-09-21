@@ -65,13 +65,13 @@ export default async function PricingPage({
         {/* Plans */}
         <section className="py-16 lg:py-20 px-4 sm:px-6 bg-gradient-to-b from-slate-50 to-white">
           {freeWhileTesting && (
-            <p className="max-w-4xl mx-auto mb-8 text-center text-sm text-slate-700 leading-relaxed">
+            <p className="max-w-2xl mx-auto mb-10 text-center text-sm text-slate-600 leading-relaxed">
               Access is completely free while we are testing. Create an account to start training —
               no card required. The prices below are planned for after testing and are not live checkout
               options yet.
             </p>
           )}
-          <div className="max-w-4xl mx-auto grid gap-6 sm:grid-cols-2">
+          <div className="max-w-4xl mx-auto grid gap-8 sm:grid-cols-2">
 
             {/* Monthly */}
             <div className="rounded-2xl border-2 border-border bg-white p-8 shadow-card card-lift hover:border-primary/20 relative">

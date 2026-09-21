@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Plus_Jakarta_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import RescueLegacyHash from "@/components/auth/RescueLegacyHash";
@@ -13,17 +13,18 @@ import { CookieBanner } from "@/components/CookieBanner";
 import { AnalyticsEventBinder } from "@/components/AnalyticsEventBinder";
 import { OptionalAnalytics } from "@/components/OptionalAnalytics";
 
-const inter = Inter({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-jakarta",
   display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const playfair = Playfair_Display({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-fraunces",
   display: "swap",
-  weight: ["700", "800", "900"],
+  weight: ["600", "700", "800"],
 });
 
 export const viewport: Viewport = {
@@ -79,8 +80,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-GB" suppressHydrationWarning className={`scroll-smooth ${inter.variable} ${playfair.variable}`}>
-      <body className={inter.className}>
+    <html lang="en-GB" suppressHydrationWarning className={`scroll-smooth ${jakarta.variable} ${fraunces.variable}`}>
+      <body className={jakarta.className}>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-[#0B3C5D] focus:px-4 focus:py-2 focus:text-white focus:shadow-lg"

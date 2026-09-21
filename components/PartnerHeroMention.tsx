@@ -11,7 +11,7 @@ type Props = {
   variant?: 'light' | 'dark';
 };
 
-/** Homepage hero callout — Store (Windows) primary + Mac notarised download secondary button. */
+/** Homepage partner callout — Store (Windows) primary + Mac notarised download secondary. Quieter than product CTAs. */
 export function PartnerHeroMention({ variant = 'light' }: Props) {
   const isDark = variant === 'dark';
   const linkClass = `font-semibold underline decoration-[#D4AF37]/60 underline-offset-2 ${
@@ -20,15 +20,13 @@ export function PartnerHeroMention({ variant = 'light' }: Props) {
 
   return (
     <div
-      className={`mx-auto mt-8 max-w-2xl rounded-xl px-4 py-4 text-sm shadow-sm ${
-        isDark
-          ? 'border border-white/10 bg-white/5 text-slate-300 backdrop-blur-sm'
-          : 'border border-[#0B3C5D]/10 bg-white/80 text-slate-600'
+      className={`mx-auto max-w-2xl px-1 py-1 text-sm ${
+        isDark ? 'text-slate-300' : 'text-slate-600'
       }`}
       data-testid="partner-hero-mention"
     >
-      <p className={`font-semibold ${isDark ? 'text-[#D4AF37]' : 'text-[#0B3C5D]'}`}>
-        More tools from our network
+      <p className={`text-xs font-semibold uppercase tracking-[0.14em] ${isDark ? 'text-[#D4AF37]' : 'text-[#0B3C5D]/70'}`}>
+        Sister tools
       </p>
       <p className="mt-1.5 leading-relaxed">
         List your practice on{' '}

@@ -13,24 +13,24 @@ export function FreeAccessStrip() {
   const until = freeAccessEndsLabel();
   return (
     <aside
-      className="relative overflow-hidden border-b border-emerald-900/30 bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-600 px-4 py-2.5 text-center text-sm text-white"
+      className="relative overflow-hidden border-b border-emerald-900/30 bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-600 px-3 py-2 text-center text-[0.8125rem] text-white sm:px-4 sm:text-sm"
       aria-label="Free access promotion"
     >
       <div
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(105deg,transparent_40%,rgba(255,255,255,0.08)_50%,transparent_60%)]"
         aria-hidden
       />
-      <p className="relative font-semibold tracking-tight">
+      <p className="relative font-semibold tracking-tight leading-snug">
         <Sparkles className="mr-1.5 inline h-3.5 w-3.5 text-emerald-200" aria-hidden />
-        Free access whilst we&rsquo;re testing
-        {until ? ` — everything is free until ${until}` : ''}.{' '}
+        Free whilst testing
+        {until ? ` until ${until}` : ''}.{' '}
         <Link
           href="/signup"
           className="font-bold underline decoration-2 underline-offset-2 hover:text-emerald-100"
         >
-          Create a free account
-        </Link>{' '}
-        <span className="text-emerald-100">— no card required.</span>
+          Create free account
+        </Link>
+        <span className="text-emerald-100"> — no card.</span>
       </p>
     </aside>
   );

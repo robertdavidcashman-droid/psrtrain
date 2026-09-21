@@ -116,20 +116,24 @@ export default async function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <MarketingHeader />
       <main id="main-content">
-        {/* Hero — asymmetric, product-led */}
+        {/* Hero — product-led, clear CTA hierarchy */}
         <section className="relative overflow-hidden hero-premium">
-          <div className="absolute inset-0 bg-dot-grid opacity-[0.25]" aria-hidden />
+          <div className="absolute inset-0 bg-dot-grid opacity-[0.22]" aria-hidden />
 
-          <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-5 sm:px-6 sm:pb-20 sm:pt-7 lg:px-8 lg:pb-24 lg:pt-7">
-            <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
-              {/* Left — copy */}
+          <div className="relative mx-auto max-w-7xl px-4 pb-14 pt-6 sm:px-6 sm:pb-16 sm:pt-8 lg:px-8 lg:pb-20 lg:pt-10">
+            <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+              {/* Left — brand + copy */}
               <div className="text-center lg:text-left">
                 <div className="flex justify-center lg:justify-start">
                   <FreeAccessBanner />
                 </div>
-                <p className="section-label-primary justify-center lg:justify-start mb-3 animate-fade-in-up">
+
+                <p className="font-display text-2xl font-bold tracking-tight text-[#0B3C5D] sm:text-[1.65rem] animate-fade-in-up">
+                  PSR Train
+                </p>
+                <p className="section-label-primary justify-center lg:justify-start mt-2 mb-4 animate-fade-in-up delay-100">
                   <Sparkles className="h-3.5 w-3.5" aria-hidden />
-                  PSRAS preparation platform
+                  PSRAS exam preparation · England &amp; Wales
                 </p>
 
                 <h1 className="display-hero animate-fade-in-up delay-100 text-balance font-display text-[#0B3C5D]">
@@ -137,12 +141,12 @@ export default async function HomePage() {
                   <span className="text-gold-shimmer">already&nbsp;ready</span>
                 </h1>
 
-                <p className="animate-fade-in-up delay-200 mx-auto lg:mx-0 mt-4 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
+                <p className="animate-fade-in-up delay-200 mx-auto lg:mx-0 mt-5 max-w-lg text-[1.05rem] leading-relaxed text-slate-600 sm:text-lg">
                   Timed mock exams, CIT-style scenarios, and PACE 1984 / Code C–aligned questions —
-                  the complete training platform for police station representative candidates.
+                  built for police station representative candidates.
                 </p>
 
-                <div className="animate-fade-in-up delay-300 mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start sm:gap-4">
+                <div className="animate-fade-in-up delay-300 mt-7 flex w-full max-w-md flex-col items-stretch gap-3 mx-auto sm:max-w-none sm:flex-row sm:items-center lg:mx-0 lg:justify-start">
                   <MarketingCtaButton href="/signup" testId="hero-cta-start-training">
                     Start training free
                     <ArrowRight className="h-4 w-4" aria-hidden />
@@ -152,22 +156,40 @@ export default async function HomePage() {
                   </MarketingCtaButton>
                 </div>
                 <p className="animate-fade-in-up delay-400 mt-3 text-sm text-slate-500">
-                  Free whilst we&apos;re testing — paid subscription later · No card required
+                  Free whilst we&apos;re testing · No card required · Paid plans later
                 </p>
+
+                {/* Compact trust row — above the fold */}
+                <ul
+                  className="animate-fade-in-up delay-400 mt-7 flex flex-wrap items-center justify-center gap-2 lg:justify-start"
+                  aria-label="Trust indicators"
+                >
+                  {[
+                    'England & Wales',
+                    'PACE 1984 · Code C',
+                    'Syllabus-aligned',
+                    'Free while testing',
+                  ].map((text) => (
+                    <li key={text} className="trust-chip">
+                      <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-600" aria-hidden />
+                      {text}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Right — product preview */}
-              <div className="animate-fade-in-up delay-200 lg:pl-4">
+              <div className="animate-fade-in-up delay-200 lg:pl-2">
                 <HeroProductPreview />
               </div>
             </div>
 
             {/* Stats strip */}
-            <div className="reveal-stagger mt-14 grid grid-cols-2 gap-3 border-t border-slate-200/70 pt-10 sm:grid-cols-4 sm:gap-4">
+            <div className="reveal-stagger mt-12 grid grid-cols-2 gap-4 border-t border-slate-200/70 pt-9 sm:grid-cols-4 sm:gap-6">
               {stats.map(({ icon: Icon, value, label }) => (
                 <div key={label} className="text-center lg:text-left">
                   <Icon className="mx-auto lg:mx-0 mb-2 h-5 w-5 text-[#9a7a24]" aria-hidden />
-                  <p className="font-display text-2xl font-bold text-[#0B3C5D] sm:text-3xl">{value}</p>
+                  <p className="font-display text-2xl font-bold tracking-tight text-[#0B3C5D] sm:text-3xl">{value}</p>
                   <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                     {label}
                   </p>
@@ -175,22 +197,22 @@ export default async function HomePage() {
               ))}
             </div>
 
-            <div className="mt-6 flex justify-center lg:justify-start">
+            <div className="mt-8 border-t border-slate-200/60 pt-6 flex justify-center lg:justify-start">
               <PartnerHeroMention />
             </div>
           </div>
         </section>
 
-        {/* Trust bar */}
-        <section className="border-y border-slate-200 bg-white py-6" aria-label="Trust indicators">
+        {/* Secondary trust band */}
+        <section className="border-y border-slate-200 bg-white py-5" aria-label="Preparation focus">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <ul className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-12">
+            <ul className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-10 sm:gap-y-2">
               {[
                 'Aligned with PACE 1984, Code C, and PSRAS',
                 'Timed MCQs and CIT-style scenarios',
-                'Built for candidates in England & Wales',
+                'Independent prep — not an accreditation body',
               ].map((text) => (
-                <li key={text} className="flex items-center gap-3 text-sm font-semibold text-[#0B3C5D]">
+                <li key={text} className="flex items-center gap-2.5 text-sm font-semibold text-[#0B3C5D]">
                   <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden />
                   {text}
                 </li>
@@ -209,7 +231,7 @@ export default async function HomePage() {
             <div className="mx-auto mb-10 max-w-2xl text-center">
               <p className="section-label-primary justify-center mb-3">Try it now</p>
               <div className="section-bar-primary mx-auto mb-5" />
-              <h2 id="try-heading" className="font-display text-3xl font-bold text-[#0B3C5D] sm:text-4xl">
+              <h2 id="try-heading" className="font-display display-section text-[#0B3C5D]">
                 See how it works — answer one
               </h2>
               <p className="mt-4 text-lg text-slate-700">
@@ -231,7 +253,7 @@ export default async function HomePage() {
             <div className="mb-12 max-w-2xl">
               <p className="section-label mb-3">Platform</p>
               <div className="gold-bar mb-5" />
-              <h2 id="features-heading" className="font-display text-3xl font-bold text-white sm:text-4xl">
+              <h2 id="features-heading" className="font-display display-section text-white">
                 Everything you need to prepare well
               </h2>
               <p className="mt-4 text-lg text-slate-300">
@@ -265,7 +287,7 @@ export default async function HomePage() {
             <div className="mb-14 text-center">
               <p className="section-label-primary justify-center mb-3">Process</p>
               <div className="section-bar-primary mx-auto mb-5" />
-              <h2 id="how-heading" className="font-display text-3xl font-bold text-[#0B3C5D] sm:text-4xl">
+              <h2 id="how-heading" className="font-display display-section text-[#0B3C5D]">
                 How it works
               </h2>
             </div>
@@ -303,7 +325,7 @@ export default async function HomePage() {
         <section className="bg-gradient-to-b from-slate-50 to-white py-20 sm:py-24" aria-labelledby="why-heading">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
             <div className="mb-10 text-center">
-              <h2 id="why-heading" className="font-display text-3xl font-bold text-[#0B3C5D] sm:text-4xl">
+              <h2 id="why-heading" className="font-display display-section text-[#0B3C5D]">
                 Why candidates choose PSR Train
               </h2>
             </div>
@@ -340,7 +362,7 @@ export default async function HomePage() {
             <div className="mx-auto mb-12 max-w-2xl text-center">
               <p className="section-label-primary justify-center mb-3">Resources</p>
               <div className="section-bar-primary mx-auto mb-5" />
-              <h2 id="content-heading" className="font-display text-3xl font-bold text-[#0B3C5D] sm:text-4xl">
+              <h2 id="content-heading" className="font-display display-section text-[#0B3C5D]">
                 Latest guides &amp; articles
               </h2>
               <p className="mt-4 text-lg text-slate-700">
@@ -423,7 +445,7 @@ export default async function HomePage() {
             <div className="mb-12 text-center">
               <p className="section-label-primary justify-center mb-3">Questions</p>
               <div className="section-bar-primary mx-auto mb-5" />
-              <h2 id="faq-heading" className="font-display text-3xl font-bold text-[#0B3C5D] sm:text-4xl">
+              <h2 id="faq-heading" className="font-display display-section text-[#0B3C5D]">
                 Common questions
               </h2>
             </div>
