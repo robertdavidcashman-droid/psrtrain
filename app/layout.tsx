@@ -5,6 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import RescueLegacyHash from "@/components/auth/RescueLegacyHash";
 import { FreeAccessStrip } from "@/components/FreeAccessStrip";
+import { CustodyNoteStorePromo } from "@/components/CustodyNoteStorePromo";
 import { SupportWidget } from "@/components/SupportWidget";
 import { SiteJsonLd } from "@/components/SiteJsonLd";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
@@ -89,6 +90,7 @@ export default function RootLayout({
         <RescueLegacyHash />
         <SiteJsonLd />
         <FreeAccessStrip />
+        <CustodyNoteStorePromo />
         <ThemeProvider>{children}</ThemeProvider>
         <SupportWidget />
         <CookieBanner />

@@ -9,6 +9,7 @@ import {
   CUSTODYNOTE_SITE,
   CUSTODYNOTE_STORE_CTA_LABEL,
   CUSTODYNOTE_STORE_HREF,
+  CUSTODYNOTE_STORE_PROMO_CTA_LABEL,
   CUSTODYNOTE_TRIAL_HREF,
   cnHref,
 } from '../../lib/custodynote-promo.ts';
@@ -38,6 +39,7 @@ describe('custodynote-promo', () => {
   test('Microsoft Store is the primary Windows CTA (UK)', () => {
     expect(CUSTODYNOTE_STORE_HREF).toBe('https://apps.microsoft.com/detail/9NFSRVT3T45V');
     expect(CUSTODYNOTE_STORE_CTA_LABEL).toBe('Get it on Microsoft Store (UK)');
+    expect(CUSTODYNOTE_STORE_PROMO_CTA_LABEL).toBe('Get Custody Note on Microsoft Store (UK)');
     expect(CUSTODYNOTE_DOWNLOAD_CTA_LABEL).toMatch(/download directly/i);
     expect(CUSTODYNOTE_DOWNLOAD_CTA_LABEL).toMatch(/mac/i);
     expect(CUSTODYNOTE_DOWNLOAD_CTA_LABEL).toMatch(/backup/i);
@@ -72,13 +74,15 @@ describe('custodynote-promo', () => {
     const hero = readFileSync(join(root, 'components/PartnerHeroMention.tsx'), 'utf-8');
     const legal = readFileSync(join(root, 'components/LegalPartnerStrip.tsx'), 'utf-8');
     const promo = readFileSync(join(root, 'components/SisterProductsPromo.tsx'), 'utf-8');
+    const storePromo = readFileSync(join(root, 'components/CustodyNoteStorePromo.tsx'), 'utf-8');
+    const layout = readFileSync(join(root, 'app/layout.tsx'), 'utf-8');
     const footer = readFileSync(join(root, 'components/layout/Footer.tsx'), 'utf-8');
     const sidebar = readFileSync(join(root, 'components/layout/SidebarPartnerLinks.tsx'), 'utf-8');
 
-    for (const src of [partner, hero, legal, promo, footer, sidebar]) {
+    for (const src of [partner, hero, legal, promo, storePromo, footer, sidebar]) {
       expect(src).toMatch(/CUSTODYNOTE_STORE_HREF/);
       expect(src).toMatch(/CUSTODYNOTE_TRIAL_HREF|CUSTODYNOTE_DOWNLOAD/);
-      expect(src).toMatch(/CUSTODYNOTE_STORE_CTA_LABEL/);
+      expect(src).toMatch(/CUSTODYNOTE_STORE_CTA_LABEL|CUSTODYNOTE_STORE_PROMO_CTA_LABEL/);
       expect(src).toMatch(/CUSTODYNOTE_DOWNLOAD_CTA_LABEL/);
       expect(src).not.toMatch(UNAVAILABLE_STORE_CLAIMS);
       expect(src).not.toMatch(/windows also available/i);
@@ -90,6 +94,12 @@ describe('custodynote-promo', () => {
 
     expect(promo).toMatch(/bg-\[#0B3C5D\][\s\S]*CUSTODYNOTE_STORE_CTA_LABEL/);
     expect(promo).toMatch(/CUSTODYNOTE_DOWNLOAD_CTA_LABEL/);
+    expect(storePromo).toMatch(/CUSTODYNOTE_STORE_PROMO_CTA_LABEL/);
+    expect(storePromo).toMatch(/bg-\[#D4AF37\][\s\S]*CUSTODYNOTE_STORE_PROMO_CTA_LABEL|CUSTODYNOTE_STORE_PROMO_CTA_LABEL[\s\S]*ExternalLink/);
+    expect(storePromo).toMatch(/Mac is not on the Store/);
+    expect(storePromo).toMatch(/CUSTODYNOTE_DOWNLOAD_CTA_LABEL/);
+    expect(layout).toMatch(/CustodyNoteStorePromo/);
+    expect(layout).toMatch(/FreeAccessStrip[\s\S]*CustodyNoteStorePromo/);
     expect(partner).toMatch(/CUSTODYNOTE_DOWNLOAD_CTA_LABEL/);
     expect(hero).toMatch(/CUSTODYNOTE_DOWNLOAD_CTA_LABEL/);
     expect(CUSTODYNOTE_DOWNLOAD_CTA_LABEL).toMatch(/\bmac\b/i);
@@ -100,8 +110,10 @@ describe('custodynote-promo', () => {
     const footer = readFileSync(join(root, 'components/layout/Footer.tsx'), 'utf-8');
     const hero = readFileSync(join(root, 'components/PartnerHeroMention.tsx'), 'utf-8');
     const partner = readFileSync(join(root, 'components/CustodyNotePartnerLine.tsx'), 'utf-8');
-    const blob = [promoLib, footer, hero, partner].join('\n');
+    const storePromo = readFileSync(join(root, 'components/CustodyNoteStorePromo.tsx'), 'utf-8');
+    const blob = [promoLib, footer, hero, partner, storePromo].join('\n');
     expect(blob).toMatch(/Get it on Microsoft Store \(UK\)/);
+    expect(blob).toMatch(/Get Custody Note on Microsoft Store \(UK\)/);
     expect(blob).toMatch(/or download directly \(Mac \/ backup\)/);
     expect(blob).toMatch(/apps\.microsoft\.com\/detail\/9NFSRVT3T45V/);
     expect(blob).not.toMatch(/windows also available/i);
