@@ -9,17 +9,23 @@ export function cnHref(campaign: string, path = ''): string {
   return partnerHref(base, campaign, 'psrtrain');
 }
 
-/** Preferred CTA: product download page (keeps UTMs; campaign defaults to footer). */
+/** Primary Windows CTA: Microsoft Store (UK). Mac is not on the Store. */
+export const CUSTODYNOTE_STORE_HREF = 'https://apps.microsoft.com/detail/9NFSRVT3T45V';
+
+/** Primary Windows CTA label — main button / first link. */
+export const CUSTODYNOTE_STORE_CTA_LABEL = 'Get it on Microsoft Store (UK)';
+
+/**
+ * Backup / Mac CTA: product download page (keeps UTMs; campaign defaults to footer).
+ * Prefer Store for Windows; use this for Mac and as a direct-download backup.
+ */
 export const CUSTODYNOTE_TRIAL_HREF = cnHref('footer', '/download');
 export const CUSTODYNOTE_DOWNLOAD_HREF = CUSTODYNOTE_TRIAL_HREF;
 export const CUSTODYNOTE_FEATURES_HREF = cnHref('footer', '/features');
 
-/** Windows (UK) Microsoft Store listing — live. Mac remains download-only. */
-export const CUSTODYNOTE_STORE_HREF = 'https://apps.microsoft.com/detail/9NFSRVT3T45V';
-
-/** Short line shown next to the download / free-trial CTA. */
-export const CUSTODYNOTE_STORE_CTA_LABEL = 'Windows also available on Microsoft Store (UK)';
+/** Secondary framing shown next to the Store CTA. */
+export const CUSTODYNOTE_DOWNLOAD_CTA_LABEL = 'or download directly (Mac / backup)';
 
 export const CUSTODYNOTE_PROMO_HEADLINE = 'Custody Note — Windows and Mac';
 export const CUSTODYNOTE_PROMO_BODY =
-  'Structured PACE attendance notes for reps and solicitors on Windows and Mac. Offline at the station, PDF export. Download both from the free trial page — 30-day free trial. Windows also available on Microsoft Store (UK).';
+  'Structured PACE attendance notes for reps and solicitors. Windows: get it on Microsoft Store (UK). Mac / backup: download directly — 30-day free trial. Offline at the station, PDF export.';

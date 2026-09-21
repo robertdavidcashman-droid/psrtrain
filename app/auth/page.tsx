@@ -30,7 +30,7 @@ import {
 import { getErrorMessage } from '@/lib/utils/error-handler';
 import { safeInternalNextPath } from '@/lib/auth/safe-next-path';
 import { PSRUK_REGISTER_HREF } from '@/lib/policestationrepuk-promo';
-import { CUSTODYNOTE_STORE_CTA_LABEL, CUSTODYNOTE_STORE_HREF, CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
+import { CUSTODYNOTE_DOWNLOAD_CTA_LABEL, CUSTODYNOTE_STORE_CTA_LABEL, CUSTODYNOTE_STORE_HREF, CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
 
 type Mode = 'signin' | 'signup' | 'forgot' | 'code';
 
@@ -709,14 +709,14 @@ function AuthFlow() {
           </a>{' '}
           while building their practice.{' '}
           <a
-            href={CUSTODYNOTE_TRIAL_HREF}
+            href={CUSTODYNOTE_STORE_HREF}
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium text-primary hover:underline"
           >
             Custody Note
           </a>{' '}
-          offers structured attendance notes for Windows and Mac — download both via the free trial page.{' '}
+          offers structured attendance notes — Windows:{' '}
           <a
             href={CUSTODYNOTE_STORE_HREF}
             target="_blank"
@@ -724,6 +724,15 @@ function AuthFlow() {
             className="font-medium text-primary hover:underline"
           >
             {CUSTODYNOTE_STORE_CTA_LABEL}
+          </a>
+          ;{' '}
+          <a
+            href={CUSTODYNOTE_TRIAL_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-primary hover:underline"
+          >
+            {CUSTODYNOTE_DOWNLOAD_CTA_LABEL}
           </a>
           .
         </p>
