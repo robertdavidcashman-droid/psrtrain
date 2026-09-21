@@ -1,5 +1,9 @@
 import { PSRUK_REGISTER_HREF } from '@/lib/policestationrepuk-promo';
-import { CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
+import {
+  CUSTODYNOTE_STORE_CTA_LABEL,
+  CUSTODYNOTE_STORE_HREF,
+  CUSTODYNOTE_TRIAL_HREF,
+} from '@/lib/custodynote-promo';
 
 type Props = {
   /** Use on dark hero backgrounds */
@@ -9,6 +13,9 @@ type Props = {
 /** Homepage hero callout for sister products. */
 export function PartnerHeroMention({ variant = 'light' }: Props) {
   const isDark = variant === 'dark';
+  const linkClass = `font-semibold underline decoration-[#D4AF37]/60 underline-offset-2 ${
+    isDark ? 'text-white hover:decoration-white' : 'text-[#0B3C5D] hover:decoration-[#0B3C5D]'
+  }`;
 
   return (
     <div
@@ -27,24 +34,19 @@ export function PartnerHeroMention({ variant = 'light' }: Props) {
           href={PSRUK_REGISTER_HREF}
           target="_blank"
           rel="noopener noreferrer"
-          className={`font-semibold underline decoration-[#D4AF37]/60 underline-offset-2 ${
-            isDark ? 'text-white hover:decoration-white' : 'text-[#0B3C5D] hover:decoration-[#0B3C5D]'
-          }`}
+          className={linkClass}
         >
           PoliceStationRepUK
         </a>{' '}
         · Record attendances with{' '}
-        <a
-          href={CUSTODYNOTE_TRIAL_HREF}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`font-semibold underline decoration-[#D4AF37]/60 underline-offset-2 ${
-            isDark ? 'text-white hover:decoration-white' : 'text-[#0B3C5D] hover:decoration-[#0B3C5D]'
-          }`}
-        >
+        <a href={CUSTODYNOTE_TRIAL_HREF} target="_blank" rel="noopener noreferrer" className={linkClass}>
           Custody Note
         </a>{' '}
-        (Windows and Mac · download both · 30-day free trial)
+        (Windows and Mac · download both · 30-day free trial).{' '}
+        <a href={CUSTODYNOTE_STORE_HREF} target="_blank" rel="noopener noreferrer" className={linkClass}>
+          {CUSTODYNOTE_STORE_CTA_LABEL}
+        </a>
+        .
       </p>
     </div>
   );

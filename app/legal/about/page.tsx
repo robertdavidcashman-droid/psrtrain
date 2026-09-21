@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Shield, BookOpen, Target, Heart } from 'lucide-react';
 import { PSRUK_DIRECTORY_HREF } from '@/lib/policestationrepuk-promo';
-import { CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
+import { CUSTODYNOTE_STORE_CTA_LABEL, CUSTODYNOTE_STORE_HREF, CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
 import { pageMetadata } from '@/lib/page-metadata';
 import { AUTHOR_TRUST_LINE, AUTHOR } from '@/lib/author';
 import { COMPANY, FOOTER_LEGAL_ENTITY_TEXT } from '@/lib/legalCopy';
@@ -104,7 +104,16 @@ export default function AboutPage() {
           >
             Custody Note
           </a>{' '}
-          (download both · 30-day free trial).
+          (download both · 30-day free trial).{' '}
+          <a
+            href={CUSTODYNOTE_STORE_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary font-semibold hover:underline"
+          >
+            {CUSTODYNOTE_STORE_CTA_LABEL}
+          </a>
+          .
         </p>
       </section>
 
