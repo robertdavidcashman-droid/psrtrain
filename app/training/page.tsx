@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import MarketingHeader from '@/components/layout/MarketingHeader';
 import Footer from '@/components/layout/Footer';
 import { SITE } from '@/lib/site';
