@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Shield, BookOpen, Target, Heart } from 'lucide-react';
 import { PSRUK_DIRECTORY_HREF } from '@/lib/policestationrepuk-promo';
-import { CUSTODYNOTE_STORE_CTA_LABEL, CUSTODYNOTE_STORE_HREF, CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
+import { CUSTODYNOTE_DOWNLOAD_CTA_LABEL, CUSTODYNOTE_STORE_CTA_LABEL, CUSTODYNOTE_STORE_HREF, CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
 import { pageMetadata } from '@/lib/page-metadata';
 import { AUTHOR_TRUST_LINE, AUTHOR } from '@/lib/author';
 import { COMPANY, FOOTER_LEGAL_ENTITY_TEXT } from '@/lib/legalCopy';
@@ -94,17 +94,17 @@ export default function AboutPage() {
           >
             PoliceStationRepUK.com
           </a>{' '}
-          — a dedicated hub for police station representatives. For structured custody attendance notes on
-          Windows and Mac, see{' '}
+          — a dedicated hub for police station representatives. For structured custody attendance notes,
+          see{' '}
           <a
-            href={CUSTODYNOTE_TRIAL_HREF}
+            href={CUSTODYNOTE_STORE_HREF}
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary font-semibold hover:underline"
           >
             Custody Note
           </a>{' '}
-          (download both · 30-day free trial).{' '}
+          — Windows:{' '}
           <a
             href={CUSTODYNOTE_STORE_HREF}
             target="_blank"
@@ -112,6 +112,15 @@ export default function AboutPage() {
             className="text-primary font-semibold hover:underline"
           >
             {CUSTODYNOTE_STORE_CTA_LABEL}
+          </a>
+          ;{' '}
+          <a
+            href={CUSTODYNOTE_TRIAL_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary font-semibold hover:underline"
+          >
+            {CUSTODYNOTE_DOWNLOAD_CTA_LABEL}
           </a>
           .
         </p>

@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import {
+  CUSTODYNOTE_DOWNLOAD_CTA_LABEL,
   CUSTODYNOTE_PROMO_BODY,
   CUSTODYNOTE_PROMO_HEADLINE,
   CUSTODYNOTE_STORE_CTA_LABEL,
@@ -31,22 +32,22 @@ export function SisterProductsPromo() {
         <div className="text-center sm:text-left">
           <p className="text-sm font-semibold text-[#0B3C5D]">{CUSTODYNOTE_PROMO_HEADLINE}</p>
           <p className="mt-1 text-xs text-slate-600">{CUSTODYNOTE_PROMO_BODY}</p>
-          <div className="mt-2 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-            <a
-              href={CUSTODYNOTE_TRIAL_HREF}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-[32px] items-center rounded-md bg-[#0B3C5D] px-3 text-xs font-bold text-white no-underline hover:bg-[#0a3352]"
-            >
-              Start free trial
-            </a>
+          <div className="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:justify-start">
             <a
               href={CUSTODYNOTE_STORE_HREF}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-[32px] items-center rounded-md border border-[#0B3C5D]/30 bg-white px-3 text-xs font-semibold text-[#0B3C5D] no-underline hover:border-[#0B3C5D]"
+              className="inline-flex min-h-[32px] items-center rounded-md bg-[#0B3C5D] px-3 text-xs font-bold text-white no-underline hover:bg-[#0a3352]"
             >
               {CUSTODYNOTE_STORE_CTA_LABEL}
+            </a>
+            <a
+              href={CUSTODYNOTE_TRIAL_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-medium text-slate-600 underline underline-offset-2 hover:text-[#0B3C5D]"
+            >
+              {CUSTODYNOTE_DOWNLOAD_CTA_LABEL}
             </a>
           </div>
         </div>
