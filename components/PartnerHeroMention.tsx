@@ -1,5 +1,9 @@
 import { PSRUK_REGISTER_HREF } from '@/lib/policestationrepuk-promo';
-import { CUSTODYNOTE_STORE_HREF, CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
+import {
+  CUSTODYNOTE_STORE_CTA_LABEL,
+  CUSTODYNOTE_STORE_HREF,
+  CUSTODYNOTE_TRIAL_HREF,
+} from '@/lib/custodynote-promo';
 
 type Props = {
   /** Use on dark hero backgrounds */
@@ -38,11 +42,11 @@ export function PartnerHeroMention({ variant = 'light' }: Props) {
         <a href={CUSTODYNOTE_TRIAL_HREF} target="_blank" rel="noopener noreferrer" className={linkClass}>
           Custody Note
         </a>{' '}
-        (Windows:{' '}
+        (Windows and Mac · download both · 30-day free trial).{' '}
         <a href={CUSTODYNOTE_STORE_HREF} target="_blank" rel="noopener noreferrer" className={linkClass}>
-          Microsoft Store (UK)
-        </a>{' '}
-        · Mac: download · both also via free trial)
+          {CUSTODYNOTE_STORE_CTA_LABEL}
+        </a>
+        .
       </p>
     </div>
   );

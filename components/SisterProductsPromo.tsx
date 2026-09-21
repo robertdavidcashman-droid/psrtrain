@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import {
   CUSTODYNOTE_PROMO_BODY,
   CUSTODYNOTE_PROMO_HEADLINE,
+  CUSTODYNOTE_STORE_CTA_LABEL,
   CUSTODYNOTE_STORE_HREF,
   CUSTODYNOTE_TRIAL_HREF,
 } from '@/lib/custodynote-promo';
@@ -45,7 +46,7 @@ export function SisterProductsPromo() {
               rel="noopener noreferrer"
               className="inline-flex min-h-[32px] items-center rounded-md border border-[#0B3C5D]/30 bg-white px-3 text-xs font-semibold text-[#0B3C5D] no-underline hover:border-[#0B3C5D]"
             >
-              Windows Store (UK)
+              {CUSTODYNOTE_STORE_CTA_LABEL}
             </a>
           </div>
         </div>

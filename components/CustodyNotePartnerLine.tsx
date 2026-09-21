@@ -1,4 +1,8 @@
-import { CUSTODYNOTE_STORE_HREF, CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
+import {
+  CUSTODYNOTE_STORE_CTA_LABEL,
+  CUSTODYNOTE_STORE_HREF,
+  CUSTODYNOTE_TRIAL_HREF,
+} from '@/lib/custodynote-promo';
 
 type Props = {
   variant?: 'light' | 'dark';
@@ -18,11 +22,11 @@ export function CustodyNotePartnerLine({ variant = 'light' }: Props) {
       >
         Custody Note
       </a>{' '}
-      — structured PACE attendance notes.{' '}
+      for Windows and Mac — structured PACE attendance notes. Download both via the free trial page.{' '}
       <a href={CUSTODYNOTE_STORE_HREF} target="_blank" rel="noopener noreferrer" className={linkClass}>
-        Windows on Microsoft Store (UK)
+        {CUSTODYNOTE_STORE_CTA_LABEL}
       </a>
-      ; Mac via download; both also on the free trial page.
+      .
     </p>
   );
 }

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Shield } from 'lucide-react';
 import { SITE } from '@/lib/site';
 import { PSRUK_DIRECTORY_HREF } from '@/lib/policestationrepuk-promo';
-import { CUSTODYNOTE_STORE_HREF, CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
+import { CUSTODYNOTE_STORE_CTA_LABEL, CUSTODYNOTE_STORE_HREF, CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
 import { PSA_HOME_HREF } from '@/lib/policestationagent-promo';
 import { SiteVersionStamp } from '@/components/SiteVersionStamp';
 
@@ -26,8 +26,8 @@ const resourceLinks = [
 
 const partnerLinks = [
   { href: PSRUK_DIRECTORY_HREF, label: 'PoliceStationRepUK.com' },
-  { href: CUSTODYNOTE_TRIAL_HREF, label: 'CustodyNote.com — free trial (Win & Mac)' },
-  { href: CUSTODYNOTE_STORE_HREF, label: 'Custody Note — Windows on Microsoft Store (UK)' },
+  { href: CUSTODYNOTE_TRIAL_HREF, label: 'CustodyNote.com — Windows & Mac' },
+  { href: CUSTODYNOTE_STORE_HREF, label: CUSTODYNOTE_STORE_CTA_LABEL },
   { href: PSA_HOME_HREF, label: 'PoliceStationAgent.com' },
 ];
 
