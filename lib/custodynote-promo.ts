@@ -16,6 +16,12 @@ export const CUSTODYNOTE_STORE_HREF = 'https://apps.microsoft.com/detail/9NFSRVT
 export const CUSTODYNOTE_STORE_CTA_LABEL = 'Get it on Microsoft Store (UK)';
 
 /**
+ * Stronger label for the high-visibility marketing Store strip / button.
+ * Inline partner lines keep the shorter CUSTODYNOTE_STORE_CTA_LABEL.
+ */
+export const CUSTODYNOTE_STORE_PROMO_CTA_LABEL = 'Get Custody Note on Microsoft Store (UK)';
+
+/**
  * Backup / Mac CTA: product download page (keeps UTMs; campaign defaults to footer).
  * Prefer Store for Windows; use this for Mac and as a direct-download backup.
  */
