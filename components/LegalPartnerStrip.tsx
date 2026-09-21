@@ -1,5 +1,5 @@
 import { PSRUK_DIRECTORY_HREF, PSRUK_REGISTER_HREF } from '@/lib/policestationrepuk-promo';
-import { CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
+import { CUSTODYNOTE_STORE_HREF, CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
 import { PSA_HOME_HREF } from '@/lib/policestationagent-promo';
 
 /** Compact partner links for legal/compliance pages (full banners are hidden there). */
@@ -7,7 +7,8 @@ export function LegalPartnerStrip() {
   const links = [
     { href: PSRUK_REGISTER_HREF, label: 'PoliceStationRepUK — register free' },
     { href: PSRUK_DIRECTORY_HREF, label: 'Rep directory' },
-    { href: CUSTODYNOTE_TRIAL_HREF, label: 'Custody Note — Windows & Mac · free trial' },
+    { href: CUSTODYNOTE_TRIAL_HREF, label: 'Custody Note — free trial (Win & Mac)' },
+    { href: CUSTODYNOTE_STORE_HREF, label: 'Custody Note — Windows on Microsoft Store (UK)' },
     { href: PSA_HOME_HREF, label: 'Police Station Agent' },
   ];
 
