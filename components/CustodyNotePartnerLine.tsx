@@ -9,30 +9,50 @@ type Props = {
   variant?: 'light' | 'dark';
 };
 
+/** Partner-line CN promo with a loud Store button (Mac / backup secondary). */
 export function CustodyNotePartnerLine({ variant = 'light' }: Props) {
   const isDark = variant === 'dark';
-  const linkClass = `font-semibold underline underline-offset-2 ${isDark ? 'text-[#D4AF37]' : 'text-[#0B3C5D]'}`;
-  const secondaryLinkClass = `underline underline-offset-2 ${isDark ? 'text-slate-200' : 'text-slate-600'}`;
+  const secondaryLinkClass = `text-xs underline underline-offset-2 ${
+    isDark ? 'text-slate-200 hover:text-white' : 'text-slate-600 hover:text-[#0B3C5D]'
+  }`;
+
   return (
-    <p className={`mt-2 text-sm ${isDark ? 'text-slate-100' : 'text-slate-700'}`}>
-      <strong className={isDark ? 'text-white' : 'text-[#0B3C5D]'}>Also try:</strong>{' '}
-      <a href={CUSTODYNOTE_STORE_HREF} target="_blank" rel="noopener noreferrer" className={linkClass}>
-        Custody Note
-      </a>{' '}
-      — structured PACE attendance notes. Windows:{' '}
-      <a href={CUSTODYNOTE_STORE_HREF} target="_blank" rel="noopener noreferrer" className={linkClass}>
-        {CUSTODYNOTE_STORE_CTA_LABEL}
-      </a>
-      .{' '}
-      <a
-        href={CUSTODYNOTE_TRIAL_HREF}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={secondaryLinkClass}
-      >
-        {CUSTODYNOTE_DOWNLOAD_CTA_LABEL}
-      </a>
-      .
-    </p>
+    <div className={`mt-3 ${isDark ? 'text-slate-100' : 'text-slate-700'}`} data-testid="custodynote-partner-line">
+      <p className="text-sm">
+        <strong className={isDark ? 'text-white' : 'text-[#0B3C5D]'}>Also try:</strong>{' '}
+        <a
+          href={CUSTODYNOTE_STORE_HREF}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`font-semibold underline underline-offset-2 ${isDark ? 'text-[#D4AF37]' : 'text-[#0B3C5D]'}`}
+        >
+          Custody Note
+        </a>{' '}
+        — structured PACE attendance notes for Windows and Mac.
+      </p>
+      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+        <a
+          href={CUSTODYNOTE_STORE_HREF}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`inline-flex min-h-[36px] items-center justify-center rounded-md px-3.5 text-xs font-bold no-underline shadow-sm ${
+            isDark
+              ? 'bg-[#D4AF37] text-[#0B3C5D] hover:bg-[#e0c04a]'
+              : 'bg-[#0B3C5D] text-white hover:bg-[#0a3352]'
+          }`}
+          data-testid="custodynote-partner-store-cta"
+        >
+          {CUSTODYNOTE_STORE_CTA_LABEL}
+        </a>
+        <a
+          href={CUSTODYNOTE_TRIAL_HREF}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={secondaryLinkClass}
+        >
+          {CUSTODYNOTE_DOWNLOAD_CTA_LABEL}
+        </a>
+      </div>
+    </div>
   );
 }

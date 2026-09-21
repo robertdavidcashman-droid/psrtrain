@@ -100,7 +100,10 @@ describe('custodynote-promo', () => {
     expect(storePromo).toMatch(/CUSTODYNOTE_DOWNLOAD_CTA_LABEL/);
     expect(layout).toMatch(/CustodyNoteStorePromo/);
     expect(layout).toMatch(/FreeAccessStrip[\s\S]*CustodyNoteStorePromo/);
+    expect(partner).toMatch(/bg-\[#0B3C5D\][\s\S]*CUSTODYNOTE_STORE_CTA_LABEL|CUSTODYNOTE_STORE_CTA_LABEL/);
+    expect(partner).toMatch(/rounded-md[\s\S]*CUSTODYNOTE_STORE_CTA_LABEL|inline-flex[\s\S]*CUSTODYNOTE_STORE_CTA_LABEL/);
     expect(partner).toMatch(/CUSTODYNOTE_DOWNLOAD_CTA_LABEL/);
+    expect(hero).toMatch(/inline-flex[\s\S]*CUSTODYNOTE_STORE_CTA_LABEL/);
     expect(hero).toMatch(/CUSTODYNOTE_DOWNLOAD_CTA_LABEL/);
     expect(CUSTODYNOTE_DOWNLOAD_CTA_LABEL).toMatch(/\bmac\b/i);
   });
