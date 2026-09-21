@@ -121,7 +121,7 @@ export function TryQuestionWidget({ questionStat }: { questionStat: string }) {
               <Link
                 href="/signup"
                 data-testid="try-question-cta"
-                className="btn-gold inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold text-[#0B3C5D]"
+                className="btn-primary inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold text-white"
               >
                 Start training free
                 <ArrowRight className="h-4 w-4" aria-hidden />

@@ -6,9 +6,9 @@ type Props = {
   variant?: 'light' | 'dark';
 };
 
-/** Inline partner mentions for marketing page heroes. */
+/** Inline partner mentions for marketing page heroes — spaced so they don't crowd product CTAs. */
 export function PartnerToolsLines({
-  className = 'mt-4 max-w-xl mx-auto text-left sm:text-center',
+  className = 'mt-6 max-w-xl mx-auto space-y-3 text-left sm:text-center',
   variant = 'light',
 }: Props) {
   return (
