@@ -8,12 +8,16 @@ import { Sparkles } from 'lucide-react';
  * root layout. Disappears automatically once FREE_ACCESS_ENABLED is unset or
  * FREE_ACCESS_UNTIL has passed — no code change needed to end the promo.
  */
+/**
+ * Compact site-wide free-access bar. Kept short on mobile so it does not
+ * stack with the Custody Note strip and bury the product hero.
+ */
 export function FreeAccessStrip() {
   if (!isFreeAccessPeriodActive()) return null;
   const until = freeAccessEndsLabel();
   return (
     <aside
-      className="relative overflow-hidden border-b border-emerald-900/30 bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-600 px-3 py-2 text-center text-[0.8125rem] text-white sm:px-4 sm:text-sm"
+      className="relative overflow-hidden border-b border-emerald-900/30 bg-gradient-to-r from-emerald-700 via-emerald-600 to-teal-600 px-3 py-1.5 text-center text-[0.75rem] text-white sm:px-4 sm:py-2 sm:text-sm"
       aria-label="Free access promotion"
     >
       <div
@@ -21,7 +25,7 @@ export function FreeAccessStrip() {
         aria-hidden
       />
       <p className="relative font-semibold tracking-tight leading-snug">
-        <Sparkles className="mr-1.5 inline h-3.5 w-3.5 text-emerald-200" aria-hidden />
+        <Sparkles className="mr-1 inline h-3 w-3 text-emerald-200 sm:mr-1.5 sm:h-3.5 sm:w-3.5" aria-hidden />
         Free whilst testing
         {until ? ` until ${until}` : ''}.{' '}
         <Link

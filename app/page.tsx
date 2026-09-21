@@ -146,7 +146,25 @@ export default async function HomePage() {
                   built for police station representative candidates.
                 </p>
 
-                <div className="animate-fade-in-up delay-300 mt-7 flex w-full max-w-md flex-col items-stretch gap-3 mx-auto sm:max-w-none sm:flex-row sm:items-center lg:mx-0 lg:justify-start">
+                {/* Above-fold “what’s included” — concrete assessment structure */}
+                <dl className="animate-fade-in-up delay-200 mx-auto lg:mx-0 mt-5 grid max-w-lg grid-cols-2 gap-2 text-left sm:grid-cols-4 sm:max-w-none lg:max-w-xl">
+                  {[
+                    { term: 'Mocks', detail: 'Timed exams' },
+                    { term: 'CIT', detail: 'Scenarios' },
+                    { term: 'MCQs', detail: 'PACE · Code C' },
+                    { term: 'Modules', detail: 'Syllabus map' },
+                  ].map(({ term, detail }) => (
+                    <div
+                      key={term}
+                      className="rounded-lg border border-[#0B3C5D]/10 bg-white/70 px-2.5 py-2 shadow-sm"
+                    >
+                      <dt className="text-[11px] font-bold uppercase tracking-wider text-[#0B3C5D]">{term}</dt>
+                      <dd className="mt-0.5 text-xs font-medium text-slate-600">{detail}</dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <div className="animate-fade-in-up delay-300 mt-6 flex w-full max-w-md flex-col items-stretch gap-3 mx-auto sm:max-w-none sm:flex-row sm:items-center lg:mx-0 lg:justify-start">
                   <MarketingCtaButton href="/signup" testId="hero-cta-start-training">
                     Start training free
                     <ArrowRight className="h-4 w-4" aria-hidden />
@@ -159,15 +177,15 @@ export default async function HomePage() {
                   Free whilst we&apos;re testing · No card required · Paid plans later
                 </p>
 
-                {/* Compact trust row — above the fold */}
+                {/* Compact trust row — credible only (no fake enrolment counts) */}
                 <ul
-                  className="animate-fade-in-up delay-400 mt-7 flex flex-wrap items-center justify-center gap-2 lg:justify-start"
+                  className="animate-fade-in-up delay-400 mt-5 flex flex-wrap items-center justify-center gap-2 lg:justify-start"
                   aria-label="Trust indicators"
                 >
                   {[
                     'England & Wales',
-                    'PACE 1984 · Code C',
-                    'Syllabus-aligned',
+                    'PACE 1984 · Code C aligned',
+                    'Syllabus-aligned prep',
                     'Free while testing',
                   ].map((text) => (
                     <li key={text} className="trust-chip">
