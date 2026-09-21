@@ -66,7 +66,7 @@ ${trainingSeoLines}
 - [PoliceStationRepUK directory](${PSRUK_DIRECTORY_HREF})
 - [How to become a police station rep](${PSRUK_BECOME_REP_HREF})
 - [Custody Note — Microsoft Store (UK)](${CUSTODYNOTE_STORE_HREF})
-- [Custody Note — Mac / backup download](${CUSTODYNOTE_DOWNLOAD_HREF})
+- [Custody Note — Mac notarised download](${CUSTODYNOTE_DOWNLOAD_HREF})
 - [Police Station Agent](${PSA_SITE})
 
 ## Crawling

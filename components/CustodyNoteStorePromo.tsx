@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { ExternalLink } from 'lucide-react';
 import {
-  CUSTODYNOTE_DOWNLOAD_CTA_LABEL,
+  CUSTODYNOTE_DOWNLOAD_PROMO_CTA_LABEL,
   CUSTODYNOTE_PROMO_HEADLINE,
   CUSTODYNOTE_STORE_HREF,
   CUSTODYNOTE_STORE_PROMO_CTA_LABEL,
@@ -30,8 +30,8 @@ const HIDDEN_PREFIXES = [
 ];
 
 /**
- * Single high-visibility Microsoft Store CTA for Custody Note.
- * Mounted under FreeAccessStrip — one clean strip, not stacked partner bars.
+ * High-visibility Custody Note strip: Microsoft Store (Windows) primary +
+ * notarised Mac download as a proper secondary button alongside it.
  */
 export function CustodyNoteStorePromo() {
   const pathname = usePathname() ?? '';
@@ -42,7 +42,7 @@ export function CustodyNoteStorePromo() {
   return (
     <aside
       className="relative overflow-hidden border-b border-[#082a42] bg-gradient-to-r from-[#0B3C5D] via-[#0d4a72] to-[#0B3C5D] px-4 py-3 text-white"
-      aria-label="Custody Note Microsoft Store"
+      aria-label="Custody Note for Windows and Mac"
       data-testid="custodynote-store-promo"
     >
       <div
@@ -55,10 +55,11 @@ export function CustodyNoteStorePromo() {
             {CUSTODYNOTE_PROMO_HEADLINE}
           </p>
           <p className="mt-0.5 text-xs text-slate-200 sm:text-sm">
-            Structured PACE attendance notes — Windows on Microsoft Store (UK). Mac is not on the Store.
+            Structured PACE attendance notes — Windows on Microsoft Store (UK). Mac: notarised direct
+            download (not on the Store).
           </p>
         </div>
-        <div className="flex shrink-0 flex-col items-center gap-1.5 sm:items-end">
+        <div className="flex shrink-0 flex-col items-stretch gap-2 sm:flex-row sm:items-center">
           <a
             href={CUSTODYNOTE_STORE_HREF}
             target="_blank"
@@ -73,10 +74,11 @@ export function CustodyNoteStorePromo() {
             href={CUSTODYNOTE_TRIAL_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs font-medium text-slate-300 underline decoration-slate-400/60 underline-offset-2 hover:text-white hover:decoration-white"
+            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border-2 border-white/70 bg-white/10 px-5 text-sm font-bold text-white no-underline shadow-sm transition hover:border-white hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             data-testid="custodynote-download-cta"
           >
-            {CUSTODYNOTE_DOWNLOAD_CTA_LABEL}
+            {CUSTODYNOTE_DOWNLOAD_PROMO_CTA_LABEL}
+            <ExternalLink className="h-3.5 w-3.5 shrink-0 opacity-80" aria-hidden />
           </a>
         </div>
       </div>

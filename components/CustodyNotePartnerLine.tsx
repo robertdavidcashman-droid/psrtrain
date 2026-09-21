@@ -9,12 +9,9 @@ type Props = {
   variant?: 'light' | 'dark';
 };
 
-/** Partner-line CN promo with a loud Store button (Mac / backup secondary). */
+/** Partner-line CN promo: Store (Windows) primary + Mac notarised download secondary button. */
 export function CustodyNotePartnerLine({ variant = 'light' }: Props) {
   const isDark = variant === 'dark';
-  const secondaryLinkClass = `text-xs underline underline-offset-2 ${
-    isDark ? 'text-slate-200 hover:text-white' : 'text-slate-600 hover:text-[#0B3C5D]'
-  }`;
 
   return (
     <div className={`mt-3 ${isDark ? 'text-slate-100' : 'text-slate-700'}`} data-testid="custodynote-partner-line">
@@ -30,7 +27,7 @@ export function CustodyNotePartnerLine({ variant = 'light' }: Props) {
         </a>{' '}
         — structured PACE attendance notes for Windows and Mac.
       </p>
-      <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+      <div className="mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-2">
         <a
           href={CUSTODYNOTE_STORE_HREF}
           target="_blank"
@@ -48,7 +45,12 @@ export function CustodyNotePartnerLine({ variant = 'light' }: Props) {
           href={CUSTODYNOTE_TRIAL_HREF}
           target="_blank"
           rel="noopener noreferrer"
-          className={secondaryLinkClass}
+          className={`inline-flex min-h-[36px] items-center justify-center rounded-md border-2 px-3.5 text-xs font-bold no-underline shadow-sm ${
+            isDark
+              ? 'border-white/60 bg-white/10 text-white hover:border-white hover:bg-white/20'
+              : 'border-[#0B3C5D]/40 bg-white text-[#0B3C5D] hover:border-[#0B3C5D] hover:bg-slate-50'
+          }`}
+          data-testid="custodynote-partner-mac-cta"
         >
           {CUSTODYNOTE_DOWNLOAD_CTA_LABEL}
         </a>
