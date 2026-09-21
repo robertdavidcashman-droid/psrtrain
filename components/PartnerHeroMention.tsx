@@ -11,14 +11,11 @@ type Props = {
   variant?: 'light' | 'dark';
 };
 
-/** Homepage hero callout for sister products — Store CTA is a loud button. */
+/** Homepage hero callout — Store (Windows) primary + Mac notarised download secondary button. */
 export function PartnerHeroMention({ variant = 'light' }: Props) {
   const isDark = variant === 'dark';
   const linkClass = `font-semibold underline decoration-[#D4AF37]/60 underline-offset-2 ${
     isDark ? 'text-white hover:decoration-white' : 'text-[#0B3C5D] hover:decoration-[#0B3C5D]'
-  }`;
-  const secondaryLinkClass = `text-xs underline decoration-[#D4AF37]/40 underline-offset-2 ${
-    isDark ? 'text-slate-300 hover:decoration-slate-200' : 'text-slate-600 hover:decoration-slate-500'
   }`;
 
   return (
@@ -49,7 +46,7 @@ export function PartnerHeroMention({ variant = 'light' }: Props) {
         </a>
         .
       </p>
-      <div className="mt-3 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-3">
+      <div className="mt-3 flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-2.5">
         <a
           href={CUSTODYNOTE_STORE_HREF}
           target="_blank"
@@ -63,7 +60,12 @@ export function PartnerHeroMention({ variant = 'light' }: Props) {
           href={CUSTODYNOTE_TRIAL_HREF}
           target="_blank"
           rel="noopener noreferrer"
-          className={secondaryLinkClass}
+          className={`inline-flex min-h-[40px] items-center justify-center rounded-lg border-2 px-4 text-sm font-bold no-underline shadow-sm ${
+            isDark
+              ? 'border-white/50 bg-white/10 text-white hover:border-white hover:bg-white/20'
+              : 'border-[#0B3C5D]/35 bg-white text-[#0B3C5D] hover:border-[#0B3C5D] hover:bg-slate-50'
+          }`}
+          data-testid="partner-hero-mac-cta"
         >
           {CUSTODYNOTE_DOWNLOAD_CTA_LABEL}
         </a>
