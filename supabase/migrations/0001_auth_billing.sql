@@ -1,6 +1,9 @@
 -- PSR Train — auth + billing schema
 -- Apply in Supabase: Dashboard → SQL editor → paste this whole file → Run.
 -- Safe to re-run (idempotent).
+--
+-- NOTE: From 30 Oct 2026, new public tables no longer auto-get Data API
+-- grants. This file includes explicit GRANTs; see supabase/README.md.
 
 -- ============================================================
 -- 1. profiles  (mirror of auth.users + lightweight metadata)
@@ -16,6 +19,10 @@ create table if not exists public.profiles (
 create unique index if not exists profiles_email_key on public.profiles (lower(email));
 
 alter table public.profiles enable row level security;
+
+-- Data API grants (required for new tables after 30 Oct 2026; see supabase/README.md)
+grant select, update on public.profiles to authenticated;
+grant select, insert, update, delete on public.profiles to service_role;
 
 drop policy if exists "profiles_self_select" on public.profiles;
 create policy "profiles_self_select"
@@ -61,6 +68,11 @@ create index if not exists customer_access_subscription_id_idx
 
 alter table public.customer_access enable row level security;
 
+-- Data API grants (required for new tables after 30 Oct 2026; see supabase/README.md)
+-- Authenticated users read their own row via RLS; webhook writes use service_role.
+grant select on public.customer_access to authenticated;
+grant select, insert, update, delete on public.customer_access to service_role;
+
 drop policy if exists "customer_access_self_select" on public.customer_access;
 create policy "customer_access_self_select"
   on public.customer_access for select
@@ -82,7 +94,8 @@ create table if not exists public.billing_webhook_events (
 );
 
 alter table public.billing_webhook_events enable row level security;
--- service-role only; no policies.
+-- service-role only; no policies. No anon/authenticated grants.
+grant select, insert, update, delete on public.billing_webhook_events to service_role;
 
 -- ============================================================
 -- 4. updated_at triggers
@@ -152,3 +165,4 @@ create or replace view public.v_current_access as
   from public.customer_access ca;
 
 grant select on public.v_current_access to authenticated;
+grant select on public.v_current_access to service_role;

@@ -43,10 +43,9 @@ export async function GET(request: Request) {
     const supabase = createClient(url, anon, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
-    const { error } = await supabase
-      .from('customer_access')
-      .select('id', { count: 'exact', head: true })
-      .limit(1);
+    // Public count RPC (explicit anon EXECUTE grant) — do not SELECT
+    // customer_access as anon (not public-read; no anon table grant).
+    const { error } = await supabase.rpc('approved_question_count');
     dbOk = !error;
   } catch {
     dbOk = false;

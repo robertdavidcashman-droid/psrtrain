@@ -8,5 +8,7 @@ alter table public.editorial_audit_findings enable row level security;
 -- Explicit deny for API roles; service_role bypasses RLS for /api/cron/editorial-audit.
 revoke all on table public.editorial_audit_state from anon, authenticated;
 revoke all on table public.editorial_audit_findings from anon, authenticated;
+grant select, insert, update, delete on public.editorial_audit_state to service_role;
+grant select, insert, update, delete on public.editorial_audit_findings to service_role;
 
 -- No policies: authenticated/anon cannot read or write; only service_role (server) can.

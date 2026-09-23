@@ -31,6 +31,9 @@ alter table public.editorial_audit_state enable row level security;
 alter table public.editorial_audit_findings enable row level security;
 revoke all on table public.editorial_audit_state from anon, authenticated;
 revoke all on table public.editorial_audit_findings from anon, authenticated;
+-- Explicit service_role grants (required after 30 Oct 2026; see supabase/README.md)
+grant select, insert, update, delete on public.editorial_audit_state to service_role;
+grant select, insert, update, delete on public.editorial_audit_findings to service_role;
 
 insert into public.editorial_audit_state (id)
 values ('default')
