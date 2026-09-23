@@ -22,7 +22,9 @@ describe('Data API grants (Supabase Oct 30 2026)', () => {
   test('never uses blanket anon grants on all public tables', () => {
     const files = readdirSync(migrationsDir).filter((f) => f.endsWith('.sql'));
     for (const file of files) {
-      const sql = readFileSync(join(migrationsDir, file), 'utf-8');
+      const sql = readFileSync(join(migrationsDir, file), 'utf-8')
+        // Strip SQL line comments so documentary "NEVER: GRANT ALL..." text does not false-positive.
+        .replace(/--.*$/gm, '');
       expect(sql).not.toMatch(
         /grant\s+all\s+on\s+all\s+tables\s+in\s+schema\s+public\s+to\s+anon/i,
       );
