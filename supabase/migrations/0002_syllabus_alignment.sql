@@ -50,6 +50,12 @@ create index if not exists idx_cit_scenarios_syllabus_refs
 
 alter table public.cit_scenarios enable row level security;
 
+-- Data API grants (required for new tables after 30 Oct 2026; see supabase/README.md)
+-- SELECT for paid/authenticated clients; writes for service_role (admin scripts / editorial).
+-- Authenticated write privileges exist so the admin RLS policy can work; RLS still restricts.
+grant select, insert, update, delete on public.cit_scenarios to authenticated;
+grant select, insert, update, delete on public.cit_scenarios to service_role;
+
 drop policy if exists "Approved CIT scenarios visible to authenticated" on public.cit_scenarios;
 create policy "Approved CIT scenarios visible to authenticated"
   on public.cit_scenarios for select
@@ -93,3 +99,4 @@ create or replace view public.v_syllabus_coverage as
   order by ref;
 
 grant select on public.v_syllabus_coverage to authenticated;
+grant select on public.v_syllabus_coverage to service_role;

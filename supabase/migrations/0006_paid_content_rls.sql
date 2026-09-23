@@ -70,7 +70,15 @@ as $$
 $$;
 
 revoke all on function public.approved_question_count() from public;
-grant execute on function public.approved_question_count() to anon, authenticated;
+grant execute on function public.approved_question_count() to anon, authenticated, service_role;
+
+-- RLS helper RPCs: authenticated must EXECUTE for policy evaluation via Data API roles.
+revoke all on function public.is_app_admin() from public;
+revoke all on function public.has_paid_training_access() from public;
+revoke all on function public.can_access_paid_training_content() from public;
+grant execute on function public.is_app_admin() to authenticated, service_role;
+grant execute on function public.has_paid_training_access() to authenticated, service_role;
+grant execute on function public.can_access_paid_training_content() to authenticated, service_role;
 
 -- ============================================================
 -- 2. questions — drop permissive anon SELECT
