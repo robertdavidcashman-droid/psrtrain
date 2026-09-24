@@ -1,24 +1,27 @@
 import {
   CUSTODYNOTE_DOWNLOAD_CTA_LABEL,
   CUSTODYNOTE_STORE_CTA_LABEL,
-  CUSTODYNOTE_STORE_HREF,
+  cnStoreHref,
   CUSTODYNOTE_TRIAL_HREF,
 } from '@/lib/custodynote-promo';
 
 type Props = {
   variant?: 'light' | 'dark';
+  /** Microsoft Store campaign placement slug (without `psr-` prefix). */
+  storePlacement?: string;
 };
 
 /** Partner-line CN promo: Store (Windows) primary + Mac notarised download secondary button. */
-export function CustodyNotePartnerLine({ variant = 'light' }: Props) {
+export function CustodyNotePartnerLine({ variant = 'light', storePlacement = 'home' }: Props) {
   const isDark = variant === 'dark';
+  const storeHref = cnStoreHref(storePlacement);
 
   return (
     <div className={`mt-3 ${isDark ? 'text-slate-100' : 'text-slate-700'}`} data-testid="custodynote-partner-line">
       <p className="text-sm">
         <strong className={isDark ? 'text-white' : 'text-[#0B3C5D]'}>Also try:</strong>{' '}
         <a
-          href={CUSTODYNOTE_STORE_HREF}
+          href={storeHref}
           target="_blank"
           rel="noopener noreferrer"
           className={`font-semibold underline underline-offset-2 ${isDark ? 'text-[#D4AF37]' : 'text-[#0B3C5D]'}`}
@@ -29,7 +32,7 @@ export function CustodyNotePartnerLine({ variant = 'light' }: Props) {
       </p>
       <div className="mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-2">
         <a
-          href={CUSTODYNOTE_STORE_HREF}
+          href={storeHref}
           target="_blank"
           rel="noopener noreferrer"
           className={`inline-flex min-h-[36px] items-center justify-center rounded-md px-3.5 text-xs font-bold no-underline shadow-sm ${

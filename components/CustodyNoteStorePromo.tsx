@@ -5,7 +5,7 @@ import { ExternalLink } from 'lucide-react';
 import {
   CUSTODYNOTE_DOWNLOAD_PROMO_CTA_LABEL,
   CUSTODYNOTE_PROMO_HEADLINE,
-  CUSTODYNOTE_STORE_HREF,
+  cnStoreHref,
   CUSTODYNOTE_STORE_PROMO_CTA_LABEL,
   CUSTODYNOTE_TRIAL_HREF,
 } from '@/lib/custodynote-promo';
@@ -54,7 +54,7 @@ export function CustodyNoteStorePromo() {
         <p className="shrink-0 text-[11px] font-bold leading-none tracking-tight">Custody Note</p>
         <div className="flex min-w-0 flex-1 items-center gap-1.5">
           <a
-            href={CUSTODYNOTE_STORE_HREF}
+            href={cnStoreHref('strip')}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-[36px] flex-1 items-center justify-center gap-1 rounded-md bg-[#D4AF37] px-2 text-[11px] font-bold leading-tight text-[#0B3C5D] no-underline shadow-sm transition hover:bg-[#e0c04a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -89,7 +89,7 @@ export function CustodyNoteStorePromo() {
         </div>
         <div className="flex shrink-0 items-center gap-2">
           <a
-            href={CUSTODYNOTE_STORE_HREF}
+            href={cnStoreHref('strip')}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg bg-[#D4AF37] px-5 text-sm font-bold text-[#0B3C5D] no-underline shadow-md transition hover:bg-[#e0c04a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"

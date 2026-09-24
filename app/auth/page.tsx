@@ -30,7 +30,12 @@ import {
 import { getErrorMessage } from '@/lib/utils/error-handler';
 import { safeInternalNextPath } from '@/lib/auth/safe-next-path';
 import { PSRUK_REGISTER_HREF } from '@/lib/policestationrepuk-promo';
-import { CUSTODYNOTE_DOWNLOAD_CTA_LABEL, CUSTODYNOTE_STORE_CTA_LABEL, CUSTODYNOTE_STORE_HREF, CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
+import {
+  cnStoreHref,
+  CUSTODYNOTE_DOWNLOAD_CTA_LABEL,
+  CUSTODYNOTE_STORE_CTA_LABEL,
+  CUSTODYNOTE_TRIAL_HREF,
+} from '@/lib/custodynote-promo';
 
 type Mode = 'signin' | 'signup' | 'forgot' | 'code';
 
@@ -709,7 +714,7 @@ function AuthFlow() {
           </a>{' '}
           while building their practice.{' '}
           <a
-            href={CUSTODYNOTE_STORE_HREF}
+            href={cnStoreHref('auth')}
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium text-primary hover:underline"
@@ -718,7 +723,7 @@ function AuthFlow() {
           </a>{' '}
           offers structured attendance notes — Windows:{' '}
           <a
-            href={CUSTODYNOTE_STORE_HREF}
+            href={cnStoreHref('auth')}
             target="_blank"
             rel="noopener noreferrer"
             className="font-medium text-primary hover:underline"
