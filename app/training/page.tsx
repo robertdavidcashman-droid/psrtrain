@@ -134,7 +134,7 @@ export default function TrainingPage() {
           <p className="mt-3 text-sm text-slate-600">
             Training and study only — completion does not confer PSRAS accreditation.
           </p>
-          <PartnerToolsLines variant="light" />
+          <PartnerToolsLines variant="light" custodyNoteStorePlacement="training" />
         </MarketingPageHero>
 
         <section className="py-16 sm:py-20 bg-dot-grid">

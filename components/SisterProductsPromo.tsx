@@ -6,7 +6,7 @@ import {
   CUSTODYNOTE_PROMO_BODY,
   CUSTODYNOTE_PROMO_HEADLINE,
   CUSTODYNOTE_STORE_CTA_LABEL,
-  CUSTODYNOTE_STORE_HREF,
+  cnStoreHref,
   CUSTODYNOTE_TRIAL_HREF,
 } from '@/lib/custodynote-promo';
 import {
@@ -17,11 +17,19 @@ import {
 
 const HIDDEN_PREFIXES = ['/legal', '/admin', '/guides'];
 
+function storePlacementForPath(pathname: string): string {
+  if (pathname === '/blog' || pathname.startsWith('/blog/')) return 'blog';
+  if (pathname === '/pricing' || pathname.startsWith('/pricing/')) return 'pricing';
+  if (pathname === '/training' || pathname.startsWith('/training/')) return 'training';
+  return 'home';
+}
+
 export function SisterProductsPromo() {
   const pathname = usePathname() ?? '';
   if (HIDDEN_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {
     return null;
   }
+  const storeHref = cnStoreHref(storePlacementForPath(pathname));
 
   return (
     <aside
@@ -34,7 +42,7 @@ export function SisterProductsPromo() {
           <p className="mt-1 text-xs text-slate-600">{CUSTODYNOTE_PROMO_BODY}</p>
           <div className="mt-2 flex flex-wrap items-center justify-center gap-x-2 gap-y-2 sm:justify-start">
             <a
-              href={CUSTODYNOTE_STORE_HREF}
+              href={storeHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-[32px] items-center rounded-md bg-[#0B3C5D] px-3 text-xs font-bold text-white no-underline hover:bg-[#0a3352]"

@@ -40,7 +40,10 @@ export default function FeaturesPage() {
                 View modules
               </MarketingCtaButton>
             </div>
-            <PartnerToolsLines className="mt-2 max-w-xl mx-auto text-left sm:text-center" />
+            <PartnerToolsLines
+              className="mt-2 max-w-xl mx-auto text-left sm:text-center"
+              custodyNoteStorePlacement="features"
+            />
           </div>
         </MarketingPageHero>
 

@@ -2,14 +2,14 @@ import { PSRUK_DIRECTORY_HREF } from '@/lib/policestationrepuk-promo';
 import {
   CUSTODYNOTE_DOWNLOAD_CTA_LABEL,
   CUSTODYNOTE_STORE_CTA_LABEL,
-  CUSTODYNOTE_STORE_HREF,
+  cnStoreHref,
   CUSTODYNOTE_TRIAL_HREF,
 } from '@/lib/custodynote-promo';
 import { PSA_HOME_HREF } from '@/lib/policestationagent-promo';
 
 const partnerLinks = [
   { href: PSRUK_DIRECTORY_HREF, label: 'PoliceStationRepUK' },
-  { href: CUSTODYNOTE_STORE_HREF, label: `Custody Note — ${CUSTODYNOTE_STORE_CTA_LABEL}` },
+  { href: cnStoreHref('nav'), label: `Custody Note — ${CUSTODYNOTE_STORE_CTA_LABEL}` },
   { href: CUSTODYNOTE_TRIAL_HREF, label: `Custody Note — ${CUSTODYNOTE_DOWNLOAD_CTA_LABEL}` },
   { href: PSA_HOME_HREF, label: 'Police Station Agent' },
 ];

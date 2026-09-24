@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import {
   CUSTODYNOTE_DOWNLOAD_CTA_LABEL,
@@ -13,12 +13,35 @@ import {
   CUSTODYNOTE_STORE_PROMO_CTA_LABEL,
   CUSTODYNOTE_TRIAL_HREF,
   cnHref,
+  cnStoreHref,
 } from '../../lib/custodynote-promo.ts';
 
 const root = process.cwd();
 
 const UNAVAILABLE_STORE_CLAIMS =
   /in\s+certification|not\s+yet\s+on\s+(the\s+)?store|coming\s+soon\s+(to\s+)?(the\s+)?(microsoft\s+)?store/i;
+
+/** Complete literal Store URLs only (dynamic cnStoreHref templates are covered by unit tests). */
+const STORE_URL_LITERAL = /https:\/\/apps\.microsoft\.com\/detail\/[0-9a-z]+\?[^\s'"`]+/gi;
+
+function walkSourceFiles(dir: string, acc: string[] = []): string[] {
+  for (const name of readdirSync(dir)) {
+    if (name === 'node_modules' || name === '.git' || name === '.next' || name === 'dist') continue;
+    const path = join(dir, name);
+    if (statSync(path).isDirectory()) {
+      walkSourceFiles(path, acc);
+    } else if (/\.(tsx?|jsx?|mjs|cjs)$/.test(name)) {
+      acc.push(path);
+    }
+  }
+  return acc;
+}
+
+function assertStoreUrlHasCampaignParams(url: string, fileHint: string) {
+  expect(url, fileHint).toMatch(/hl=en-GB/i);
+  expect(url, fileHint).toMatch(/gl=GB/i);
+  expect(url, fileHint).toMatch(/cid=psr-/i);
+}
 
 describe('custodynote-promo', () => {
   test('Mac download CTA targets /download with psrtrain UTMs', () => {
@@ -37,8 +60,21 @@ describe('custodynote-promo', () => {
     expect(CUSTODYNOTE_SITE).toBe('https://custodynote.com');
   });
 
+  test('cnStoreHref builds UK Microsoft Store URLs with psr- campaign ids', () => {
+    const url = new URL(cnStoreHref('strip'));
+    expect(url.pathname.toLowerCase()).toBe('/detail/9nfsrvt3t45v');
+    expect(url.searchParams.get('hl')).toBe('en-GB');
+    expect(url.searchParams.get('gl')).toBe('GB');
+    expect(url.searchParams.get('cid')).toBe('psr-strip');
+    expect(cnStoreHref('psr-home').includes('cid=psr-home')).toBe(true);
+  });
+
+  test('CUSTODYNOTE_STORE_HREF defaults to blog placement (llms.txt)', () => {
+    expect(CUSTODYNOTE_STORE_HREF).toBe(cnStoreHref('blog'));
+    assertStoreUrlHasCampaignParams(CUSTODYNOTE_STORE_HREF, 'CUSTODYNOTE_STORE_HREF');
+  });
+
   test('Microsoft Store is the primary Windows CTA; Mac is a proper notarised download CTA', () => {
-    expect(CUSTODYNOTE_STORE_HREF).toBe('https://apps.microsoft.com/detail/9NFSRVT3T45V');
     expect(CUSTODYNOTE_STORE_CTA_LABEL).toBe('Get it on Microsoft Store (UK)');
     expect(CUSTODYNOTE_STORE_PROMO_CTA_LABEL).toBe('Get Custody Note on Microsoft Store (UK)');
     expect(CUSTODYNOTE_DOWNLOAD_CTA_LABEL).toBe('Download for Mac (notarised)');
@@ -85,14 +121,14 @@ describe('custodynote-promo', () => {
     const sidebar = readFileSync(join(root, 'components/layout/SidebarPartnerLinks.tsx'), 'utf-8');
 
     for (const src of [partner, hero, legal, promo, storePromo, footer, sidebar]) {
-      expect(src).toMatch(/CUSTODYNOTE_STORE_HREF/);
+      expect(src).toMatch(/cnStoreHref/);
       expect(src).toMatch(/CUSTODYNOTE_TRIAL_HREF|CUSTODYNOTE_DOWNLOAD/);
       expect(src).toMatch(/CUSTODYNOTE_STORE_CTA_LABEL|CUSTODYNOTE_STORE_PROMO_CTA_LABEL/);
       expect(src).toMatch(/CUSTODYNOTE_DOWNLOAD_CTA_LABEL|CUSTODYNOTE_DOWNLOAD_PROMO_CTA_LABEL/);
       expect(src).not.toMatch(UNAVAILABLE_STORE_CLAIMS);
       expect(src).not.toMatch(/windows also available/i);
       expect(src).not.toMatch(/or download directly/i);
-      const storePos = src.indexOf('CUSTODYNOTE_STORE_HREF');
+      const storePos = src.indexOf('cnStoreHref');
       const trialPos = src.indexOf('CUSTODYNOTE_TRIAL_HREF');
       expect(storePos).toBeGreaterThanOrEqual(0);
       expect(trialPos).toBeGreaterThan(storePos);
@@ -130,11 +166,40 @@ describe('custodynote-promo', () => {
     expect(blob).toMatch(/Get Custody Note on Microsoft Store \(UK\)/);
     expect(blob).toMatch(/Download for Mac \(notarised\)/);
     expect(blob).toMatch(/Download Custody Note for Mac/);
-    expect(blob).toMatch(/apps\.microsoft\.com\/detail\/9NFSRVT3T45V/);
+    expect(blob).toMatch(/cnStoreHref/);
     expect(blob).not.toMatch(/or download directly/i);
     expect(blob).not.toMatch(/get (it |custody note )?on (the )?mac app store/i);
     expect(blob).not.toMatch(/available on (the )?mac app store/i);
     expect(blob).not.toMatch(/windows also available/i);
     expect(blob).not.toMatch(UNAVAILABLE_STORE_CLAIMS);
+  });
+
+  test('no literal Microsoft Store URL in the repo lacks gl=GB and psr- cid', () => {
+    const files = walkSourceFiles(root);
+    for (const file of files) {
+      const content = readFileSync(file, 'utf-8');
+      const matches = content.match(STORE_URL_LITERAL) ?? [];
+      for (const raw of matches) {
+        assertStoreUrlHasCampaignParams(raw, file);
+      }
+    }
+  });
+
+  test('placement-specific Store hrefs use psr- campaign ids', () => {
+    const checks: Array<{ file: string; pattern: RegExp }> = [
+      { file: 'components/CustodyNoteStorePromo.tsx', pattern: /cnStoreHref\(['"]strip['"]\)/ },
+      { file: 'components/PartnerHeroMention.tsx', pattern: /cnStoreHref\(['"]home['"]\)/ },
+      { file: 'components/layout/Footer.tsx', pattern: /cnStoreHref\(['"]footer['"]\)/ },
+      { file: 'components/layout/SidebarPartnerLinks.tsx', pattern: /cnStoreHref\(['"]nav['"]\)/ },
+      { file: 'components/LegalPartnerStrip.tsx', pattern: /cnStoreHref\(['"]legal['"]\)/ },
+      { file: 'app/auth/page.tsx', pattern: /cnStoreHref\(['"]auth['"]\)/ },
+      { file: 'app/legal/about/page.tsx', pattern: /cnStoreHref\(['"]about['"]\)/ },
+      { file: 'app/pricing/page.tsx', pattern: /custodyNoteStorePlacement="pricing"/ },
+      { file: 'app/training/page.tsx', pattern: /custodyNoteStorePlacement="training"/ },
+    ];
+    for (const { file, pattern } of checks) {
+      const src = readFileSync(join(root, file), 'utf-8');
+      expect(src, file).toMatch(pattern);
+    }
   });
 });

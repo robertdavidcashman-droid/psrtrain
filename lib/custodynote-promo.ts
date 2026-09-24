@@ -2,6 +2,9 @@ import { partnerHref } from '@/lib/utm';
 
 export const CUSTODYNOTE_SITE = 'https://custodynote.com';
 
+/** Microsoft Store product id (lowercase in generated URLs). */
+const CUSTODYNOTE_STORE_APP_ID = '9nfsrvt3t45v';
+
 export function cnHref(campaign: string, path = ''): string {
   const base = path
     ? `${CUSTODYNOTE_SITE}${path.startsWith('/') ? path : `/${path}`}`
@@ -9,8 +12,21 @@ export function cnHref(campaign: string, path = ''): string {
   return partnerHref(base, campaign, 'psrtrain');
 }
 
-/** Primary Windows CTA: Microsoft Store (UK). Mac is not on the Store. */
-export const CUSTODYNOTE_STORE_HREF = 'https://apps.microsoft.com/detail/9NFSRVT3T45V';
+/**
+ * Microsoft Store (UK) link with locale and campaign id for attribution.
+ * @param placement Short slug (e.g. `home`) or full cid (`psr-home`).
+ */
+export function cnStoreHref(placement: string): string {
+  const cid = placement.startsWith('psr-') ? placement : `psr-${placement}`;
+  const url = new URL(`https://apps.microsoft.com/detail/${CUSTODYNOTE_STORE_APP_ID}`);
+  url.searchParams.set('hl', 'en-GB');
+  url.searchParams.set('gl', 'GB');
+  url.searchParams.set('cid', cid);
+  return url.toString();
+}
+
+/** Default Store href when no placement-specific link is needed (e.g. llms.txt). */
+export const CUSTODYNOTE_STORE_HREF = cnStoreHref('blog');
 
 /** Primary Windows CTA label — main button / first link. */
 export const CUSTODYNOTE_STORE_CTA_LABEL = 'Get it on Microsoft Store (UK)';

@@ -2,7 +2,12 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Shield, BookOpen, Target, Heart } from 'lucide-react';
 import { PSRUK_DIRECTORY_HREF } from '@/lib/policestationrepuk-promo';
-import { CUSTODYNOTE_DOWNLOAD_CTA_LABEL, CUSTODYNOTE_STORE_CTA_LABEL, CUSTODYNOTE_STORE_HREF, CUSTODYNOTE_TRIAL_HREF } from '@/lib/custodynote-promo';
+import {
+  cnStoreHref,
+  CUSTODYNOTE_DOWNLOAD_CTA_LABEL,
+  CUSTODYNOTE_STORE_CTA_LABEL,
+  CUSTODYNOTE_TRIAL_HREF,
+} from '@/lib/custodynote-promo';
 import { pageMetadata } from '@/lib/page-metadata';
 import { AUTHOR_TRUST_LINE, AUTHOR } from '@/lib/author';
 import { COMPANY, FOOTER_LEGAL_ENTITY_TEXT } from '@/lib/legalCopy';
@@ -97,7 +102,7 @@ export default function AboutPage() {
           — a dedicated hub for police station representatives. For structured custody attendance notes,
           see{' '}
           <a
-            href={CUSTODYNOTE_STORE_HREF}
+            href={cnStoreHref('about')}
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary font-semibold hover:underline"
@@ -106,7 +111,7 @@ export default function AboutPage() {
           </a>{' '}
           — Windows:{' '}
           <a
-            href={CUSTODYNOTE_STORE_HREF}
+            href={cnStoreHref('about')}
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary font-semibold hover:underline"

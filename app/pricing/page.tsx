@@ -59,7 +59,7 @@ export default async function PricingPage({
         >
           <PricingUpgradeBanner upgrade={upgrade} fromPath={from} />
           <FreeAccessBanner />
-          <PartnerToolsLines variant="light" />
+          <PartnerToolsLines variant="light" custodyNoteStorePlacement="pricing" />
         </MarketingPageHero>
 
         {/* Plans */}

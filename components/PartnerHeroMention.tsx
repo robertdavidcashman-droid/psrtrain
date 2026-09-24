@@ -2,7 +2,7 @@ import { PSRUK_REGISTER_HREF } from '@/lib/policestationrepuk-promo';
 import {
   CUSTODYNOTE_DOWNLOAD_CTA_LABEL,
   CUSTODYNOTE_STORE_CTA_LABEL,
-  CUSTODYNOTE_STORE_HREF,
+  cnStoreHref,
   CUSTODYNOTE_TRIAL_HREF,
 } from '@/lib/custodynote-promo';
 
@@ -39,14 +39,14 @@ export function PartnerHeroMention({ variant = 'light' }: Props) {
           PoliceStationRepUK
         </a>
         . Record attendances with{' '}
-        <a href={CUSTODYNOTE_STORE_HREF} target="_blank" rel="noopener noreferrer" className={linkClass}>
+        <a href={cnStoreHref('home')} target="_blank" rel="noopener noreferrer" className={linkClass}>
           Custody Note
         </a>
         .
       </p>
       <div className="mt-3 flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-2.5">
         <a
-          href={CUSTODYNOTE_STORE_HREF}
+          href={cnStoreHref('home')}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex min-h-[40px] items-center justify-center rounded-lg bg-[#0B3C5D] px-4 text-sm font-bold text-white no-underline shadow-sm hover:bg-[#0a3352]"

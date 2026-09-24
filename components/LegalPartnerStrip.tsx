@@ -2,7 +2,7 @@ import { PSRUK_DIRECTORY_HREF, PSRUK_REGISTER_HREF } from '@/lib/policestationre
 import {
   CUSTODYNOTE_DOWNLOAD_CTA_LABEL,
   CUSTODYNOTE_STORE_CTA_LABEL,
-  CUSTODYNOTE_STORE_HREF,
+  cnStoreHref,
   CUSTODYNOTE_TRIAL_HREF,
 } from '@/lib/custodynote-promo';
 import { PSA_HOME_HREF } from '@/lib/policestationagent-promo';
@@ -12,7 +12,7 @@ export function LegalPartnerStrip() {
   const links = [
     { href: PSRUK_REGISTER_HREF, label: 'PoliceStationRepUK — register free' },
     { href: PSRUK_DIRECTORY_HREF, label: 'Rep directory' },
-    { href: CUSTODYNOTE_STORE_HREF, label: `Custody Note — ${CUSTODYNOTE_STORE_CTA_LABEL}` },
+    { href: cnStoreHref('legal'), label: `Custody Note — ${CUSTODYNOTE_STORE_CTA_LABEL}` },
     { href: CUSTODYNOTE_TRIAL_HREF, label: `Custody Note — ${CUSTODYNOTE_DOWNLOAD_CTA_LABEL}` },
     { href: PSA_HOME_HREF, label: 'Police Station Agent' },
   ];
