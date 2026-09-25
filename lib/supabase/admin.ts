@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 /**
  * Service-role client. NEVER import this from a client component.
  * Only used by API routes that need to bypass RLS (e.g. the
- * Lemon Squeezy webhook writing to customer_access).
+ * admin tooling that writes privileged rows).
  *
  * Required env: SUPABASE_SERVICE_ROLE_KEY (NOT public).
  */

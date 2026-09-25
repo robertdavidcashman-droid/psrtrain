@@ -1,5 +1,5 @@
 /**
- * User-journey E2E: monthly Get Started → signup auth with plan preserved.
+ * User-journey E2E: monthly Create free account → signup auth with plan preserved.
  */
 import path from 'node:path';
 import dotenv from 'dotenv';
@@ -11,8 +11,8 @@ import { collectPageErrors } from './helpers/page-errors';
 dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
-test.describe('Monthly plan checkout journey (logged out)', () => {
-  test('pricing loads; Get Started is enabled and opens signup auth with monthly plan', async ({
+test.describe('Monthly plan signup journey (logged out)', () => {
+  test('pricing loads; Create free account is enabled and opens signup auth with monthly plan', async ({
     page,
   }) => {
     await suppressCookieBanner(page);
@@ -20,33 +20,13 @@ test.describe('Monthly plan checkout journey (logged out)', () => {
     const res = await page.goto('/pricing');
     expect(res?.ok()).toBeTruthy();
 
-    const getStarted = page.getByRole('link', { name: /Get started|Create free account/i }).first();
-    const href = await getStarted.getAttribute('href');
+    const cta = page.getByRole('link', { name: /Create free account/i }).first();
+    const href = await cta.getAttribute('href');
     expect(href).toMatch(/\/signup/);
-    await expectActionable(getStarted);
-    await getStarted.click();
+    await expectActionable(cta);
+    await cta.click();
 
     await expect(page).toHaveURL(/\/auth|\/signup/);
     expect(errors).toEqual([]);
-  });
-
-  test('Lemon Squeezy checkout page opens for monthly plan (API smoke URL)', async ({ page }) => {
-    test.skip(
-      !process.env.LEMON_SQUEEZY_API_KEY,
-      'Set LEMON_SQUEEZY_API_KEY locally to verify checkout UI opens',
-    );
-
-    const { execSync } = await import('node:child_process');
-    const out = execSync('node scripts/test-lemon-checkout.mjs monthly', {
-      cwd: process.cwd(),
-      encoding: 'utf8',
-    });
-    const match = out.match(/URL: (https:\/\/[^\s]+)/);
-    expect(match?.[1]).toBeTruthy();
-
-    const res = await page.goto(match![1]);
-    expect(res?.ok()).toBeTruthy();
-    await expect(page).toHaveTitle(/PSR Train.*Monthly.*Checkout/i);
-    await expect(page.getByText('£11.50 billed every month')).toBeVisible({ timeout: 15_000 });
   });
 });

@@ -5,8 +5,7 @@ import { Sparkles } from 'lucide-react';
 /**
  * Prominent, site-wide announcement bar for the limited free-access period.
  * Rendered at the very top of every page (above all other promos) from the
- * root layout. Disappears automatically once FREE_ACCESS_ENABLED is unset or
- * FREE_ACCESS_UNTIL has passed — no code change needed to end the promo.
+ * root layout. Optional FREE_ACCESS_UNTIL adjusts the end-date label in copy.
  */
 /**
  * Compact site-wide free-access bar. Kept short on mobile so it does not

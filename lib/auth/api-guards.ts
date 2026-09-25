@@ -13,19 +13,13 @@ type PaidAccessResult =
   | { ok: true; access: Awaited<ReturnType<typeof getAccessSnapshot>> }
   | { ok: false; response: NextResponse };
 
-/** Require authenticated user with paid training access (or admin). */
+/** Require a signed-in user (training is free while testing). */
 export async function requirePaidTrainingAccess(): Promise<PaidAccessResult> {
   const access = await getAccessSnapshot();
   if (!access.isAuthenticated) {
     return {
       ok: false,
       response: NextResponse.json({ error: 'Unauthorized' }, { status: 401 }),
-    };
-  }
-  if (!access.hasPaidAccess && !access.isAdmin) {
-    return {
-      ok: false,
-      response: NextResponse.json({ error: 'Subscription required' }, { status: 403 }),
     };
   }
   return { ok: true, access };

@@ -12,8 +12,8 @@ export function PricingUpgradeBanner({ upgrade, fromPath }: Props) {
   if (!upgrade) return null;
 
   const label = fromPath
-    ? `Subscription required to access ${fromPath}`
-    : 'Subscribe to unlock full training access';
+    ? `Sign in to access ${fromPath}`
+    : 'Sign in to access training';
 
   return (
     <div
@@ -24,7 +24,11 @@ export function PricingUpgradeBanner({ upgrade, fromPath }: Props) {
       <div>
         <p className="font-semibold">{label}</p>
         <p className="mt-0.5 text-amber-900/90">
-          Choose a plan below to continue.{' '}
+          Training is free while we test — create an account or{' '}
+          <Link href="/auth" className="underline font-medium">
+            sign in
+          </Link>
+          .{' '}
           <Link href="/legal/faq" className="underline font-medium">
             FAQ
           </Link>

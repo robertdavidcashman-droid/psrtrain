@@ -2,44 +2,26 @@ import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { SubscribeButton } from '@/components/billing/SubscribeButton';
-import { AutoCheckout } from '@/components/billing/AutoCheckout';
-import { Check, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { getAccessSnapshot } from '@/lib/auth/access';
-import { isFreeAccessPeriodActive } from '@/lib/free-access-promo';
+import { freeAccessEndsLabel } from '@/lib/free-access-promo';
 
-export default async function BillingPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const sp = await searchParams;
+export default async function BillingPage() {
   const user = await getCurrentUser();
   if (!user) {
-    const plan = sp.plan === 'annual' ? 'annual' : sp.plan === 'monthly' ? 'monthly' : null;
-    const next = plan ? `/billing?plan=${plan}` : '/billing';
-    redirect(`/auth?${new URLSearchParams({ next }).toString()}`);
+    redirect(`/auth?${new URLSearchParams({ next: '/billing' }).toString()}`);
   }
 
   const access = await getAccessSnapshot();
-  const freeActive = isFreeAccessPeriodActive();
-  const requestedPlan =
-    sp.plan === 'annual' ? 'annual' : sp.plan === 'monthly' ? 'monthly' : null;
-  const autoCheckoutPlan = requestedPlan && !access.hasPaidAccess ? requestedPlan : null;
+  const untilLabel = freeAccessEndsLabel();
 
-  const statusLabel = access.isAdmin
-    ? 'Admin access'
-    : access.hasPaidAccess
-      ? freeActive
-        ? 'Free access (promo active)'
-        : 'Active subscription'
-      : 'No active subscription';
+  const statusLabel = access.isAdmin ? 'Admin access' : 'Free while testing';
 
   return (
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-foreground">Billing</h1>
-        <p className="text-muted-foreground mt-1">Manage your subscription</p>
+        <p className="text-muted-foreground mt-1">Your access to PSR Train</p>
       </div>
 
       <Card>
@@ -52,68 +34,41 @@ export default async function BillingPage({
             Status:{' '}
             <span className="font-semibold text-foreground">{statusLabel}</span>
           </p>
-          {freeActive && !access.isAdmin && (
+          {!access.isAdmin && (
             <p className="text-sm text-muted-foreground">
-              Free access runs until the promo end date. Subscribe before then to keep uninterrupted
-              access after the promo ends.
+              Full training is free while we test — no card required.
+              {untilLabel ? ` Promo messaging may reference ${untilLabel}; access is not paywalled.` : ''}
             </p>
           )}
-          {access.hasPaidAccess && !access.isAdmin && (
-            <p className="text-sm text-muted-foreground">
-              Manage payment method and invoices in your Lemon Squeezy customer portal (link in
-              receipt emails).
-            </p>
-          )}
+          <Link
+            href="/dashboard"
+            className="inline-flex text-sm font-medium text-primary hover:underline"
+          >
+            Go to dashboard
+          </Link>
         </CardContent>
       </Card>
 
-      {autoCheckoutPlan && <AutoCheckout plan={autoCheckoutPlan} />}
-
-      {!access.hasPaidAccess && (
-        <div className="grid gap-6 sm:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>Monthly</CardTitle>
-              <CardDescription>£12/month, cancel anytime</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
-                {['Practice questions', 'Learning modules', 'Critical incidents', 'Progress tracking'].map(
-                  (f) => (
-                    <li key={f} className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-secondary shrink-0" />
-                      {f}
-                    </li>
-                  ),
-                )}
-              </ul>
-              <SubscribeButton plan="monthly">Subscribe monthly</SubscribeButton>
-            </CardContent>
-          </Card>
-          <Card className="border-primary">
-            <CardHeader>
-              <CardTitle>Annual</CardTitle>
-              <CardDescription>£115/year — Save 20%</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
-                {['Everything in Monthly', '2 months free', 'Billed annually'].map((f) => (
-                  <li key={f} className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-secondary shrink-0" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <SubscribeButton plan="annual">Subscribe annual</SubscribeButton>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+      <Card>
+        <CardHeader>
+          <CardTitle>Planned pricing</CardTitle>
+          <CardDescription>Monthly and annual plans are Coming soon</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-2 text-sm text-muted-foreground">
+          <p>
+            Paid subscriptions are not available yet. See the{' '}
+            <Link href="/pricing" className="text-primary font-medium hover:underline">
+              pricing page
+            </Link>{' '}
+            for planned rates after testing.
+          </p>
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>
           <CardTitle>Need help?</CardTitle>
-          <CardDescription>Billing questions or invoice copies</CardDescription>
+          <CardDescription>Questions about access or the platform</CardDescription>
         </CardHeader>
         <CardContent>
           <Link
