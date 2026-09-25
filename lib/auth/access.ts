@@ -15,6 +15,7 @@ export type AccessSnapshot = {
 /**
  * Single source of truth for "can this user use the training app?".
  * All signed-in users have full training access (free while testing).
+ * Supabase RLS must match: apply migration 0008_signed_in_training_rls.sql.
  */
 export async function getAccessSnapshot(): Promise<AccessSnapshot> {
   if (!isSupabaseConfigured()) {
