@@ -52,7 +52,9 @@ There is **no paywall** and **no checkout**. Planned paid plans appear on
 | `lib/auth/api-guards.ts` | `requirePaidTrainingAccess()` — requires sign-in only (name kept for callers). |
 | `app/(main)/billing/page.tsx` | Access status copy (free while testing). |
 | `app/pricing/page.tsx` | Marketing pricing; CTAs go to signup / dashboard. |
-| `supabase/migrations/0001_auth_billing.sql` | Legacy `customer_access` / webhook tables (unused by app gating). |
+| `supabase/migrations/0001_auth_billing.sql` | Legacy `customer_access` / webhook tables (not required for access). |
+| `supabase/migrations/0006_paid_content_rls.sql` | Blocks anon from training table bodies; signed-in SELECT via helper RPC. |
+| `supabase/migrations/0008_signed_in_training_rls.sql` | Aligns RLS with free signed-in access (run after 0006 on production). |
 
 ---
 
@@ -87,7 +89,15 @@ Optional:
    (see `app/admin/layout.tsx`).
 
 The `customer_access` table may still exist in Supabase from earlier billing
-work; the application **does not** read it for gating.
+work; access does **not** depend on a paid row. Supabase RLS uses
+`can_access_paid_training_content()` (any **authenticated** JWT) on
+questions, `content_modules`, `cit_scenarios`, and `pace_code_sections` after
+migrations **0006** and **0008** are applied.
+
+**Manual Supabase step:** Dashboard → SQL Editor → run
+`supabase/migrations/0008_signed_in_training_rls.sql` (and 0006 first if never
+applied). Without 0008 on a DB that ran the original paid-only 0006, practice
+and modules can return empty for signed-in users.
 
 ---
 
@@ -108,3 +118,6 @@ work; the application **does not** read it for gating.
 - **Training route always redirects to /auth?** Session cookie missing —
   confirm apex host (`psrtrain.com`, not `www`) and Supabase cookie settings.
 - **Admin cannot open /admin?** Add their email to `ADMIN_EMAILS` and redeploy.
+- **Signed in but no questions/modules in app?** Apply `0008_signed_in_training_rls.sql`
+  in Supabase (see §4). Confirm the browser session uses the anon key with a valid
+  authenticated JWT, not a stale tab without cookies.

@@ -40,6 +40,7 @@ Paste and run in order when bootstrapping a project:
 5. `0005_seo_submission_state.sql`
 6. `0006_paid_content_rls.sql`
 7. `0007_data_api_grants.sql` (idempotent catch-up for already-applied DBs)
+8. `0008_signed_in_training_rls.sql` (required if 0006 was applied before free signed-in access; idempotent)
 
 Tables that predate this folder (`questions`, `content_modules`,
 `user_sessions`, etc.) were created outside these migrations and already

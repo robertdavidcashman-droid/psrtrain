@@ -24,15 +24,29 @@ describe('paid content RLS migration', () => {
     expect(sql).toContain('Paid users can view approved questions');
   });
 
-  test('restricts modules and CIT scenarios to paid access', () => {
+  test('restricts modules and CIT scenarios to signed-in access helper', () => {
     expect(sql).toContain('Paid users can view modules');
     expect(sql).toContain('Paid users can view approved CIT scenarios');
     expect(sql).toContain('can_access_paid_training_content');
+    expect(sql).toMatch(/auth\.role\(\)\s*=\s*'authenticated'/);
   });
 
   test('exposes count-only RPC for marketing stats', () => {
     expect(sql).toContain('approved_question_count');
     expect(sql).toMatch(/grant execute on function public\.approved_question_count/i);
+  });
+});
+
+describe('signed-in training RLS migration (0008)', () => {
+  const sql = read('supabase/migrations/0008_signed_in_training_rls.sql');
+
+  test('documents Supabase dashboard apply step', () => {
+    expect(sql).toMatch(/APPLY IN SUPABASE/i);
+  });
+
+  test('grants training content to authenticated role only', () => {
+    expect(sql).toContain('can_access_paid_training_content');
+    expect(sql).toMatch(/auth\.role\(\)\s*=\s*'authenticated'/);
   });
 });
 
