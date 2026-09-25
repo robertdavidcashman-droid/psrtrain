@@ -13,10 +13,16 @@ import { AUTHOR_TRUST_LINE, AUTHOR } from '@/lib/author';
 import { COMPANY, FOOTER_LEGAL_ENTITY_TEXT } from '@/lib/legalCopy';
 
 export const metadata = pageMetadata({
-  title: 'About',
+  title: { absolute: 'About PSR Train | PSRAS Training by Robert Cashman' },
   description:
-    'PSR Train is the training platform built for the Police Station Representative Accreditation Scheme (PSRAS). Learn about our mission, author, and company details.',
+    'PSR Train is the training platform built for the Police Station Representative Accreditation Scheme (PSRAS). Learn about our mission, author Robert Cashman, and DEFENCELEGALSERVICES LIMITED.',
   path: '/legal/about',
+  keywords: ['PSR Train', 'police station representative training', 'Robert Cashman', 'PSRAS'],
+  openGraph: {
+    title: 'About PSR Train | Police Station Representative Training',
+    description:
+      'PSRAS preparation platform operated by DEFENCELEGALSERVICES LIMITED. Training content by criminal defence solicitor Robert Cashman.',
+  },
 });
 
 export default function AboutPage() {

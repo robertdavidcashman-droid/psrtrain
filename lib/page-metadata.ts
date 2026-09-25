@@ -1,6 +1,16 @@
 import type { Metadata } from 'next';
 import { SITE } from '@/lib/site';
 
+/** Shared default social preview — matches `app/opengraph-image.tsx`. */
+export const DEFAULT_OG_IMAGE = {
+  url: '/opengraph-image',
+  width: 1200,
+  height: 630,
+  alt: 'PSR Train - Police Station Representative Training',
+} as const;
+
+export const DEFAULT_OG_IMAGES = [DEFAULT_OG_IMAGE];
+
 type TitleInput = string | { absolute: string };
 
 type PageMetaInput = {
@@ -29,7 +39,11 @@ export function pageMetadata({
   const canonicalPath = normalisePath(path);
   const titleValue = typeof title === 'string' ? title : title;
   const titleText = typeof title === 'string' ? title : title.absolute;
-  const ogImages = openGraph?.images;
+  const ogImages = openGraph?.images ?? DEFAULT_OG_IMAGES;
+  const twitterImages =
+    openGraph?.images !== undefined
+      ? (openGraph.images as NonNullable<Metadata['twitter']>['images'])
+      : DEFAULT_OG_IMAGES.map((img) => img.url);
 
   return {
     title: titleValue,
@@ -44,12 +58,13 @@ export function pageMetadata({
       locale: 'en_GB',
       type: 'website',
       ...openGraph,
+      images: ogImages,
     },
     twitter: {
       card: 'summary_large_image',
       title: titleText,
       description,
-      ...(ogImages ? { images: ogImages as NonNullable<Metadata['twitter']>['images'] } : {}),
+      images: twitterImages,
     },
     ...(robots ? { robots } : {}),
   };

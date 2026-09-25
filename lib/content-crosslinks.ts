@@ -41,6 +41,19 @@ export function getLatestBlogPosts(limit = 3): BlogPost[] {
     .slice(0, limit);
 }
 
+/** High-intent blog posts for contextual internal links (SEO hub ↔ articles). */
+export const SEO_FEATURED_BLOG_SLUGS = [
+  'how-to-pass-critical-incidents-test',
+  'pace-code-c-practice-questions',
+  'free-psras-practice-questions',
+] as const;
+
+export function getSeoFeaturedBlogPosts(): BlogPost[] {
+  return SEO_FEATURED_BLOG_SLUGS.map((slug) => BLOG_POSTS.find((p) => p.slug === slug)).filter(
+    (p): p is BlogPost => Boolean(p),
+  );
+}
+
 /** Curated high-value guides for homepage discovery. */
 export function getFeaturedGuides(limit = 3): Guide[] {
   const slugs = [

@@ -38,16 +38,6 @@ export const metadata = pageMetadata({
   },
 });
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Course',
-  name: 'Police Station Representative Training',
-  description:
-    'Mock exams, scenario-based training, and structured preparation for the Police Station Representative Accreditation Scheme (PSRAS), aligned with PACE 1984 and Code C.',
-  url: 'https://psrtrain.com',
-  provider: { '@type': 'Organization', name: 'PSR Train', url: 'https://psrtrain.com' },
-};
-
 const statsBase = [
   { icon: BookOpen, value: '8+', label: 'Study modules' },
   { icon: Target, value: '290+', label: 'Practice questions', dynamic: true as const },
@@ -113,7 +103,6 @@ export default async function HomePage() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://psrtrain.com';
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <MarketingHeader />
       <main id="main-content">
         {/* Hero — product-led, clear CTA hierarchy */}
@@ -144,6 +133,25 @@ export default async function HomePage() {
                 <p className="animate-fade-in-up delay-200 mx-auto lg:mx-0 mt-5 max-w-lg text-[1.05rem] leading-relaxed text-slate-600 sm:text-lg">
                   Timed mock exams, CIT-style scenarios, and PACE 1984 / Code C–aligned questions —
                   built for police station representative candidates.
+                </p>
+                <p className="animate-fade-in-up delay-200 mx-auto lg:mx-0 mt-4 max-w-xl text-sm leading-relaxed text-slate-600">
+                  Start with our{' '}
+                  <Link href="/guides/how-to-become-a-police-station-representative" className="font-semibold text-[#0B3C5D] underline decoration-slate-300 underline-offset-2 hover:decoration-[#0B3C5D]">
+                    how to become a police station representative
+                  </Link>{' '}
+                  guide, then try{' '}
+                  <Link href="/blog/free-psras-practice-questions" className="font-semibold text-[#0B3C5D] underline decoration-slate-300 underline-offset-2 hover:decoration-[#0B3C5D]">
+                    free PSRAS practice questions
+                  </Link>
+                  ,{' '}
+                  <Link href="/blog/pace-code-c-practice-questions" className="font-semibold text-[#0B3C5D] underline decoration-slate-300 underline-offset-2 hover:decoration-[#0B3C5D]">
+                    PACE Code C practice
+                  </Link>
+                  , and{' '}
+                  <Link href="/blog/how-to-pass-critical-incidents-test" className="font-semibold text-[#0B3C5D] underline decoration-slate-300 underline-offset-2 hover:decoration-[#0B3C5D]">
+                    CIT preparation tips
+                  </Link>
+                  .
                 </p>
 
                 {/* Above-fold “what’s included” — concrete assessment structure */}
