@@ -4,8 +4,8 @@
 -- APPLY IN SUPABASE: Dashboard → SQL editor → paste this whole file → Run.
 -- Safe to re-run (idempotent).
 --
--- After applying, only authenticated users with active paid access (or admins)
--- can read approved questions, content modules, and CIT scenarios.
+-- After applying, only authenticated users can read approved questions, content
+-- modules, and CIT scenarios (see 0008 for signed-in access; anon still blocked).
 -- service_role (server webhooks, cron, admin scripts) bypasses RLS as usual.
 
 -- ============================================================
@@ -52,8 +52,8 @@ stable
 security definer
 set search_path = public
 as $$
-  select auth.role() = 'authenticated'
-    and (public.is_app_admin() or public.has_paid_training_access());
+  -- Signed-in users (training is free while testing). Name kept for RLS policies.
+  select auth.role() = 'authenticated';
 $$;
 
 -- Public marketing stat only — no answer keys or module bodies.
