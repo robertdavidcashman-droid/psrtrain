@@ -11,11 +11,11 @@
 
 This uplift closes high-impact gaps where anonymous PostgREST clients could read MCQ answer keys and paid module bodies, unauthenticated callers could end arbitrary session records, cron secrets were compared with a non-constant-time check, and admin pages lacked `Cache-Control: no-store`. Contact and newsletter error paths now redact PII before logging.
 
-**Manual step required (production):** apply `supabase/migrations/0006_paid_content_rls.sql` in the Supabase SQL editor. Until then, production RLS remains permissive for approved questions and answer keys stay readable via the anon key.
+**Manual step required (production):** apply migrations in order in the Supabase SQL editor: `0006_paid_content_rls.sql` (blocks anon reads), then `0008_rls_signed_in_training_access.sql` (matches signed-in-free app policy). Until 0006 runs, anon clients can still read answer keys. Until 0008 runs on top of 0006, signed-in users without a `customer_access` row see empty training queries.
 
 | Area | Status | Notes |
 |------|--------|-------|
-| RLS — questions / modules / CIT / PACE | **PENDING DEPLOY** | Migration shipped; must run in Supabase dashboard |
+| RLS — questions / modules / CIT / PACE | **PENDING DEPLOY** | Run 0006 then 0008 in Supabase dashboard |
 | `/api/access/verify` rate limit + timing-safe code | **PASS** | 10 attempts / min per IP |
 | `/api/auth/logout-track` auth | **PASS** | Session owner or `ADMIN_EMAILS` only |
 | Cron `CRON_SECRET` comparison | **PASS** | `crypto.timingSafeEqual`; fail closed in production |
@@ -37,7 +37,7 @@ New migration (idempotent):
 
 - `has_paid_training_access()` — checks `customer_access` for active/grace paid row linked to `auth.uid()` or JWT email.
 - `is_app_admin()` — checks `public.users.role = 'admin'`.
-- `can_access_paid_training_content()` — authenticated AND (paid OR admin).
+- `can_access_paid_training_content()` — originally authenticated AND (paid OR admin); see **§1b** for current policy.
 - Replaces permissive SELECT policies on questions, modules, CIT scenarios, and PACE sections.
 - `approved_question_count()` SECURITY DEFINER RPC — count-only for homepage stats (no answer leakage).
 
@@ -46,12 +46,28 @@ New migration (idempotent):
 1. Open **Supabase Dashboard → SQL Editor**.
 2. Paste the full contents of `supabase/migrations/0006_paid_content_rls.sql`.
 3. Click **Run**.
-4. Verify: `npm run audit:supabase-rls` (requires `SB_PAT` in `.env.local`).
+4. Paste and run `supabase/migrations/0008_rls_signed_in_training_access.sql` (aligns RLS with free-for-signed-in app policy).
+5. Verify: `npm run audit:supabase-rls` (requires `SB_PAT` in `.env.local`).
 
 ### Residual risk
 
-- Training access for signed-in users is **app-layer only** (not mirrored in RLS). `ADMIN_EMAILS` gates `/admin`. Optional `FREE_ACCESS_UNTIL` affects promo copy only. Direct Supabase client reads of paid content still use `has_paid_training_access()` / `customer_access` in RLS unless the user has an admin role.
-- Migration not applied until operator runs SQL manually.
+- `has_paid_training_access()` still reflects legacy `customer_access` rows but is **not** used by RLS after 0008 (gate is `can_access_paid_training_content()` only).
+- `ADMIN_EMAILS` gates `/admin` in Next.js only; SQL admin checks use `public.users.role = 'admin'` on admin tables.
+- Migrations are not applied until an operator runs SQL manually.
+
+---
+
+## 1b. RLS — signed-in training access (`0008_rls_signed_in_training_access.sql`)
+
+### Finding
+
+After PR #17, `proxy.ts`, `lib/auth/access.ts`, and `requirePaidTrainingAccess()` grant training to every signed-in user. Migration 0006 left `can_access_paid_training_content()` tied to paid `customer_access`, so browser Supabase reads returned empty rows while the UI showed access.
+
+### Fix
+
+- `can_access_paid_training_content()` → `auth.role() = 'authenticated'` (anonymous still blocked).
+- Existing SELECT policies unchanged; they call the updated helper.
+- `customer_access` table and `has_paid_training_access()` retained for legacy data only.
 
 ---
 
@@ -124,7 +140,8 @@ Added `Cache-Control: no-store, no-cache, must-revalidate, private` for `/admin/
 
 | File | Change |
 |------|--------|
-| `supabase/migrations/0006_paid_content_rls.sql` | Paid-content RLS + count RPC |
+| `supabase/migrations/0006_paid_content_rls.sql` | Block anon training reads + count RPC |
+| `supabase/migrations/0008_rls_signed_in_training_access.sql` | RLS gate matches signed-in-free policy |
 | `lib/auth/api-guards.ts` | Timing-safe cron auth |
 | `lib/rate-limit.ts` | Shared per-IP rate limiter |
 | `lib/safe-log.ts` | PII redaction for logs |
@@ -151,13 +168,12 @@ Also run existing `tests/unit/security-headers.test.ts` — no regressions expec
 
 ## 9. Out of scope / follow-ups
 
-- Column-level masking view for unpaid authenticated users (currently blocked entirely at RLS).
+- Column-level masking if paid tiers return (all signed-in users currently see full rows).
 - Upstash-backed rate limits (in-memory resets on serverless cold start).
-- `FREE_ACCESS` promo mirrored in SQL policies.
 - E2E verification against live Supabase after migration apply.
 
 ---
 
 ## 10. Verdict rationale (PARTIAL PASS)
 
-Code and tests ship in-repo. **Production security for answer keys depends on applying migration 0006 in Supabase** — automated deploy does not run SQL migrations. Until applied, anon clients can still read approved question rows via PostgREST.
+Code and tests ship in-repo. **Production security and training reads depend on applying migrations 0006 and 0008 in Supabase** — automated deploy does not run SQL migrations.

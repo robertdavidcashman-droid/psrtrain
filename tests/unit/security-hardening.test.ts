@@ -11,6 +11,22 @@ function read(path: string): string {
   return readFileSync(join(root, path), 'utf-8');
 }
 
+describe('signed-in training RLS migration (0008)', () => {
+  const sql = read('supabase/migrations/0008_rls_signed_in_training_access.sql');
+
+  test('documents Supabase dashboard apply step', () => {
+    expect(sql).toMatch(/APPLY IN SUPABASE/i);
+    expect(sql).toMatch(/Dashboard/i);
+  });
+
+  test('can_access_paid_training_content allows any authenticated session', () => {
+    expect(sql).toContain('can_access_paid_training_content');
+    const fnBody = sql.split('create or replace function public.can_access_paid_training_content()')[1] ?? '';
+    expect(fnBody).toMatch(/auth\.role\(\)\s*=\s*'authenticated'/);
+    expect(fnBody).not.toMatch(/has_paid_training_access\(\)/);
+  });
+});
+
 describe('paid content RLS migration', () => {
   const sql = read('supabase/migrations/0006_paid_content_rls.sql');
 

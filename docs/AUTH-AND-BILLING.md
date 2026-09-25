@@ -53,6 +53,8 @@ There is **no paywall** and **no checkout**. Planned paid plans appear on
 | `app/(main)/billing/page.tsx` | Access status copy (free while testing). |
 | `app/pricing/page.tsx` | Marketing pricing; CTAs go to signup / dashboard. |
 | `supabase/migrations/0001_auth_billing.sql` | Legacy `customer_access` / webhook tables (unused by app gating). |
+| `supabase/migrations/0006_paid_content_rls.sql` | Blocks anonymous PostgREST reads of training tables. |
+| `supabase/migrations/0008_rls_signed_in_training_access.sql` | RLS helper: any authenticated user can SELECT training content (run after 0006). |
 
 ---
 
@@ -87,7 +89,12 @@ Optional:
    (see `app/admin/layout.tsx`).
 
 The `customer_access` table may still exist in Supabase from earlier billing
-work; the application **does not** read it for gating.
+work; the application **does not** read it for gating. Supabase RLS uses
+`can_access_paid_training_content()` (migration **0008**) so direct client
+reads match the same signed-in-only rule as `proxy.ts`.
+
+**Operator:** after deploy, run `0008_rls_signed_in_training_access.sql` in the
+Supabase SQL editor if not already applied (required once per environment).
 
 ---
 
