@@ -50,7 +50,7 @@ New migration (idempotent):
 
 ### Residual risk
 
-- `FREE_ACCESS_UNTIL` / `FREE_ACCESS_ENABLED` and `ADMIN_EMAILS` env overrides are **app-layer only**; RLS does not mirror them. Staff listed only in `ADMIN_EMAILS` need `users.role = 'admin'` or a `customer_access` row for direct client queries.
+- Training access for signed-in users is **app-layer only** (not mirrored in RLS). `ADMIN_EMAILS` gates `/admin`. Optional `FREE_ACCESS_UNTIL` affects promo copy only. Direct Supabase client reads of paid content still use `has_paid_training_access()` / `customer_access` in RLS unless the user has an admin role.
 - Migration not applied until operator runs SQL manually.
 
 ---

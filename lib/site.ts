@@ -32,6 +32,5 @@ export const SITE = {
     { name: 'Supabase', purpose: 'authentication and database hosting' },
     { name: 'Vercel', purpose: 'application hosting and edge delivery' },
     { name: 'Resend', purpose: 'transactional email (contact form, account emails)' },
-    { name: 'Lemon Squeezy', purpose: 'subscription billing and payment processing' },
   ],
 } as const;

@@ -9,7 +9,6 @@ import { PricingUpgradeBanner } from '@/components/pricing/PricingUpgradeBanner'
 import { GetStartedButton } from '@/components/billing/GetStartedButton';
 import { getAccessSnapshot } from '@/lib/auth/access';
 import { SITE } from '@/lib/site';
-import { isFreeAccessPeriodActive } from '@/lib/free-access-promo';
 import { PRICING_FAQS } from '@/lib/faq';
 
 import { pageMetadata } from '@/lib/page-metadata';
@@ -40,7 +39,7 @@ export default async function PricingPage({
   const from =
     typeof sp.from === 'string' ? sp.from.replace(/^\//, '') || undefined : undefined;
   const access = await getAccessSnapshot();
-  const freeWhileTesting = isFreeAccessPeriodActive();
+  const freeWhileTesting = true;
 
   return (
     <div className="min-h-screen flex flex-col bg-background">

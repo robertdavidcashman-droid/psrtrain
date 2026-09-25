@@ -114,56 +114,21 @@ test.describe('Reported issue: Get Started / monthly plan', () => {
     expect(errors).toEqual([]);
   });
 
-  test('unauthenticated /billing?plan=monthly keeps plan in auth redirect', async ({
-    page,
-  }) => {
+  test('unauthenticated /billing redirects to auth with next=/billing', async ({ page }) => {
     test.skip(!edgeAuthRedirectsApply(), 'Needs Supabase middleware or production URL');
     await suppressCookieBanner(page);
-    await page.goto('/billing?plan=monthly');
+    await page.goto('/billing');
     await expect(page).toHaveURL(/\/auth/);
-    await expect(page).toHaveURL(/next=.*plan%3Dmonthly|next=%2Fbilling%3Fplan%3Dmonthly/);
+    await expect(page).toHaveURL(/next=%2Fbilling|next=.*billing/);
   });
 });
 
-test.describe('Checkout API (Lemon Squeezy)', () => {
-  test('POST create-checkout without auth returns 401', async ({ request }) => {
+test.describe('Legacy Lemon checkout routes removed', () => {
+  test('POST /api/lemonsqueezy/create-checkout returns 404', async ({ request }) => {
     const res = await request.post('/api/lemonsqueezy/create-checkout', {
       data: { plan: 'monthly' },
       headers: { 'Content-Type': 'application/json' },
     });
-    expect(res.status()).toBe(401);
-    const body = await res.json();
-    expect(body.error).toMatch(/unauthorized/i);
-  });
-
-  test('POST create-checkout rejects invalid JSON body safely', async ({ request }) => {
-    const res = await request.post('/api/lemonsqueezy/create-checkout', {
-      data: 'not-json',
-      headers: { 'Content-Type': 'application/json' },
-    });
-    expect([401, 500]).toContain(res.status());
-  });
-});
-
-test.describe('Checkout error UI (authenticated)', () => {
-  test('billing auto-checkout shows inline error when API fails', async ({ page }) => {
-    test.skip(!edgeAuthRedirectsApply(), 'Needs Supabase env for /billing route');
-
-    await page.route('**/api/lemonsqueezy/create-checkout', async (route) => {
-      await route.fulfill({
-        status: 503,
-        contentType: 'application/json',
-        body: JSON.stringify({ error: 'Billing is not configured for this test' }),
-      });
-    });
-
-    await page.goto('/billing?plan=monthly');
-    if (page.url().includes('/auth')) {
-      test.skip(true, 'Set E2E_TEST_EMAIL/PASSWORD for authenticated billing tests');
-    }
-
-    await expect(page.getByRole('alert')).toContainText(/couldn't start checkout automatically/i, {
-      timeout: 15_000,
-    });
+    expect(res.status()).toBe(404);
   });
 });

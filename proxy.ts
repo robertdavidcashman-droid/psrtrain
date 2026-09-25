@@ -6,8 +6,6 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { updateSession } from '@/lib/supabase/middleware';
 import { isSupabaseConfigured } from '@/lib/supabase/config';
-import { isAdminEmail } from '@/lib/auth/admin-emails';
-import { isFreeAccessPeriodActive } from '@/lib/free-access-promo';
 import { verifyGateToken } from '@/lib/gate-token';
 import { resolveAuthEntryRedirect, splitPathAndSearch, buildAuthNextFromRequest } from '@/lib/auth/resolve-auth-entry-redirect';
 
@@ -27,21 +25,6 @@ const AUTH_REQUIRED_PREFIXES = [
   '/certificates',
   '/billing',
   '/admin',
-];
-
-// Subset that ALSO requires paid access. /billing and /pricing remain
-// reachable so an unpaid signed-in user can complete checkout.
-// /admin is handled by app/admin/layout.tsx (admin-email check), not paywall.
-const PAID_REQUIRED_PREFIXES = [
-  '/practice',
-  '/modules',
-  '/critical-incidents',
-  '/mock-exam',
-  '/syllabus',
-  '/search',
-  '/dashboard',
-  '/progress',
-  '/certificates',
 ];
 
 // Public access-code gate (legacy / pre-launch). Independent of auth.
@@ -113,9 +96,8 @@ export async function proxy(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
 
   // Signed-in users should not stay on sign-in entry pages (avoids loops and
-  // confusing UX). Respect ?next= when it is a safe internal path, or
-  // ?plan= (from pricing's "Get started" links) so checkout intent isn't
-  // silently dropped in favour of /dashboard.
+  // confusing UX). Respect ?next= when it is a safe internal path, or ?plan=
+  // from pricing links so intent isn't silently dropped in favour of /dashboard.
   if (user && isAuthEntry) {
     const dest = resolveAuthEntryRedirect(request.nextUrl.searchParams);
     const { pathname, search } = splitPathAndSearch(dest);
@@ -132,46 +114,6 @@ export async function proxy(request: NextRequest) {
     url.pathname = '/auth';
     url.searchParams.set('next', buildAuthNextFromRequest(pathname, request.nextUrl.search));
     return NextResponse.redirect(url);
-  }
-
-  // Paid-access enforcement.
-  if (matchesPrefix(pathname, PAID_REQUIRED_PREFIXES)) {
-    // Owner / staff override — bypass paywall entirely. Lets the
-    // owner test gated routes without paying through Lemon Squeezy.
-    if (isAdminEmail(user.email)) {
-      return response;
-    }
-
-    if (isFreeAccessPeriodActive()) {
-      return response;
-    }
-
-    const { data: access } = await supabase
-      .from('customer_access')
-      .select('is_paid, access_status')
-      .or(
-        [
-          `user_id.eq.${user.id}`,
-          user.email ? `email.eq.${user.email.toLowerCase()}` : null,
-        ]
-          .filter(Boolean)
-          .join(','),
-      )
-      .order('updated_at', { ascending: false })
-      .limit(1)
-      .maybeSingle();
-
-    const allowed =
-      access?.is_paid === true &&
-      (access?.access_status === 'active' || access?.access_status === 'grace');
-
-    if (!allowed) {
-      const url = request.nextUrl.clone();
-      url.pathname = '/pricing';
-      url.searchParams.set('upgrade', '1');
-      url.searchParams.set('from', pathname);
-      return NextResponse.redirect(url);
-    }
   }
 
   return response;

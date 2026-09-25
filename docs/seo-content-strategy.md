@@ -2,7 +2,7 @@
 
 > Part of the four-site SEO + Buffer programme. See `docs/seo-cross-site-strategy.md` for the master cross-site map.
 >
-> **Site intent angle:** **Training / exam prep** for people *becoming* police station representatives (PSRAS, PACE, CIT, career). Conversion = course / question-bank sign-up (Supabase + LemonSqueezy). Speaks to candidates, not firms (REPUK) or the public (PSA).
+> **Site intent angle:** **Training / exam prep** for people *becoming* police station representatives (PSRAS, PACE, CIT, career). Conversion = free account sign-up (Supabase auth). Speaks to candidates, not firms (REPUK) or the public (PSA).
 
 ## 1. Existing content inventory
 

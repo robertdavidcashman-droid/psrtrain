@@ -2,7 +2,7 @@
  * Owner / staff override list. Anyone whose email is in ADMIN_EMAILS
  * is treated as having indefinite paid access — even if no row exists
  * in customer_access. Lets the owner test gated routes without paying
- * themselves through Lemon Squeezy.
+ * without a separate access grant.
  *
  * Comma-separated. Whitespace and case are ignored.
  */

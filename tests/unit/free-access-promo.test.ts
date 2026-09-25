@@ -3,45 +3,30 @@ import {
   freeAccessEndsLabel,
   hasTrainingAccess,
   isFreeAccessPeriodActive,
-} from '../../lib/free-access-promo.ts';
-
-const saved: Record<string, string | undefined> = {};
-
-beforeEach(() => {
-  saved.FREE_ACCESS_ENABLED = process.env.FREE_ACCESS_ENABLED;
-  saved.FREE_ACCESS_UNTIL = process.env.FREE_ACCESS_UNTIL;
-});
-
-afterEach(() => {
-  if (saved.FREE_ACCESS_ENABLED === undefined) delete process.env.FREE_ACCESS_ENABLED;
-  else process.env.FREE_ACCESS_ENABLED = saved.FREE_ACCESS_ENABLED;
-  if (saved.FREE_ACCESS_UNTIL === undefined) delete process.env.FREE_ACCESS_UNTIL;
-  else process.env.FREE_ACCESS_UNTIL = saved.FREE_ACCESS_UNTIL;
-});
+} from '../../lib/free-access-promo';
 
 describe('free-access-promo', () => {
-  test('disabled when FREE_ACCESS_ENABLED is not true', () => {
-    process.env.FREE_ACCESS_ENABLED = 'false';
-    process.env.FREE_ACCESS_UNTIL = '2099-01-01';
-    expect(isFreeAccessPeriodActive()).toBe(false);
-    expect(hasTrainingAccess({ subscriptionActive: false, isAdmin: false })).toBe(false);
+  const saved: Record<string, string | undefined> = {};
+
+  beforeEach(() => {
+    saved.FREE_ACCESS_UNTIL = process.env.FREE_ACCESS_UNTIL;
   });
 
-  test('active when enabled with no end date', () => {
-    process.env.FREE_ACCESS_ENABLED = 'true';
-    delete process.env.FREE_ACCESS_UNTIL;
+  afterEach(() => {
+    if (saved.FREE_ACCESS_UNTIL === undefined) delete process.env.FREE_ACCESS_UNTIL;
+    else process.env.FREE_ACCESS_UNTIL = saved.FREE_ACCESS_UNTIL;
+  });
+
+  test('training is always in free-while-testing mode for gating helpers', () => {
     expect(isFreeAccessPeriodActive()).toBe(true);
     expect(hasTrainingAccess({ subscriptionActive: false, isAdmin: false })).toBe(true);
-  });
-
-  test('admin always has access', () => {
-    process.env.FREE_ACCESS_ENABLED = 'false';
     expect(hasTrainingAccess({ subscriptionActive: false, isAdmin: true })).toBe(true);
   });
 
-  test('freeAccessEndsLabel formats end date', () => {
+  test('freeAccessEndsLabel reads optional FREE_ACCESS_UNTIL for copy only', () => {
     process.env.FREE_ACCESS_UNTIL = '2026-07-01';
-    const label = freeAccessEndsLabel();
-    expect(label?.includes('2026')).toBeTruthy();
+    expect(freeAccessEndsLabel()).toMatch(/2026/);
+    delete process.env.FREE_ACCESS_UNTIL;
+    expect(freeAccessEndsLabel()).toBeNull();
   });
 });
