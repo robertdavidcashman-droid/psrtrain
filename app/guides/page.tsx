@@ -19,8 +19,9 @@ export const metadata = pageMetadata({
     'police station rep training',
   ],
   openGraph: {
-    title: 'PSR & PSRAS Training Guides',
-    description: 'In-depth guides for police station representative accreditation candidates.',
+    title: 'PSR & PSRAS Training Guides | PSR Train',
+    description:
+      'Free guides on PSRAS accreditation, PACE Code C, the Critical Incidents Test, and becoming a police station representative.',
   },
 });
 
@@ -49,6 +50,28 @@ export default function GuidesIndexPage() {
           </p>
           <p className="text-sm text-slate-600 max-w-2xl mx-auto mt-3">
             {GUIDES.length} guides · General training information, not legal advice
+          </p>
+          <p className="text-sm text-slate-700 max-w-3xl mx-auto mt-4 leading-relaxed">
+            Pair guides with practice:{' '}
+            <Link href="/blog/pace-code-c-practice-questions" className="font-medium text-[#0B3C5D] hover:underline">
+              PACE Code C questions
+            </Link>
+            ,{' '}
+            <Link href="/blog/how-to-pass-critical-incidents-test" className="font-medium text-[#0B3C5D] hover:underline">
+              Critical Incidents Test (CIT)
+            </Link>
+            , and{' '}
+            <Link href="/blog/free-psras-practice-questions" className="font-medium text-[#0B3C5D] hover:underline">
+              free PSRAS sample MCQs
+            </Link>
+            . New to the role? Read{' '}
+            <Link
+              href="/guides/how-to-become-a-police-station-representative"
+              className="font-medium text-[#0B3C5D] hover:underline"
+            >
+              how to become a police station representative
+            </Link>
+            .
           </p>
         </div>
       </header>

@@ -8,9 +8,16 @@ import { FreeAccessBanner } from '@/components/FreeAccessBanner';
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
-  title: 'Features',
-  description: 'Practice questions, modules, progress tracking, and structured tools to support PSRAS preparation.',
+  title: { absolute: 'PSR Train Features | PSRAS Mock Exams & PACE Code C Practice' },
+  description:
+    'PSRAS mock exams, PACE Code C MCQs, CIT-style scenarios, learning modules, and progress tracking for police station representative candidates.',
   path: '/features',
+  keywords: ['PSRAS mock exams', 'PACE Code C practice', 'police station representative training'],
+  openGraph: {
+    title: 'PSR Train Features | PSRAS Mock Exams & PACE Code C',
+    description:
+      'Timed mock exams, Code C question banks, CIT scenarios, and syllabus-aligned modules for PSRAS preparation.',
+  },
 });
 
 export default function FeaturesPage() {

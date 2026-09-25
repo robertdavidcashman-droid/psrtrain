@@ -17,8 +17,9 @@ export const metadata = pageMetadata({
     'Critical Incidents Test',
   ],
   openGraph: {
-    title: 'PSR Train Blog',
-    description: 'Training articles for PSRAS candidates in England and Wales.',
+    title: 'PSR Train Blog | PSRAS, PACE Code C & CIT Articles',
+    description:
+      'Training articles for police station representative candidates — PSRAS revision, PACE Code C, Critical Incidents Test, and career guidance.',
   },
 });
 
@@ -49,6 +50,29 @@ export default function BlogIndexPage() {
               /blog/feed
             </Link>{' '}
             (Buffer-ready)
+          </p>
+          <p className="text-sm text-slate-700 max-w-3xl mx-auto mt-4 leading-relaxed">
+            Popular reads:{' '}
+            <Link href="/blog/how-to-pass-critical-incidents-test" className="font-medium text-[#0B3C5D] hover:underline">
+              pass the CIT
+            </Link>
+            ,{' '}
+            <Link href="/blog/pace-code-c-practice-questions" className="font-medium text-[#0B3C5D] hover:underline">
+              Code C practice
+            </Link>
+            ,{' '}
+            <Link href="/blog/free-psras-practice-questions" className="font-medium text-[#0B3C5D] hover:underline">
+              free PSRAS questions
+            </Link>
+            . Browse{' '}
+            <Link href="/guides" className="font-medium text-[#0B3C5D] hover:underline">
+              PSRAS guides
+            </Link>{' '}
+            or{' '}
+            <Link href="/training" className="font-medium text-[#0B3C5D] hover:underline">
+              training modules
+            </Link>
+            .
           </p>
         </div>
       </header>

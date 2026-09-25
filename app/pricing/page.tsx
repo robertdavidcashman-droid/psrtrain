@@ -14,10 +14,16 @@ import { PRICING_FAQS } from '@/lib/faq';
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
-  title: 'Pricing',
+  title: { absolute: 'PSR Train Pricing | Free PSRAS Mock Exams While Testing' },
   description:
     'PSR Train is free while testing (no card required). Planned monthly £12 and annual £115 plans are Coming soon — not available for checkout yet.',
   path: '/pricing',
+  keywords: ['PSRAS mock exams', 'police station representative training', 'PSR Train pricing'],
+  openGraph: {
+    title: 'PSR Train Pricing | Free PSRAS Mock Exams',
+    description:
+      'Free police station representative training while we test — mock exams, PACE Code C practice, and CIT scenarios. No card required.',
+  },
 });
 
 const FEATURES_COMMON = [

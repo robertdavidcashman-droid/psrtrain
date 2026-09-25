@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import MarketingHeader from '@/components/layout/MarketingHeader';
 import Footer from '@/components/layout/Footer';
 import { SITE } from '@/lib/site';
@@ -18,10 +19,16 @@ import { MarketingPageHero, MarketingCtaButton } from '@/components/marketing/Ma
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
-  title: 'Training Modules',
+  title: { absolute: 'Police Station Representative Training | PSRAS Modules & Mock Exams' },
   description:
-    'PSR Train modules cover PACE, custody procedure, interview strategy, vulnerable suspects, disclosure, and CIT-style scenarios — aligned with PSRAS preparation.',
+    'Structured police station representative training: PACE and Code C modules, timed PSRAS mock exams, and CIT-style scenarios for accreditation candidates in England and Wales.',
   path: '/training',
+  keywords: ['police station representative training', 'PSRAS mock exams', 'PACE Code C', 'Critical Incidents Test'],
+  openGraph: {
+    title: 'Police Station Representative Training | PSR Train',
+    description:
+      'PSRAS-focused modules, mock exams, and CIT-style scenario practice for police station representative candidates.',
+  },
 });
 
 const modules = [
@@ -135,6 +142,28 @@ export default function TrainingPage() {
             Training and study only — completion does not confer PSRAS accreditation.
           </p>
           <PartnerToolsLines variant="light" custodyNoteStorePlacement="training" />
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600">
+            Reinforce modules with{' '}
+            <Link href="/blog/free-psras-practice-questions" className="font-semibold text-[#0B3C5D] hover:underline">
+              free PSRAS practice questions
+            </Link>
+            ,{' '}
+            <Link href="/blog/pace-code-c-practice-questions" className="font-semibold text-[#0B3C5D] hover:underline">
+              PACE Code C MCQs
+            </Link>
+            , and{' '}
+            <Link href="/blog/how-to-pass-critical-incidents-test" className="font-semibold text-[#0B3C5D] hover:underline">
+              CIT scenario guidance
+            </Link>
+            . See also{' '}
+            <Link
+              href="/guides/how-to-become-a-police-station-representative"
+              className="font-semibold text-[#0B3C5D] hover:underline"
+            >
+              becoming a police station representative
+            </Link>
+            .
+          </p>
         </MarketingPageHero>
 
         <section className="py-16 sm:py-20 bg-dot-grid">
