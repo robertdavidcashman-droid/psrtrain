@@ -1,10 +1,12 @@
 -- Data API grants for legacy activity / progress tables (setup.sql).
 --
--- WHY: Migration 0007 documented grants for 0001–0006 objects only. Production
--- activity tables (user_progress, user_sessions, mock_exam_sessions,
--- scenario_sessions) need explicit INSERT/UPDATE for authenticated clients via
--- PostgREST. Without these grants, writes fail with permission denied while
--- reads on other tables may still work.
+-- Activity writes also require a row in public.users (FK on user_id). If inserts
+-- fail with foreign-key violations while reads still work, apply
+-- 0010_backfill_public_users.sql — the usual cause is on_auth_user_created
+-- populating profiles but not public.users after 0001_auth_billing.sql.
+--
+-- This file additionally documents explicit PostgREST grants for fresh applies
+-- (catch-up alongside 0007). Production may already have these grants.
 --
 -- APPLY IN SUPABASE: Dashboard → SQL editor → paste this whole file → Run.
 -- Safe to re-run (idempotent). Does not weaken RLS — policies still scope rows.

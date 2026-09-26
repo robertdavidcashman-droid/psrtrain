@@ -11,9 +11,11 @@ function read(path: string): string {
 describe('activity tracking Data API grants (0009)', () => {
   const sql = read('supabase/migrations/0009_activity_tracking_grants.sql');
 
-  test('documents Supabase apply step', () => {
+  test('documents Supabase apply step and FK to public.users', () => {
     expect(sql).toMatch(/APPLY IN SUPABASE/i);
     expect(sql).toMatch(/idempotent/i);
+    expect(sql).toMatch(/public\.users/i);
+    expect(sql).toMatch(/0010_backfill_public_users/i);
   });
 
   test('grants authenticated write access to activity tables', () => {
