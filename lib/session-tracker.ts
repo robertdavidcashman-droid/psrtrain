@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { logSupabaseWriteError } from '@/lib/supabase/log-write-error';
 import { headers } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -27,7 +28,7 @@ export async function startSession(userId: string): Promise<string> {
 
   const now = new Date().toISOString();
 
-  await supabase.from('user_sessions').insert({
+  const { error } = await supabase.from('user_sessions').insert({
     user_id: userId,
     session_id: sessionId,
     login_time: now,
@@ -36,16 +37,26 @@ export async function startSession(userId: string): Promise<string> {
     user_agent: userAgent,
   });
 
+  if (error) {
+    logSupabaseWriteError('user_sessions insert failed', error);
+    throw new Error('Failed to start user session');
+  }
+
   return sessionId;
 }
 
 export async function endSession(sessionId: string) {
   const supabase = await createClient();
   
-  await supabase
+  const { error } = await supabase
     .from('user_sessions')
     .update({ logout_time: new Date().toISOString() })
     .eq('session_id', sessionId);
+
+  if (error) {
+    logSupabaseWriteError('user_sessions logout update failed', error);
+    throw new Error('Failed to end user session');
+  }
 }
 
 export async function getSessionByUserId(userId: string) {

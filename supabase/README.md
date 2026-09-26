@@ -41,7 +41,9 @@ Paste and run in order when bootstrapping a project:
 6. `0006_paid_content_rls.sql`
 7. `0007_data_api_grants.sql` (idempotent catch-up for already-applied DBs)
 8. `0008_signed_in_training_rls.sql` (required if 0006 was applied before free signed-in access; idempotent)
+9. `0009_activity_tracking_grants.sql` (explicit grants for `user_progress`, `user_sessions`, `mock_exam_sessions`, `scenario_sessions`; apply if activity writes stopped after grant hardening)
 
-Tables that predate this folder (`questions`, `content_modules`,
-`user_sessions`, etc.) were created outside these migrations and already
-have legacy auto-grants on production; do not blanket-regrant them here.
+Legacy tables from `scripts/setup.sql` may lose PostgREST write access if
+only `0007` was applied without matching grants on activity tables — use
+`0009` to restore minimal authenticated INSERT/UPDATE while RLS stays in
+place.
