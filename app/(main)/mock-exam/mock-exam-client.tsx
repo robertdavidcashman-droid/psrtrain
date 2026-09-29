@@ -88,19 +88,18 @@ export function MockExamClient() {
       setPhase('results');
 
       if (sessionId) {
-        try {
-          await supabase
-            .from('mock_exam_sessions')
-            .update({
-              completed_at: new Date().toISOString(),
-              answers: finalAnswers,
-              score: correct,
-              percentage,
-              status: 'completed',
-            })
-            .eq('id', sessionId);
-        } catch {
-          /* session save is best-effort */
+        const { error: completeError } = await supabase
+          .from('mock_exam_sessions')
+          .update({
+            completed_at: new Date().toISOString(),
+            answers: finalAnswers,
+            score: correct,
+            percentage,
+            status: 'completed',
+          })
+          .eq('id', sessionId);
+        if (completeError) {
+          console.error('Mock exam save error:', completeError.code, completeError.message);
         }
         void fetch('/api/certificates/check', { method: 'POST' }).catch(() => undefined);
       }

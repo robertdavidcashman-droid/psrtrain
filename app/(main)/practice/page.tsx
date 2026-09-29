@@ -200,12 +200,15 @@ function PracticePageContent() {
           data: { user },
         } = await supabase.auth.getUser();
         if (user) {
-          await supabase.from('user_progress').insert({
+          const { error: progressError } = await supabase.from('user_progress').insert({
             user_id: user.id,
             question_id: currentQuestion.id,
             answered_correctly: isCorrect,
             selected_answer: selectedAnswers,
           });
+          if (progressError) {
+            console.error('Progress save error:', progressError.code, progressError.message);
+          }
           try {
             await supabase.rpc('update_user_xp', { user_uuid: user.id, xp_gained: isCorrect ? 10 : 2 });
             await supabase.rpc('update_daily_streak', { user_uuid: user.id });

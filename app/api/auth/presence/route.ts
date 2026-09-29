@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { logSupabaseWriteError } from '@/lib/supabase/log-write-error';
 
 export async function POST(request: NextRequest) {
   try {
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
 
     const now = new Date().toISOString();
 
-    const { error } = await supabase
+    const { data: updated, error } = await supabase
       .from('user_sessions')
       .update({
         last_seen_at: now,
@@ -39,11 +40,17 @@ export async function POST(request: NextRequest) {
       })
       .eq('session_id', sessionId)
       .eq('user_id', user.id)
-      .is('logout_time', null);
+      .is('logout_time', null)
+      .select('id')
+      .maybeSingle();
 
     if (error) {
-      console.error('presence update error:', error);
+      logSupabaseWriteError('presence update error', error);
       return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    }
+
+    if (!updated) {
+      return NextResponse.json({ error: 'Session not found' }, { status: 404 });
     }
 
     return NextResponse.json({ ok: true });

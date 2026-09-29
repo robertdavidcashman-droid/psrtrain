@@ -41,7 +41,15 @@ Paste and run in order when bootstrapping a project:
 6. `0006_paid_content_rls.sql`
 7. `0007_data_api_grants.sql` (idempotent catch-up for already-applied DBs)
 8. `0008_signed_in_training_rls.sql` (required if 0006 was applied before free signed-in access; idempotent)
+9. `0009_activity_tracking_grants.sql` (explicit grants for activity tables on fresh applies; tightens `user_sessions` insert policy)
+10. `0010_backfill_public_users.sql` (**required if activity INSERTs fail FK to `public.users`**)
 
-Tables that predate this folder (`questions`, `content_modules`,
-`user_sessions`, etc.) were created outside these migrations and already
-have legacy auto-grants on production; do not blanket-regrant them here.
+## Activity tracking (`user_progress`, sessions, mocks, CIT)
+
+Legacy activity tables reference `public.users(id)`. The auth trigger in
+`0001_auth_billing.sql` creates `public.profiles` but does not insert into
+`public.users`, so sign-ups after that migration can pass RLS and grants yet
+still fail inserts with a foreign-key error. Run `0010` to backfill
+`public.users` from `auth.users` and extend `tg_on_auth_user_created()` to
+keep `public.users` in sync. Use `0009` for explicit Data API grants and the
+stricter session insert policy on new environments.

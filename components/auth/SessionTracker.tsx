@@ -14,25 +14,42 @@ async function ensureSessionId(): Promise<string | null> {
   try {
     const res = await fetch('/api/auth/login-track', { method: 'POST' });
     const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      console.error('login-track failed:', res.status, (data as { error?: string }).error ?? '');
+      return null;
+    }
     if (data.sessionId) {
       sessionStorage.setItem(SESSION_KEY, data.sessionId);
       return data.sessionId as string;
     }
-  } catch {
-    /* non-fatal */
+    console.error('login-track response missing sessionId');
+  } catch (err) {
+    console.error('login-track request failed:', err);
   }
   return null;
 }
 
-async function sendPresence(sessionId: string, path: string) {
+async function sendPresence(
+  sessionId: string,
+  path: string,
+): Promise<'ok' | 'stale' | 'failed'> {
   try {
-    await fetch('/api/auth/presence', {
+    const res = await fetch('/api/auth/presence', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ sessionId, path }),
     });
-  } catch {
-    /* non-fatal */
+    if (res.ok) return 'ok';
+    const data = await res.json().catch(() => ({}));
+    console.error('presence ping failed:', res.status, (data as { error?: string }).error ?? '');
+    if (res.status === 404 && typeof window !== 'undefined') {
+      sessionStorage.removeItem(SESSION_KEY);
+      return 'stale';
+    }
+    return 'failed';
+  } catch (err) {
+    console.error('presence request failed:', err);
+    return 'failed';
   }
 }
 
@@ -52,9 +69,18 @@ export function SessionTracker() {
       await sendPresence(id, pathname);
 
       interval = setInterval(() => {
-        if (sessionIdRef.current) {
-          void sendPresence(sessionIdRef.current, pathname);
-        }
+        void (async () => {
+          if (!sessionIdRef.current) return;
+          const result = await sendPresence(sessionIdRef.current, pathname);
+          if (result === 'stale') {
+            sessionIdRef.current = null;
+            const newId = await ensureSessionId();
+            if (newId) {
+              sessionIdRef.current = newId;
+              await sendPresence(newId, pathname);
+            }
+          }
+        })();
       }, PRESENCE_INTERVAL_MS);
     })();
 
