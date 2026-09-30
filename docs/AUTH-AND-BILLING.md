@@ -55,6 +55,7 @@ There is **no paywall** and **no checkout**. Planned paid plans appear on
 | `supabase/migrations/0001_auth_billing.sql` | Legacy `customer_access` / webhook tables (not required for access). |
 | `supabase/migrations/0006_paid_content_rls.sql` | Blocks anon from training table bodies; signed-in SELECT via helper RPC. |
 | `supabase/migrations/0008_signed_in_training_rls.sql` | Aligns RLS with free signed-in access (run after 0006 on production). |
+| `supabase/migrations/0011_questions_signed_in_only.sql` | Questions readable by signed-in users only (anon blocked; applied to production 30 Sep 2026). |
 
 ---
 
