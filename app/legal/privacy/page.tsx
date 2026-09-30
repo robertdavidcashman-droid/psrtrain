@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { SITE } from '@/lib/site';
+import { COMPANY } from '@/lib/legalCopy';
 
 import { pageMetadata } from '@/lib/page-metadata';
 
@@ -21,7 +22,9 @@ export default function PrivacyPage() {
         <p className="text-muted-foreground leading-relaxed">
           {SITE.name} (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;) operates the training platform at{' '}
           <a href={SITE.url} className="text-primary hover:underline">{SITE.domain}</a>.
-          We are the data controller for personal data we collect about you through the Service.
+          The data controller for personal data collected through the Service is{' '}
+          <strong>{SITE.controllerName}</strong> (company number {COMPANY.companyNumber}), registered with the UK Information
+          Commissioner&apos;s Office under registration number <strong>{SITE.icoRegistrationNumber}</strong>.
           {' '}{SITE.legalOperatorNote}
         </p>
         <p className="text-muted-foreground leading-relaxed">
@@ -36,8 +39,9 @@ export default function PrivacyPage() {
         <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
           <li><strong>Account data:</strong> name (if provided), email, hashed password, authentication identifiers.</li>
           <li><strong>Training data:</strong> practice answers, progress, scores, time spent, preferences.</li>
-          <li><strong>Billing data:</strong> subscription plan, status, and invoice records. Payment card details are processed by our payment provider and never stored by us.</li>
+          <li><strong>Access records:</strong> your access level (for example free access or admin). PSR Train does not currently take payments, so we do not collect billing or payment card details.</li>
           <li><strong>Technical data:</strong> IP address, device and browser information, session cookies, and basic usage logs used for security, fraud prevention, and reliability.</li>
+          <li><strong>Optional analytics data (only if you accept analytics):</strong> aggregated page-view and page-performance measurements collected by Vercel Web Analytics and Vercel Speed Insights. See section 9.</li>
           <li><strong>Communications:</strong> messages you send through the contact form or by email.</li>
         </ul>
       </section>
@@ -45,10 +49,10 @@ export default function PrivacyPage() {
       <section className="space-y-3">
         <h2 className="text-2xl font-semibold text-navy">3. Lawful bases (UK GDPR, Article 6)</h2>
         <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
-          <li><strong>Contract</strong> — to provide your account, deliver the training service, process payments, and respond to support requests.</li>
+          <li><strong>Contract</strong> — to provide your account, deliver the training service, and respond to support requests.</li>
           <li><strong>Legitimate interests</strong> — to keep the Service secure, prevent fraud, debug errors, understand usage (aggregated), and improve the product.</li>
-          <li><strong>Legal obligation</strong> — to keep billing and tax records and to respond to lawful requests from authorities.</li>
-          <li><strong>Consent</strong> — for any optional communications or cookies that are not strictly necessary. You can withdraw consent at any time.</li>
+          <li><strong>Legal obligation</strong> — to keep records we are required to keep by law (for example tax records for any past purchases) and to respond to lawful requests from authorities.</li>
+          <li><strong>Consent</strong> — for optional analytics (Vercel Web Analytics and Speed Insights) and any optional communications. You can withdraw consent at any time from the <Link href="/legal/cookies" className="text-primary hover:underline">Cookie Policy</Link> page.</li>
         </ul>
       </section>
 
@@ -57,8 +61,7 @@ export default function PrivacyPage() {
         <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
           <li>To create and operate your account and deliver the training features you use.</li>
           <li>To track your practice progress and show you personalised statistics.</li>
-          <li>To process subscription payments and deal with billing enquiries.</li>
-          <li>To send service emails (account verification, password reset, billing, important service changes).</li>
+          <li>To send service emails (account verification, password reset, important service changes).</li>
           <li>To protect the Service against abuse, fraud, and unauthorised access.</li>
           <li>To improve the Service in aggregate form. We do not sell your personal data.</li>
         </ul>
@@ -73,6 +76,9 @@ export default function PrivacyPage() {
           {SITE.subprocessors.map((s) => (
             <li key={s.name}><strong>{s.name}</strong> — {s.purpose}.</li>
           ))}
+          {SITE.optionalAnalytics.map((a) => (
+            <li key={a.name}><strong>{a.name}</strong> (only if you accept analytics) — {a.purpose}.</li>
+          ))}
         </ul>
         <p className="text-muted-foreground leading-relaxed">
           Some of these providers may process data outside the UK. Where that is the case, we rely on recognised safeguards such as UK-approved Standard Contractual Clauses or adequacy decisions.
@@ -83,7 +89,7 @@ export default function PrivacyPage() {
         <h2 className="text-2xl font-semibold text-navy">6. How long we keep data</h2>
         <ul className="list-disc list-inside space-y-2 text-muted-foreground ml-4">
           <li><strong>Account and training data:</strong> for as long as your account is active, plus up to 12 months after closure (so you can reopen your account and for audit).</li>
-          <li><strong>Billing records:</strong> kept for at least 6 years to meet HMRC and accounting requirements.</li>
+          <li><strong>Records of past purchases:</strong> if you bought a subscription before PSR Train moved to free access, the record of that purchase (processed by Lemon Squeezy as merchant of record) is kept for 6 years to meet HMRC and accounting requirements.</li>
           <li><strong>Support and contact messages:</strong> up to 24 months, then deleted.</li>
           <li><strong>Server and security logs:</strong> typically up to 90 days.</li>
         </ul>
@@ -111,8 +117,9 @@ export default function PrivacyPage() {
       <section className="space-y-3">
         <h2 className="text-2xl font-semibold text-navy">9. Cookies</h2>
         <p className="text-muted-foreground leading-relaxed">
-          We use a small number of strictly necessary cookies (for login, session, and security). See our{' '}
-          <Link href="/legal/cookies" className="text-primary hover:underline">Cookie Policy</Link> for details.
+          We use a small number of strictly necessary cookies and similar browser storage (for login, session, security, and to remember your cookie choice). These do not need consent.
+          {' '}If you click Accept in the cookie banner or preferences panel, we also load Vercel Web Analytics and Vercel Speed Insights. These are cookieless measurement tools but we still only load them after you consent, and they do not load if you Reject or make no choice. We do not use Google Analytics, advertising, or cross-site tracking. See our{' '}
+          <Link href="/legal/cookies" className="text-primary hover:underline">Cookie Policy</Link> for details and to change your choice.
         </p>
       </section>
 
