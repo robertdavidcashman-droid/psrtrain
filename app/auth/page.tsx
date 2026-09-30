@@ -28,7 +28,7 @@ import {
   startCooldown,
 } from '@/lib/auth/cooldown';
 import { getErrorMessage } from '@/lib/utils/error-handler';
-import { safeInternalNextPath } from '@/lib/auth/safe-next-path';
+import { resolveSameOriginUrl, safeInternalNextPath } from '@/lib/auth/safe-next-path';
 import { PSRUK_REGISTER_HREF } from '@/lib/policestationrepuk-promo';
 import {
   cnStoreHref,
@@ -54,7 +54,8 @@ function navigateAfterAuth(next: string) {
       /* ignore */
     }
   }
-  const dest = next.startsWith('/') ? next : `/${next}`;
+  // Re-validate and pin to this origin: never follow `//host`, `/\host` etc.
+  const dest = resolveSameOriginUrl(next, window.location.origin);
   // Full navigation so the next document request always carries Supabase cookies;
   // client-side router.push alone can race the server layout / middleware.
   window.location.assign(dest);
