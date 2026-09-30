@@ -30,9 +30,9 @@ dotenv.config({ path: resolve(process.cwd(), '.env') });
 const DRY_RUN = process.argv.includes('--dry-run');
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
-const key = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+const key = (process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY)?.trim();
 if (!url || !key) {
-  console.error('FAIL: set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY');
+  console.error('FAIL: set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SECRET_KEY (or SUPABASE_SERVICE_ROLE_KEY) — server-only Supabase secret key, never hard-code it');
   process.exit(1);
 }
 

@@ -63,8 +63,13 @@ There is **no paywall** and **no checkout**. Planned paid plans appear on
 | Variable | Purpose |
 |----------|---------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL. |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Public anon key for auth + RLS client. |
-| `SUPABASE_SERVICE_ROLE_KEY` | Server-only admin tooling (optional for basic training use). |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase **publishable** key (`sb_publishable_…`) for auth + RLS client. Legacy anon JWTs still work but are being retired. |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase **secret** key (`sb_secret_…`), server-only admin tooling. Scripts also accept `SUPABASE_SECRET_KEY`. Never expose to the browser (Supabase rejects secret keys sent from browsers). |
+
+Never hard-code Supabase keys in the repo — scripts read them from env
+(`.env.local`) and exit with an error when missing.
+`tests/unit/no-hardcoded-supabase-keys.test.ts` fails CI if a key literal is
+committed.
 
 No Lemon Squeezy or payment-provider variables are required to boot or serve
 training routes.

@@ -98,7 +98,8 @@ async function main() {
         method: 'POST',
         headers: {
           apikey: anon,
-          Authorization: `Bearer ${anon}`,
+          // New sb_publishable_ keys are not JWTs; only legacy anon JWTs go in Authorization.
+          ...(anon.startsWith('eyJ') ? { Authorization: `Bearer ${anon}` } : {}),
           'Content-Type': 'application/json',
           Prefer: 'return=minimal',
         },
