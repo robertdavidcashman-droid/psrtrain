@@ -23,9 +23,9 @@ dotenv.config({ path: resolve(process.cwd(), '.env') });
 const WEAK_DISTRACTOR = /\b(always|never|illegal|refuse completely)\b/i;
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
-const key = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+const key = (process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY)?.trim();
 if (!url || !key) {
-  console.log('SKIP: Supabase env not configured (NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY).');
+  console.log('SKIP: Supabase env not configured (NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SECRET_KEY or SUPABASE_SERVICE_ROLE_KEY).');
   process.exit(0);
 }
 

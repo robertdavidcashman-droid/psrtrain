@@ -13,7 +13,22 @@ const BASE = `https://${HOST}`;
 const FORCE_FULL = process.env.INDEXNOW_FULL === '1';
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+const SUPABASE_SERVICE_KEY = (
+  process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY
+)?.trim();
+
+/**
+ * Headers for server-side PostgREST calls. New `sb_secret_…` keys are not JWTs,
+ * so only send them in the `apikey` header; legacy JWT keys also need
+ * `Authorization: Bearer`.
+ */
+function supabaseHeaders(extra = {}) {
+  const headers = { apikey: SUPABASE_SERVICE_KEY, ...extra };
+  if (SUPABASE_SERVICE_KEY?.startsWith('eyJ')) {
+    headers.Authorization = `Bearer ${SUPABASE_SERVICE_KEY}`;
+  }
+  return headers;
+}
 const GSC_SITE_URL = process.env.GSC_SITE_URL?.trim() || 'sc-domain:psrtrain.com';
 
 async function getSitemapEntries() {
@@ -54,10 +69,7 @@ async function loadSubmissionState() {
   const res = await fetch(
     `${SUPABASE_URL}/rest/v1/seo_submission_state?id=eq.default&select=url_timestamps`,
     {
-      headers: {
-        apikey: SUPABASE_SERVICE_KEY,
-        Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
-      },
+      headers: supabaseHeaders(),
     },
   );
   if (!res.ok) {
@@ -72,12 +84,10 @@ async function saveSubmissionState(urlTimestamps) {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) return;
   const res = await fetch(`${SUPABASE_URL}/rest/v1/seo_submission_state?id=eq.default`, {
     method: 'PATCH',
-    headers: {
-      apikey: SUPABASE_SERVICE_KEY,
-      Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+    headers: supabaseHeaders({
       'Content-Type': 'application/json',
       Prefer: 'return=minimal',
-    },
+    }),
     body: JSON.stringify({ url_timestamps: urlTimestamps, updated_at: new Date().toISOString() }),
   });
   if (!res.ok) {
