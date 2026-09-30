@@ -29,6 +29,11 @@ export const COMPANY = {
   companyNumber: '09900871',
   vatNumber: 'GB267237387',
   vatNumberDisplay: 'GB 267 237 387',
+  /** Data controller name as registered with the ICO. */
+  controllerName: 'Defencelegalservices Limited',
+  icoRegistrationNumber: 'ZA198500',
+  /** Business contact mailbox (privacy, support, legal). */
+  contactEmail: 'robertcashman@defencelegalservices.co.uk',
 } as const;
 
 export const FOOTER_LEGAL_SHORT = `Operated by ${COMPANY.legalName}. Training guidance only — not legal advice.`;
@@ -38,7 +43,8 @@ export const FOOTER_LEGAL_ENTITY_TEXT = [
   COMPANY.companyNumber ? `Company number ${COMPANY.companyNumber}.` : null,
   `Registered office: ${COMPANY.registeredOffice}.`,
   `VAT registration number: ${COMPANY.vatNumberDisplay}.`,
-  'Contact: robertdavidcashman@gmail.com.',
+  `ICO registration number ${COMPANY.icoRegistrationNumber}.`,
+  `Contact: ${COMPANY.contactEmail}.`,
 ]
   .filter(Boolean)
   .join(' ');

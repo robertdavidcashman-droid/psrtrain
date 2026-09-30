@@ -35,7 +35,11 @@ export default function CookiesPage() {
           <li>a preference cookie to remember choices such as the access-gate state.</li>
         </ul>
         <p className="text-muted-foreground leading-relaxed">
-          We also offer <strong>optional analytics</strong> (Vercel Analytics, Vercel Speed Insights, and Google Analytics when a measurement ID is configured). These only load after you Accept analytics in the cookie banner or in the preferences panel below. We do not use advertising or cross-site tracking cookies.
+          Your cookie choice itself is stored in your browser&apos;s local storage so we do not ask again.
+        </p>
+        <p className="text-muted-foreground leading-relaxed">
+          We also offer <strong>optional analytics</strong>: Vercel Web Analytics (aggregated page views) and Vercel Speed Insights (page performance). Both are cookieless, but we treat them as optional: they only load after you Accept analytics in the cookie banner or in the preferences panel below, and they do not load if you Reject or have not made a choice. We do not currently use Google Analytics. We do not use advertising or cross-site tracking cookies. See our{' '}
+          <Link href="/legal/privacy" className="text-primary hover:underline">Privacy Policy</Link> for how this data is handled.
         </p>
       </section>
 

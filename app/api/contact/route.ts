@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { SITE } from '@/lib/site';
 import { cleanEnvValue } from '@/lib/env';
 import { clientIpFromRequest, isRateLimited } from '@/lib/rate-limit';
 import { safeErrorLog } from '@/lib/safe-log';
@@ -56,7 +57,7 @@ export async function POST(request: NextRequest) {
         {
           error: 'Contact form is temporarily unavailable',
           unavailable: true,
-          hint: 'Email us directly at robertdavidcashman@gmail.com and we will respond within a few working days.',
+          hint: `Email us directly at ${SITE.contactEmail} and we will respond within a few working days.`,
         },
         { status: 503 },
       );

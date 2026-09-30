@@ -9,7 +9,9 @@ export const SITE = {
   name: 'PSR Train',
   domain: 'psrtrain.com',
   url: 'https://psrtrain.com',
-  contactEmail: 'robertdavidcashman@gmail.com',
+  contactEmail: COMPANY.contactEmail,
+  controllerName: COMPANY.controllerName,
+  icoRegistrationNumber: COMPANY.icoRegistrationNumber,
 
   // Commercial/legal facts. Edit COMPANY in lib/legalCopy.ts when details change.
   legalOperator: COMPANY.legalName,
@@ -22,7 +24,7 @@ export const SITE = {
   jurisdiction: 'the courts of England and Wales',
 
   // Last update for legal pages. Keep ISO-like format for consistency.
-  legalUpdated: '23 August 2026',
+  legalUpdated: '30 September 2026',
 
   // Useful external references.
   ico: 'https://ico.org.uk/make-a-complaint',
@@ -32,5 +34,20 @@ export const SITE = {
     { name: 'Supabase', purpose: 'authentication and database hosting' },
     { name: 'Vercel', purpose: 'application hosting and edge delivery' },
     { name: 'Resend', purpose: 'transactional email (contact form, account emails)' },
+  ],
+
+  // Optional analytics loaded only after the visitor accepts analytics in the
+  // cookie banner / preferences panel (see components/OptionalAnalytics.tsx).
+  // Google Analytics support exists in code but is inactive unless
+  // NEXT_PUBLIC_GA_MEASUREMENT_ID is set; it is not set in production.
+  optionalAnalytics: [
+    {
+      name: 'Vercel Web Analytics',
+      purpose: 'aggregated, cookieless page-view statistics (pages visited, referrer, country, device and browser type)',
+    },
+    {
+      name: 'Vercel Speed Insights',
+      purpose: 'cookieless page performance measurements (load times and Core Web Vitals)',
+    },
   ],
 } as const;
