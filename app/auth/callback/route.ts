@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { getRequestOrigin } from '@/lib/auth/request-origin';
-import { safeInternalNextPath } from '@/lib/auth/safe-next-path';
+import { resolveSameOriginUrl, safeInternalNextPath } from '@/lib/auth/safe-next-path';
 
 /**
  * Hardened sign-in callback.
@@ -78,5 +78,5 @@ export async function GET(request: Request) {
     );
   }
 
-  return NextResponse.redirect(`${siteOrigin}${next}`);
+  return NextResponse.redirect(resolveSameOriginUrl(next, siteOrigin));
 }
